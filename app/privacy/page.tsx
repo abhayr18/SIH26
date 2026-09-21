@@ -4,20 +4,22 @@ import { StoredKannadaLocalizer } from '@/components/kannada-localizer';
 export default function PrivacyPage() {
   return (
     <StoredKannadaLocalizer>
-      <main className="min-h-screen bg-[#f4f4f8] px-5 py-12 text-[#0e0f10]">
-        <article className="mx-auto max-w-3xl rounded-3xl border border-[#0e0f10]/6 bg-white p-6 sm:p-10 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff5065]">
+      <main className="min-h-screen bg-[#eeeeee] px-5 py-12 text-[#000000]">
+        <article className="mx-auto max-w-3xl rounded-lg border border-[#d9d9d9] bg-white p-6 sm:p-10 shadow-none">
+          <p className="font-mono text-[11px] font-bold uppercase tracking-[0.06em] text-[#000000]">
             HEATVECTOR · SIH26083 · PRIVACY & DATA USE
           </p>
-          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#0e0f10]">Privacy and data governance</h1>
-          <p className="mt-3 text-xs leading-relaxed text-[#666666]">
+          <h1 className="mt-2 text-3xl sm:text-4xl font-bold tracking-[0.06em] uppercase text-[#000000]">
+            Privacy & Data Governance
+          </h1>
+          <p className="mt-3 text-xs leading-relaxed text-[#595959] tracking-[0.06em]">
             HeatVector is an early-warning and decision-support prototype. It
             is not a medical service or an official government warning system.
           </p>
 
-          <div className="mt-8 space-y-6 text-xs leading-relaxed text-[#666666]">
+          <div className="mt-8 space-y-6 text-xs leading-relaxed text-[#595959] tracking-[0.06em]">
             <section>
-              <h2 className="text-sm font-bold text-[#0e0f10] mb-1">
+              <h2 className="text-sm font-bold text-[#000000] mb-1 uppercase tracking-[0.06em]">
                 Information stored
               </h2>
               <p>
@@ -29,7 +31,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-sm font-bold text-[#0e0f10] mb-1">
+              <h2 className="text-sm font-bold text-[#000000] mb-1 uppercase tracking-[0.06em]">
                 Identity and permissions
               </h2>
               <p>
@@ -41,7 +43,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-sm font-bold text-[#0e0f10] mb-1">
+              <h2 className="text-sm font-bold text-[#000000] mb-1 uppercase tracking-[0.06em]">
                 Purpose and sharing
               </h2>
               <p>
@@ -54,7 +56,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-sm font-bold text-[#0e0f10] mb-1">
+              <h2 className="text-sm font-bold text-[#000000] mb-1 uppercase tracking-[0.06em]">
                 Local assistant and voice
               </h2>
               <p>
@@ -68,7 +70,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-sm font-bold text-[#0e0f10] mb-1">
+              <h2 className="text-sm font-bold text-[#000000] mb-1 uppercase tracking-[0.06em]">
                 Retention and deletion
               </h2>
               <p>
@@ -80,7 +82,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-sm font-bold text-[#0e0f10] mb-1">
+              <h2 className="text-sm font-bold text-[#000000] mb-1 uppercase tracking-[0.06em]">
                 Safety boundary
               </h2>
               <p>
@@ -91,13 +93,14 @@ export default function PrivacyPage() {
             </section>
           </div>
 
-          <Link
-            href="/"
-            className="mt-8 inline-flex rounded-full bg-[#ff5065] hover:bg-[#ff3850] px-6 py-2.5 text-xs font-semibold text-white transition-colors"
-          >
-            ← Return to HeatVector
-          </Link>
-
+          <div className="mt-8">
+            <Link
+              href="/"
+              className="inline-flex rounded-full bg-[#000000] hover:opacity-85 px-6 py-3 text-xs font-bold uppercase tracking-[0.06em] text-white transition-opacity border border-[#000000]"
+            >
+              ← Return to HeatVector
+            </Link>
+          </div>
         </article>
       </main>
     </StoredKannadaLocalizer>

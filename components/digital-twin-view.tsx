@@ -38,43 +38,43 @@ export function DigitalTwinView({
   const selectedStep: DigitalTwinHorizonStep = twin.steps[selectedStepIdx];
 
   const alertBadgeColor = {
-    Normal: 'rounded-full border border-[#0e0f10]/10 bg-[#f4f4f8] text-[#0e0f10] font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 font-semibold',
-    Watch: 'rounded-full border border-[#ff7a59]/30 bg-[#ff7a59]/10 text-[#ff7a59] font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 font-semibold',
-    Warning: 'rounded-full border border-[#ff5c35]/30 bg-[#ff5c35]/15 text-[#ff5c35] font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 font-semibold',
-    Extreme: 'rounded-full border border-[#ff5065]/30 bg-[#ffe9eb] text-[#ff5065] font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 font-semibold',
+    Normal: 'rounded-full border border-[#7ffeb1] bg-[#7ffeb1] text-black font-mono text-[9px] uppercase tracking-[0.06em] px-2 py-0.5 font-bold',
+    Watch: 'rounded-full border border-[#d9d9d9] bg-[#eeeeee] text-black font-mono text-[9px] uppercase tracking-[0.06em] px-2 py-0.5 font-semibold',
+    Warning: 'rounded-full border border-black bg-white text-black font-mono text-[9px] uppercase tracking-[0.06em] px-2 py-0.5 font-bold',
+    Extreme: 'rounded-full border border-black bg-black text-white font-mono text-[9px] uppercase tracking-[0.06em] px-2 py-0.5 font-bold',
   };
 
   return (
     <div className="space-y-6 font-sans">
-      {/* Top Banner — Contrast Geometric Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-[#0e0f10]/6 bg-white p-6 sm:p-7 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
+      {/* Top Banner — DICE Geometric Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-[#d9d9d9] bg-white p-6 shadow-none">
         <div className="space-y-1.5 max-w-3xl">
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-[#ffe9eb] text-[#ff5065] border border-[#ff5065]/20">
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-black text-white">
               <Clock className="h-4 w-4 stroke-[2.5]" />
             </span>
-            <h2 className="text-xl font-bold tracking-tight text-[#0e0f10]">
+            <h2 className="text-xl font-bold tracking-[0.06em] uppercase text-[#000000]">
               Heat Risk Digital Twin: {currentCity}
             </h2>
-            <span className="rounded-full border border-[#ff5065]/20 bg-[#ffe9eb] px-3 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[#ff5065] font-semibold">
+            <span className="rounded-full border border-black bg-black px-3 py-0.5 font-mono text-[10px] uppercase tracking-[0.06em] text-white font-semibold">
               120h Evolution Model
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-[#666666] leading-relaxed">
-            Simulating biometeorological conditions across a 120-hour forecast trajectory for <span className="text-[#0e0f10] font-semibold">{wardName}</span>. Early warning lead-time enables preventative deployment before peak distress occurs.
+          <p className="text-xs sm:text-sm text-[#595959] leading-relaxed tracking-[0.02em]">
+            Simulating biometeorological conditions across a 120-hour forecast trajectory for <span className="text-[#000000] font-semibold">{wardName}</span>. Early warning lead-time enables preventative deployment before peak distress occurs.
           </p>
         </div>
 
         {/* Lead-Time Metric Badge */}
-        <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-4 text-left sm:text-right w-full sm:w-auto shrink-0">
-          <div className="font-mono text-[9.5px] uppercase tracking-wider text-[#666666] font-medium">
+        <div className="rounded-lg border border-black bg-black text-white p-4 text-left sm:text-right w-full sm:w-auto shrink-0 shadow-none">
+          <div className="font-mono text-[9.5px] uppercase tracking-[0.06em] text-neutral-400 font-medium">
             Early Warning Lead-Time
           </div>
-          <div className="font-mono text-2xl font-bold text-[#ff5065] mt-0.5">
+          <div className="font-mono text-2xl font-bold text-[#7ffeb1] mt-0.5">
             T-{twin.lead_time_hours_to_peak}h
           </div>
-          <div className="font-mono text-[10.5px] text-[#666666] mt-0.5">
-            Peak: {twin.peak_horizon_label} (HTSS <strong className="text-[#0e0f10] font-bold">{twin.peak_htss}</strong>/100)
+          <div className="font-mono text-[10.5px] text-neutral-300 mt-0.5">
+            Peak: {twin.peak_horizon_label} (HTSS <strong className="text-white font-bold">{twin.peak_htss}</strong>/100)
           </div>
         </div>
       </div>
@@ -89,26 +89,26 @@ export function DigitalTwinView({
             <button
               key={step.relative_time}
               onClick={() => setSelectedStepIdx(idx)}
-              className={`relative flex flex-col items-start rounded-2xl border p-4 text-left transition-all duration-150 ${
+              className={`relative flex flex-col items-start rounded-lg border p-4 text-left transition-all duration-150 ${
                 isSelected
-                  ? 'border-2 border-[#ff5065] bg-[#ffe9eb]/40 shadow-sm'
-                  : 'border-[#0e0f10]/6 bg-white hover:bg-[#f4f4f8] shadow-[0_5px_25px_rgba(38,42,62,0.04)]'
+                  ? 'border-2 border-black bg-[#eeeeee] shadow-none'
+                  : 'border-[#d9d9d9] bg-white hover:bg-[#eeeeee] shadow-none'
               }`}
             >
               {isPeak && (
-                <span className="absolute -top-2 right-2 rounded-full bg-[#ff5065] px-2 py-0.5 font-mono text-[8.5px] font-bold uppercase text-white shadow-sm">
+                <span className="absolute -top-2 right-2 rounded-full bg-black border border-[#7ffeb1] px-2 py-0.5 font-mono text-[8.5px] font-bold uppercase tracking-[0.06em] text-[#7ffeb1] shadow-none">
                   Peak
                 </span>
               )}
-              <span className="font-mono text-[10px] text-[#666666] uppercase tracking-wider font-semibold">{step.relative_time}</span>
-              <span className="mt-0.5 text-xs font-bold text-[#0e0f10] truncate max-w-full">
+              <span className="font-mono text-[10px] text-[#595959] uppercase tracking-[0.06em] font-semibold">{step.relative_time}</span>
+              <span className="mt-0.5 text-xs font-bold text-[#000000] truncate max-w-full uppercase tracking-[0.02em]">
                 {step.horizon_label}
               </span>
               <div className="mt-2 flex items-baseline gap-1.5">
-                <span className="font-mono text-lg font-bold text-[#0e0f10]">{step.temperature_c}°</span>
-                <span className="text-xs text-[#666666]">{step.humidity_pct}%</span>
+                <span className="font-mono text-lg font-bold text-[#000000]">{step.temperature_c}°</span>
+                <span className="text-xs text-[#595959]">{step.humidity_pct}%</span>
               </div>
-              <div className="mt-1 flex items-center gap-1.5 font-mono text-[10px] font-bold text-[#ff5065]">
+              <div className="mt-1 flex items-center gap-1.5 font-mono text-[10px] font-bold text-[#000000]">
                 HTSS {step.htss_score}
               </div>
               <span className={`mt-2 inline-block ${alertBadgeColor[step.alert_level]}`}>
@@ -122,104 +122,105 @@ export function DigitalTwinView({
       {/* Selected Step Detail Panel */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         {/* Step Deep Dive */}
-        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-6 shadow-[0_5px_25px_rgba(38,42,62,0.06)] lg:col-span-8">
-          <div className="flex flex-wrap items-center justify-between border-b border-[#0e0f10]/6 pb-4">
+        <div className="rounded-lg border border-[#d9d9d9] bg-white p-6 shadow-none lg:col-span-8">
+          <div className="flex flex-wrap items-center justify-between border-b border-[#d9d9d9] pb-4">
             <div>
               <div className="flex items-center gap-2">
-                <span className="rounded-full border border-[#0e0f10]/6 bg-[#f4f4f8] px-2.5 py-0.5 font-mono text-xs font-bold text-[#0e0f10]">
+                <span className="rounded-full border border-black bg-black px-2.5 py-0.5 font-mono text-xs font-bold text-white">
                   {selectedStep.relative_time}
                 </span>
-                <h3 className="text-lg font-bold text-[#0e0f10] tracking-tight">{selectedStep.horizon_label}</h3>
+                <h3 className="text-lg font-bold text-[#000000] tracking-[0.04em] uppercase">{selectedStep.horizon_label}</h3>
                 <span className={alertBadgeColor[selectedStep.alert_level]}>
                   {selectedStep.alert_level}
                 </span>
               </div>
-              <p className="mt-1 text-xs text-[#666666]">
+              <p className="mt-1 text-xs text-[#595959] tracking-[0.02em]">
                 Timestamp: {selectedStep.timestamp_ist} IST &middot; Key trigger: {selectedStep.key_event}
               </p>
             </div>
+
             <div className="text-left sm:text-right mt-2 sm:mt-0">
-              <span className="font-mono text-[9.5px] uppercase tracking-wider text-[#666666] font-medium">Human Thermal Stress Score</span>
-              <div className="font-mono text-3xl font-bold text-[#ff5065]">
+              <span className="font-mono text-[9.5px] uppercase tracking-[0.06em] text-[#595959] font-medium">Human Thermal Stress Score</span>
+              <div className="font-mono text-3xl font-bold text-[#000000]">
                 {selectedStep.htss_score}
-                <span className="text-sm font-normal text-[#666666]">/100</span>
+                <span className="text-sm font-normal text-[#595959]">/100</span>
               </div>
             </div>
           </div>
 
           {/* Key Metric Blocks */}
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3.5">
-              <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
-                <Flame className="h-3.5 w-3.5 text-[#ff7a59]" />
+            <div className="rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3.5">
+              <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
+                <Flame className="h-3.5 w-3.5 text-black" />
                 Dry Bulb Temp
               </div>
-              <div className="mt-1 font-mono text-xl font-bold text-[#0e0f10]">
+              <div className="mt-1 font-mono text-xl font-bold text-[#000000]">
                 {selectedStep.temperature_c}°C
               </div>
-              <span className="text-[10px] text-[#666666]">Ambient Air</span>
+              <span className="text-[10px] text-[#595959]">Ambient Air</span>
             </div>
 
-            <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3.5">
-              <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
-                <Droplets className="h-3.5 w-3.5 text-[#ff5065]" />
+            <div className="rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3.5">
+              <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
+                <Droplets className="h-3.5 w-3.5 text-black" />
                 Relative Humidity
               </div>
-              <div className="mt-1 font-mono text-xl font-bold text-[#0e0f10]">
+              <div className="mt-1 font-mono text-xl font-bold text-[#000000]">
                 {selectedStep.humidity_pct}%
               </div>
-              <span className="text-[10px] text-[#666666]">Moisture Content</span>
+              <span className="text-[10px] text-[#595959]">Moisture Content</span>
             </div>
 
-            <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3.5">
-              <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
-                <Activity className="h-3.5 w-3.5 text-[#ff7a59]" />
+            <div className="rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3.5">
+              <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
+                <Activity className="h-3.5 w-3.5 text-black" />
                 WBGT (Outdoor)
               </div>
-              <div className="mt-1 font-mono text-xl font-bold text-[#ff7a59]">
+              <div className="mt-1 font-mono text-xl font-bold text-[#000000]">
                 {selectedStep.wbgt_c}°C
               </div>
-              <span className="text-[10px] text-[#666666]">Labor Threshold</span>
+              <span className="text-[10px] text-[#595959]">Labor Threshold</span>
             </div>
 
-            <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3.5">
-              <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
-                <Shield className="h-3.5 w-3.5 text-[#0e0f10]" />
+            <div className="rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3.5">
+              <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
+                <Shield className="h-3.5 w-3.5 text-black" />
                 UTCI Index
               </div>
-              <div className="mt-1 font-mono text-xl font-bold text-[#0e0f10]">
+              <div className="mt-1 font-mono text-xl font-bold text-[#000000]">
                 {selectedStep.utci_c}°C
               </div>
-              <span className="text-[10px] text-[#666666]">Biometeorology</span>
+              <span className="text-[10px] text-[#595959]">Biometeorology</span>
             </div>
           </div>
 
           {/* Action Checklist for this specific horizon */}
-          <div className="mt-6 rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-4">
-            <h4 className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[#ff5065] font-bold">
-              <Sparkles className="h-3.5 w-3.5 text-[#ff5065]" />
+          <div className="mt-6 rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-4">
+            <h4 className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.06em] text-black font-bold">
+              <Sparkles className="h-3.5 w-3.5 text-black" />
               Horizon Preparedness Directive
             </h4>
-            <p className="mt-1.5 text-xs sm:text-sm leading-relaxed text-[#0e0f10]">
+            <p className="mt-1.5 text-xs sm:text-sm leading-relaxed text-[#000000] tracking-[0.02em]">
               {selectedStep.recommended_escalation}
             </p>
           </div>
         </div>
 
         {/* Narrative & Digital Twin Summary */}
-        <div className="flex flex-col justify-between rounded-3xl border border-[#0e0f10]/6 bg-white p-6 shadow-[0_5px_25px_rgba(38,42,62,0.06)] lg:col-span-4">
+        <div className="flex flex-col justify-between rounded-lg border border-[#d9d9d9] bg-white p-6 shadow-none lg:col-span-4">
           <div>
-            <h3 className="font-bold text-[#0e0f10] tracking-tight">Digital Twin Intelligence</h3>
-            <p className="mt-2 text-xs leading-relaxed text-[#666666]">
+            <h3 className="font-bold text-[#000000] tracking-[0.06em] uppercase text-sm">Digital Twin Intelligence</h3>
+            <p className="mt-2 text-xs leading-relaxed text-[#595959] tracking-[0.02em]">
               {twin.evolution_summary}
             </p>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-4">
-            <div className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff5065]">
+          <div className="mt-6 rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-4">
+            <div className="font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-black">
               Why Track Evolution?
             </div>
-            <p className="mt-1.5 text-xs leading-relaxed text-[#0e0f10]">
+            <p className="mt-1.5 text-xs leading-relaxed text-[#000000] tracking-[0.02em]">
               Heatwaves are not single-hour events. Continuous physiological strain accumulates across consecutive hot days and warm nights. The digital twin prevents premature de-escalation while nocturnal thermal loads remain elevated.
             </p>
           </div>

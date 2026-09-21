@@ -101,22 +101,22 @@ export function CityWardMap({
   return (
     <div className="space-y-4">
       {/* Top Header & Navigation Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-3xl border border-[#0e0f10]/6 bg-white p-4 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-lg border border-[#d9d9d9] bg-white p-4 shadow-none">
         <div className="flex items-center gap-2.5">
           <button
             onClick={onZoomOut}
-            className="flex items-center gap-1.5 rounded-full border border-[#0e0f10]/10 bg-[#f4f4f8] hover:bg-[#ffe9eb] hover:text-[#ff5065] px-3.5 py-1.5 text-xs font-semibold text-[#0e0f10] transition-all shadow-none"
+            className="flex items-center gap-1.5 rounded-full border border-[#000000] bg-white hover:bg-black hover:text-white px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.06em] text-[#000000] transition-all shadow-none"
             title="Zoom out to national India map"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>← National Map</span>
           </button>
-          <span className="text-[#0e0f10]/20">|</span>
+          <span className="text-[#d9d9d9]">|</span>
           <div>
-            <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-[#ff5065] uppercase tracking-wider">
+            <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold text-[#000000] uppercase tracking-[0.06em]">
               <span>ZOOM LEVEL: CITY MUNICIPAL WARDS</span>
             </div>
-            <h3 className="text-sm font-bold text-[#0e0f10] leading-tight">
+            <h3 className="text-sm font-bold uppercase tracking-[0.06em] text-[#000000] leading-tight">
               {profile.municipalCorporation}
             </h3>
           </div>
@@ -124,15 +124,15 @@ export function CityWardMap({
 
         {/* Layer Controls */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full sm:flex-wrap">
-          <span className="font-mono text-[10px] font-bold text-[#666666] uppercase tracking-wider hidden md:inline mr-1 shrink-0">
+          <span className="font-mono text-[10px] font-bold text-[#595959] uppercase tracking-[0.06em] hidden md:inline mr-1 shrink-0">
             LAYER:
           </span>
           <button
             onClick={() => setActiveLayer('thermal')}
-            className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs transition shrink-0 ${
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs uppercase tracking-[0.06em] transition shrink-0 ${
               activeLayer === 'thermal'
-                ? 'bg-[#ff5065] text-white font-bold shadow-none'
-                : 'text-[#666666] hover:text-[#0e0f10] hover:bg-[#0e0f10]/5 font-medium'
+                ? 'bg-black text-white font-bold shadow-none'
+                : 'border border-[#d9d9d9] bg-white text-[#000000] hover:bg-[#eeeeee] font-medium'
             }`}
           >
             <Flame className="h-3.5 w-3.5" />
@@ -140,10 +140,10 @@ export function CityWardMap({
           </button>
           <button
             onClick={() => setActiveLayer('vulnerability')}
-            className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs transition shrink-0 ${
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs uppercase tracking-[0.06em] transition shrink-0 ${
               activeLayer === 'vulnerability'
-                ? 'bg-[#ff5065] text-white font-bold shadow-none'
-                : 'text-[#666666] hover:text-[#0e0f10] hover:bg-[#0e0f10]/5 font-medium'
+                ? 'bg-black text-white font-bold shadow-none'
+                : 'border border-[#d9d9d9] bg-white text-[#000000] hover:bg-[#eeeeee] font-medium'
             }`}
           >
             <Users className="h-3.5 w-3.5" />
@@ -151,10 +151,10 @@ export function CityWardMap({
           </button>
           <button
             onClick={() => setActiveLayer('workers')}
-            className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs transition shrink-0 ${
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs uppercase tracking-[0.06em] transition shrink-0 ${
               activeLayer === 'workers'
-                ? 'bg-[#ff5065] text-white font-bold shadow-none'
-                : 'text-[#666666] hover:text-[#0e0f10] hover:bg-[#0e0f10]/5 font-medium'
+                ? 'bg-black text-white font-bold shadow-none'
+                : 'border border-[#d9d9d9] bg-white text-[#000000] hover:bg-[#eeeeee] font-medium'
             }`}
           >
             <HardHat className="h-3.5 w-3.5" />
@@ -162,10 +162,10 @@ export function CityWardMap({
           </button>
           <button
             onClick={() => setActiveLayer('slum')}
-            className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs transition shrink-0 ${
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs uppercase tracking-[0.06em] transition shrink-0 ${
               activeLayer === 'slum'
-                ? 'bg-[#ff5065] text-white font-bold shadow-none'
-                : 'text-[#666666] hover:text-[#0e0f10] hover:bg-[#0e0f10]/5 font-medium'
+                ? 'bg-black text-white font-bold shadow-none'
+                : 'border border-[#d9d9d9] bg-white text-[#000000] hover:bg-[#eeeeee] font-medium'
             }`}
           >
             <Home className="h-3.5 w-3.5" />
@@ -361,33 +361,29 @@ export function CityWardMap({
         </div>
 
         {/* Selected Ward Telemetry Inspector Card */}
-        <div className="flex flex-col rounded-3xl border border-[#0e0f10]/6 bg-white p-4 sm:p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)] lg:col-span-4">
+        <div className="flex flex-col rounded-lg border border-[#d9d9d9] bg-white p-4 sm:p-5 shadow-none lg:col-span-4">
           {selectedWard ? (
             <div className="flex flex-1 flex-col justify-between space-y-4">
               <div>
-                <div className="flex items-start justify-between gap-2 border-b border-[#0e0f10]/6 pb-3">
+                <div className="flex items-start justify-between gap-2 border-b border-[#d9d9d9] pb-3">
                   <div>
                     <div className="flex items-center gap-1.5">
-                      <span className="rounded-full bg-[#f4f4f8] px-2 py-0.5 font-mono text-[10px] font-bold text-[#0e0f10] border border-[#0e0f10]/10">
+                      <span className="rounded-full bg-[#eeeeee] px-2 py-0.5 font-mono text-[10px] font-bold text-[#000000] border border-[#d9d9d9]">
                         {selectedWard.id}
                       </span>
-                      <span className="font-mono text-[10px] uppercase tracking-wider text-[#666666]">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
                         ZONE: {selectedWard.zone}
                       </span>
                     </div>
-                    <h4 className="mt-1 text-base font-bold text-[#0e0f10] leading-snug">
+                    <h4 className="mt-1 text-base font-bold uppercase tracking-[0.06em] text-[#000000] leading-snug">
                       {selectedWard.name}
                     </h4>
                   </div>
                   <span
-                    className={`rounded-full px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider border ${
+                    className={`rounded-full px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] border ${
                       selectedWard.vulnerabilityLevel === 'Critical'
-                        ? 'border-[#ff5065]/30 bg-[#ffe9eb] text-[#ff5065]'
-                        : selectedWard.vulnerabilityLevel === 'Very High'
-                        ? 'border-[#ff7a59]/30 bg-[#ff7a59]/10 text-[#ff7a59]'
-                        : selectedWard.vulnerabilityLevel === 'High'
-                        ? 'border-[#ff5c35]/30 bg-[#ff5c35]/10 text-[#ff5c35]'
-                        : 'border-[#0e0f10]/10 bg-[#f4f4f8] text-[#0e0f10]'
+                        ? 'border-black bg-black text-white'
+                        : 'border-[#d9d9d9] bg-[#eeeeee] text-[#000000]'
                     }`}
                   >
                     {selectedWard.vulnerabilityLevel}
@@ -396,18 +392,16 @@ export function CityWardMap({
 
                 {/* Temperature & Microclimate Metric Callout */}
                 <div className="mt-3.5 grid grid-cols-2 gap-2">
-                  <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3">
-                    <span className="block font-mono text-[9px] font-bold uppercase tracking-wider text-[#666666]">
+                  <div className="rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3">
+                    <span className="block font-mono text-[9px] font-bold uppercase tracking-[0.06em] text-[#595959]">
                       Ward Microclimate
                     </span>
                     <div className="mt-0.5 flex items-baseline gap-1.5">
-                      <b className="text-xl font-bold text-[#0e0f10]">
+                      <b className="text-xl font-bold text-[#000000]">
                         {selectedLocalTemp.toFixed(1)}°C
                       </b>
                       <span
-                        className={`font-mono text-[10px] font-bold ${
-                          selectedWard.uhiOffsetC > 0 ? 'text-[#ff5065]' : 'text-[#666666]'
-                        }`}
+                        className="font-mono text-[10px] font-bold text-[#000000]"
                       >
                         {selectedWard.uhiOffsetC > 0
                           ? `+${selectedWard.uhiOffsetC}°C`
@@ -416,86 +410,86 @@ export function CityWardMap({
                     </div>
                   </div>
 
-                  <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3">
-                    <span className="block font-mono text-[9px] font-bold uppercase tracking-wider text-[#666666]">
+                  <div className="rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3">
+                    <span className="block font-mono text-[9px] font-bold uppercase tracking-[0.06em] text-[#595959]">
                       Vulnerability (PVS)
                     </span>
                     <div className="mt-0.5 flex items-baseline gap-1.5">
-                      <b className="text-xl font-bold text-[#ff5065]">
+                      <b className="text-xl font-bold text-[#000000]">
                         {selectedWard.pvsScore}
                       </b>
-                      <span className="font-mono text-[10px] text-[#666666]">/ 100</span>
+                      <span className="font-mono text-[10px] text-[#595959]">/ 100</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Key Vulnerability Drivers */}
                 <div className="mt-3 space-y-2 text-xs">
-                  <div className="flex items-center justify-between rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-2.5">
-                    <span className="flex items-center gap-1.5 text-[#666666]">
-                      <Users className="h-3.5 w-3.5 text-[#0e0f10]" />
+                  <div className="flex items-center justify-between rounded-lg border border-[#d9d9d9] bg-white p-2.5">
+                    <span className="flex items-center gap-1.5 text-[#595959]">
+                      <Users className="h-3.5 w-3.5 text-[#000000]" />
                       Population
                     </span>
-                    <span className="font-bold text-[#0e0f10]">
+                    <span className="font-bold text-[#000000]">
                       {selectedWard.population.toLocaleString()} residents
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-2.5">
-                    <span className="flex items-center gap-1.5 text-[#666666]">
-                      <HardHat className="h-3.5 w-3.5 text-[#ff5065]" />
+                  <div className="flex items-center justify-between rounded-lg border border-[#d9d9d9] bg-white p-2.5">
+                    <span className="flex items-center gap-1.5 text-[#595959]">
+                      <HardHat className="h-3.5 w-3.5 text-[#000000]" />
                       Outdoor Labor Ratio
                     </span>
-                    <span className="font-bold text-[#ff5065]">
+                    <span className="font-bold text-[#000000]">
                       {selectedWard.outdoorWorkersPct}% of workforce
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-2.5">
-                    <span className="flex items-center gap-1.5 text-[#666666]">
-                      <Home className="h-3.5 w-3.5 text-[#ff7a59]" />
+                  <div className="flex items-center justify-between rounded-lg border border-[#d9d9d9] bg-white p-2.5">
+                    <span className="flex items-center gap-1.5 text-[#595959]">
+                      <Home className="h-3.5 w-3.5 text-[#000000]" />
                       Tin Roof / Informal
                     </span>
-                    <span className="font-bold text-[#0e0f10]">
+                    <span className="font-bold text-[#000000]">
                       {selectedWard.slumHousingPct}% housing
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-2.5">
-                    <span className="flex items-center gap-1.5 text-[#666666]">
-                      <Building2 className="h-3.5 w-3.5 text-[#0e0f10]" />
+                  <div className="flex items-center justify-between rounded-lg border border-[#d9d9d9] bg-white p-2.5">
+                    <span className="flex items-center gap-1.5 text-[#595959]">
+                      <Building2 className="h-3.5 w-3.5 text-[#000000]" />
                       Cooling & Healthcare
                     </span>
-                    <span className="font-bold text-[#0e0f10]">
+                    <span className="font-bold text-[#000000]">
                       {selectedWard.coolingCenters} misting · {selectedWard.hospitals} clinics
                     </span>
                   </div>
                 </div>
 
                 {/* Primary Risk Driver */}
-                <div className="mt-3 rounded-2xl border border-[#ff5065]/20 bg-[#ffe9eb] p-3 text-xs text-[#ff5065]">
-                  <b className="block font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff5065] mb-1">
+                <div className="mt-3 rounded-lg border border-[#000000] bg-[#eeeeee] p-3 text-xs text-[#000000]">
+                  <b className="block font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#000000] mb-1">
                     PRIMARY VULNERABILITY DRIVER
                   </b>
-                  <p className="text-[11px] leading-relaxed text-[#0e0f10]">
+                  <p className="text-[11px] leading-relaxed text-[#000000] tracking-[0.06em]">
                     {selectedWard.primaryDriver}
                   </p>
                 </div>
               </div>
 
               {/* Recommended Municipal Action */}
-              <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3.5 text-xs text-[#0e0f10]">
-                <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff5065] mb-1">
-                  <Sparkles className="h-3.5 w-3.5 text-[#ff5065]" />
+              <div className="rounded-lg border border-[#d9d9d9] bg-white p-3.5 text-xs text-[#000000]">
+                <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#000000] mb-1">
+                  <Sparkles className="h-3.5 w-3.5 text-black" />
                   <span>AUTHORITY ACTION DIRECTIVE</span>
                 </div>
-                <p className="text-[11px] leading-relaxed text-[#0e0f10]">
+                <p className="text-[11px] leading-relaxed text-[#000000] tracking-[0.06em]">
                   {selectedWard.recommendedAction}
                 </p>
               </div>
             </div>
           ) : (
-            <div className="flex h-full items-center justify-center p-8 text-center text-xs text-[#666666]">
+            <div className="flex h-full items-center justify-center p-8 text-center text-xs text-[#595959] tracking-[0.06em]">
               Select a ward on the map to inspect hyperlocal metrics.
             </div>
           )}

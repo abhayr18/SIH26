@@ -48,35 +48,35 @@ export function WorkerSafetyView({
 
   return (
     <div className="space-y-6 font-sans">
-      {/* Top Banner — Contrast Geometric Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-[#0e0f10]/6 bg-white p-6 sm:p-7 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
+      {/* Top Banner — DICE Monochromatic Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-[#d9d9d9] bg-white p-6 sm:p-7 shadow-none">
         <div className="space-y-1.5 max-w-3xl">
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-[#ffe9eb] text-[#ff5065] border border-[#ff5065]/20">
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-black text-white">
               <HardHat className="h-4 w-4 stroke-[2.5]" />
             </span>
-            <h2 className="text-xl font-bold tracking-tight text-[#0e0f10]">
+            <h2 className="text-xl font-bold uppercase tracking-[0.06em] text-[#000000]">
               Occupational Outdoor Worker Safety: {currentCity}
             </h2>
-            <span className="rounded-full border border-[#ff5065]/20 bg-[#ffe9eb] px-3 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[#ff5065] font-semibold">
+            <span className="rounded-full border border-black bg-black px-3 py-0.5 font-mono text-[10px] uppercase tracking-[0.06em] text-white font-bold">
               ISO 7243 & NIOSH Standards
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-[#666666] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#595959] leading-relaxed tracking-[0.06em]">
             Biometeorological work-rest regimens, hydration quotas, and unsafe window cutoffs calibrated for manual outdoor occupations under acute thermal stress.
           </p>
         </div>
 
         {/* Worker Risk Level Flag */}
-        <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-4 text-left sm:text-right w-full sm:w-auto shrink-0">
-          <div className="font-mono text-[9.5px] uppercase tracking-wider text-[#666666] font-medium">
+        <div className="rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-4 text-left sm:text-right w-full sm:w-auto shrink-0">
+          <div className="font-mono text-[9.5px] uppercase tracking-[0.06em] text-[#595959] font-bold">
             Occupational Risk Level
           </div>
-          <div className="font-mono text-xl font-bold uppercase text-[#ff5065] mt-0.5">
+          <div className="font-mono text-xl font-bold uppercase text-[#000000] mt-0.5">
             {guidance.occupational_risk_level} Risk
           </div>
-          <div className="font-mono text-[10.5px] text-[#666666] mt-0.5">
-            WBGT: <strong className="text-[#0e0f10] font-bold">{guidance.current_wbgt}°C</strong> (Adjusted)
+          <div className="font-mono text-[10.5px] text-[#595959] mt-0.5">
+            WBGT: <strong className="text-[#000000] font-bold">{guidance.current_wbgt}°C</strong> (Adjusted)
           </div>
         </div>
       </div>
@@ -91,14 +91,14 @@ export function WorkerSafetyView({
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`flex flex-col items-center justify-center rounded-2xl border p-3.5 text-center transition-all duration-150 ${
+              className={`flex flex-col items-center justify-center rounded-lg border p-3.5 text-center transition-all duration-150 ${
                 isSelected
-                  ? 'border-2 border-[#ff5065] bg-[#ffe9eb]/60 text-[#ff5065] font-bold shadow-sm'
-                  : 'border-[#0e0f10]/6 bg-white text-[#666666] hover:bg-[#f4f4f8] hover:text-[#0e0f10] shadow-[0_5px_25px_rgba(38,42,62,0.04)]'
+                  ? 'border-2 border-black bg-[#eeeeee] text-[#000000] font-bold shadow-none'
+                  : 'border-[#d9d9d9] bg-white text-[#595959] hover:border-black hover:text-[#000000]'
               }`}
             >
-              <Icon className={`h-5 w-5 ${isSelected ? 'text-[#ff5065]' : 'text-[#7a7b7c]'}`} />
-              <span className="mt-2 text-xs font-semibold truncate max-w-full">
+              <Icon className={`h-5 w-5 ${isSelected ? 'text-black' : 'text-[#808080]'}`} />
+              <span className="mt-2 text-xs font-bold uppercase tracking-[0.06em] truncate max-w-full">
                 {cat.label}
               </span>
             </button>
@@ -108,58 +108,58 @@ export function WorkerSafetyView({
 
       {/* Safety Directive Overview Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
-            <Clock className="h-3.5 w-3.5 text-[#0e0f10]" />
+        <div className="rounded-lg border border-[#d9d9d9] bg-white p-5 shadow-none">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
+            <Clock className="h-3.5 w-3.5 text-[#000000]" />
             Safe Working Window
           </div>
-          <div className="mt-2 text-sm font-bold text-[#0e0f10] leading-tight">
+          <div className="mt-2 text-sm font-bold uppercase tracking-[0.06em] text-[#000000] leading-tight">
             {guidance.safe_working_window}
           </div>
-          <span className="mt-1 block text-xs text-[#666666]">Avoid midday direct solar noon</span>
+          <span className="mt-1 block text-xs text-[#595959] tracking-[0.06em]">Avoid midday direct solar noon</span>
         </div>
 
-        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
-            <Flame className="h-3.5 w-3.5 text-[#ff7a59]" />
+        <div className="rounded-lg border border-[#d9d9d9] bg-white p-5 shadow-none">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
+            <Flame className="h-3.5 w-3.5 text-[#000000]" />
             Mandatory Rest Cycle
           </div>
-          <div className="mt-2 text-sm font-bold text-[#ff7a59] leading-tight">
+          <div className="mt-2 text-sm font-bold uppercase tracking-[0.06em] text-[#000000] leading-tight">
             {guidance.mandatory_rest_interval}
           </div>
-          <span className="mt-1 block text-xs text-[#666666]">In shaded, ventilated shelter</span>
+          <span className="mt-1 block text-xs text-[#595959] tracking-[0.06em]">In shaded, ventilated shelter</span>
         </div>
 
-        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
-            <Droplets className="h-3.5 w-3.5 text-[#ff5065]" />
+        <div className="rounded-lg border border-[#d9d9d9] bg-white p-5 shadow-none">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
+            <Droplets className="h-3.5 w-3.5 text-[#000000]" />
             Hourly Hydration Quota
           </div>
-          <div className="mt-2 font-mono text-2xl font-bold text-[#0e0f10]">
+          <div className="mt-2 font-mono text-2xl font-bold text-[#000000]">
             {guidance.hydration_requirement_liters_per_hour} L/hr
           </div>
-          <span className="mt-1 block text-xs text-[#666666]">Drink small sips every 15-20 min</span>
+          <span className="mt-1 block text-xs text-[#595959] tracking-[0.06em]">Drink small sips every 15-20 min</span>
         </div>
 
-        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
-            <AlertTriangle className="h-3.5 w-3.5 text-[#ff5065]" />
+        <div className="rounded-lg border border-[#d9d9d9] bg-white p-5 shadow-none">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959]">
+            <AlertTriangle className="h-3.5 w-3.5 text-[#000000]" />
             Max Continuous Exposure
           </div>
-          <div className="mt-2 font-mono text-2xl font-bold text-[#ff5065]">
+          <div className="mt-2 font-mono text-2xl font-bold text-[#000000]">
             {guidance.max_continuous_exposure_minutes} mins
           </div>
-          <span className="mt-1 block text-xs text-[#666666]">Before mandatory deep rest</span>
+          <span className="mt-1 block text-xs text-[#595959] tracking-[0.06em]">Before mandatory deep rest</span>
         </div>
       </div>
 
       {/* Grid: Protective Worksite Controls vs Critical Medical Signs */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Worksite Measures */}
-        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-6 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
-          <div className="flex items-center gap-2 border-b border-[#0e0f10]/6 pb-3.5">
-            <CheckCircle2 className="h-4 w-4 text-[#ff5065]" />
-            <h3 className="font-bold text-[#0e0f10] tracking-tight">
+        <div className="rounded-lg border border-[#d9d9d9] bg-white p-6 shadow-none">
+          <div className="flex items-center gap-2 border-b border-[#d9d9d9] pb-3.5">
+            <CheckCircle2 className="h-4 w-4 text-black" />
+            <h3 className="font-bold text-[#000000] uppercase tracking-[0.06em]">
               Worksite Controls for {selectedCategory}
             </h3>
           </div>
@@ -168,9 +168,9 @@ export function WorkerSafetyView({
             {guidance.protective_measures.map((measure, idx) => (
               <div
                 key={idx}
-                className="flex items-start gap-2.5 rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3.5 text-xs text-[#0e0f10]"
+                className="flex items-start gap-2.5 rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3.5 text-xs text-[#000000] tracking-[0.06em]"
               >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#ffe9eb] font-mono text-[10px] font-bold text-[#ff5065]">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black font-mono text-[10px] font-bold text-white">
                   {idx + 1}
                 </span>
                 <span className="leading-relaxed">{measure}</span>
@@ -180,10 +180,10 @@ export function WorkerSafetyView({
         </div>
 
         {/* Warning Signs */}
-        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-6 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
-          <div className="flex items-center gap-2 border-b border-[#0e0f10]/6 pb-3.5">
-            <AlertTriangle className="h-4 w-4 text-[#ff5065]" />
-            <h3 className="font-bold text-[#0e0f10] tracking-tight">
+        <div className="rounded-lg border border-[#d9d9d9] bg-white p-6 shadow-none">
+          <div className="flex items-center gap-2 border-b border-[#d9d9d9] pb-3.5">
+            <AlertTriangle className="h-4 w-4 text-black" />
+            <h3 className="font-bold text-[#000000] uppercase tracking-[0.06em]">
               Critical Signs Requiring Immediate Stoppage
             </h3>
           </div>
@@ -192,9 +192,9 @@ export function WorkerSafetyView({
             {guidance.warning_signs_to_halt_work.map((sign, idx) => (
               <div
                 key={idx}
-                className="flex items-start gap-2.5 rounded-2xl border border-[#ff5065]/20 bg-[#ffe9eb]/60 p-3.5 text-xs text-[#ff5065] font-medium"
+                className="flex items-start gap-2.5 rounded-lg border border-[#000000] bg-[#eeeeee] p-3.5 text-xs text-[#000000] font-bold tracking-[0.06em]"
               >
-                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#ff5065] font-mono text-[10px] font-bold text-white">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black font-mono text-[10px] font-bold text-white">
                   !
                 </span>
                 <span className="leading-relaxed">{sign}</span>
@@ -202,8 +202,8 @@ export function WorkerSafetyView({
             ))}
           </div>
 
-          <div className="mt-4 rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3.5 text-xs text-[#666666]">
-            <strong className="text-[#0e0f10] font-bold">Emergency Protocol:</strong> If a worker becomes disoriented, hot to touch, or collapses, move them to shaded shelter immediately, apply ice or cold water soaked cloth to armpits and neck, and dial <strong className="text-[#ff5065]">108</strong> without delay.
+          <div className="mt-4 rounded-lg border border-[#d9d9d9] bg-white p-3.5 text-xs text-[#595959] tracking-[0.06em]">
+            <strong className="text-[#000000] font-bold">Emergency Protocol:</strong> If a worker becomes disoriented, hot to touch, or collapses, move them to shaded shelter immediately, apply ice or cold water soaked cloth to armpits and neck, and dial <strong className="text-black font-bold">108</strong> without delay.
           </div>
         </div>
       </div>

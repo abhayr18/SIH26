@@ -5,61 +5,58 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Colors — Contrast Design System ("neon coral signal on white silence") */
-  --color-signal-coral: #ff5065;
-  --color-ember-wash: #ff7a59;
-  --color-persimmon: #ff5c35;
-  --color-coral-mist: #ffe9eb;
-  --color-carbon-ink: #0e0f10;
-  --color-pure-white: #ffffff;
-  --color-fog: #f4f4f8;
-  --color-graphite: #2f3133;
-  --color-slate: #7a7b7c;
-  --color-smoke: #666666;
+  /* Colors — DICE Design System ("Monochrome gig flyer — black ink on white paper") */
+  --color-pitch-black: #000000;
+  --color-paper-white: #ffffff;
+  --color-ash-gray: #eeeeee;
+  --color-concrete: #d9d9d9;
+  --color-charcoal: #333333;
+  --color-slate: #595959;
+  --color-stone: #808080;
+  --color-neon-green: #7ffeb1;
 
-  /* Typography — Gilroy Geometric Grotesque Sans */
-  --font-gilroy: var(--font-gilroy), 'Plus Jakarta Sans', 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sans: var(--font-gilroy);
-  --font-heading: var(--font-gilroy);
-  --font-fellix: var(--font-gilroy);
-  --font-fira-sans: var(--font-gilroy);
+  /* Typography */
+  --font-favorit: var(--font-favorit), 'Inter', 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-foggy: var(--font-foggy), 'Antonio', 'Anton', 'Impact', ui-sans-serif, sans-serif;
+  --font-sans: var(--font-favorit);
+  --font-heading: var(--font-favorit);
+  --font-display: var(--font-foggy);
   --font-pp-fraktion-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
-  --font-fira-code: var(--font-mono);
+  --font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Spacing Scale — Base 8px unit */
+  /* Spacing Scale — Base 4px */
+  --spacing-4: 4px;
   --spacing-8: 8px;
+  --spacing-12: 12px;
   --spacing-16: 16px;
+  --spacing-20: 20px;
   --spacing-24: 24px;
   --spacing-32: 32px;
   --spacing-40: 40px;
   --spacing-48: 48px;
-  --spacing-56: 56px;
-  --spacing-64: 64px;
-  --spacing-72: 72px;
+  --spacing-60: 60px;
   --spacing-80: 80px;
-  --spacing-88: 88px;
-  --spacing-112: 112px;
   --spacing-120: 120px;
 
   /* Border Radius */
+  --radius-sm: 4px;
   --radius-md: 4px;
   --radius-lg: 8px;
   --radius-xl: 12px;
-  --radius-2xl: 16px;
-  --radius-3xl: 24px;
-  --radius-4xl: 40px;
+  --radius-2xl: 20px;
+  --radius-3xl: 40px;
   --radius-full: 100px;
-  --radius-nav: 4px;
-  --radius-cards: 24px;
-  --radius-badges: 100px;
-  --radius-images: 100px;
-  --radius-buttons: 100px;
-  --radius-largecards: 40px;
-  --radius-smallcards: 16px;
-  --radius-extralargecards: 120px;
+  --radius-cards: 8px;
+  --radius-buttons: 40px;
+  --radius-images: 8px;
+  --radius-tags: 100px;
+  --radius-navelements: 20px;
 
-  /* Shadows */
-  --shadow-xl: 0 5px 25px rgba(38, 42, 62, 0.06);
+  /* Layout */
+  --page-max-width: 1200px;
+  --section-gap: 80px;
+  --card-padding: 16px;
+  --element-gap: 8px;
 
   /* Design Tokens mapped to theme */
   --color-background: var(--background);
@@ -92,83 +89,81 @@
 
 :root {
   /* Colors */
-  --color-signal-coral: #ff5065;
-  --color-ember-wash: #ff7a59;
-  --color-persimmon: #ff5c35;
-  --color-coral-mist: #ffe9eb;
-  --color-carbon-ink: #0e0f10;
-  --color-pure-white: #ffffff;
-  --color-fog: #f4f4f8;
-  --color-graphite: #2f3133;
-  --color-slate: #7a7b7c;
-  --color-smoke: #666666;
+  --color-pitch-black: #000000;
+  --color-paper-white: #ffffff;
+  --color-ash-gray: #eeeeee;
+  --color-concrete: #d9d9d9;
+  --color-charcoal: #333333;
+  --color-slate: #595959;
+  --color-stone: #808080;
+  --color-neon-green: #7ffeb1;
 
-  /* Surfaces & Functional roles */
+  /* Surfaces & Roles */
   --background: #ffffff;
-  --foreground: #0e0f10;
+  --foreground: #000000;
   --card: #ffffff;
-  --card-foreground: #0e0f10;
+  --card-foreground: #000000;
   --popover: #ffffff;
-  --popover-foreground: #0e0f10;
-  --primary: #ff5065;
+  --popover-foreground: #000000;
+  --primary: #000000;
   --primary-foreground: #ffffff;
-  --secondary: #0e0f10;
+  --secondary: #333333;
   --secondary-foreground: #ffffff;
-  --muted: #f4f4f8;
-  --muted-foreground: #7a7b7c;
-  --accent: #ffe9eb;
-  --accent-foreground: #ff5065;
-  --destructive: #ff5065;
-  --border: rgba(14, 15, 16, 0.08);
-  --input: rgba(14, 15, 16, 0.12);
-  --ring: #ff5065;
-  --radius: 1.5rem;
+  --muted: #eeeeee;
+  --muted-foreground: #595959;
+  --accent: #eeeeee;
+  --accent-foreground: #000000;
+  --destructive: #000000;
+  --border: #d9d9d9;
+  --input: #d9d9d9;
+  --ring: #000000;
+  --radius: 8px;
 
   /* Sidebar Tokens */
   --sidebar: #ffffff;
-  --sidebar-foreground: #0e0f10;
-  --sidebar-primary: #ff5065;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #000000;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f4f4f8;
-  --sidebar-accent-foreground: #0e0f10;
-  --sidebar-border: rgba(14, 15, 16, 0.06);
-  --sidebar-ring: #ff5065;
+  --sidebar-accent: #eeeeee;
+  --sidebar-accent-foreground: #000000;
+  --sidebar-border: #d9d9d9;
+  --sidebar-ring: #000000;
 
   /* Data Accents */
-  --chart-1: #ff5065;
-  --chart-2: #ff7a59;
-  --chart-3: #ff5c35;
-  --chart-4: #2f3133;
-  --chart-5: #7a7b7c;
+  --chart-1: #000000;
+  --chart-2: #333333;
+  --chart-3: #595959;
+  --chart-4: #808080;
+  --chart-5: #d9d9d9;
 }
 
 .dark {
-  --background: #0e0f10;
+  --background: #000000;
   --foreground: #ffffff;
-  --card: #17181a;
+  --card: #000000;
   --card-foreground: #ffffff;
-  --popover: #17181a;
+  --popover: #000000;
   --popover-foreground: #ffffff;
-  --primary: #ff5065;
-  --primary-foreground: #ffffff;
-  --secondary: #ffffff;
-  --secondary-foreground: #0e0f10;
-  --muted: #232528;
-  --muted-foreground: #a1a3a6;
-  --accent: #331d23;
-  --accent-foreground: #ff5065;
-  --destructive: #ff5065;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.12);
-  --ring: #ff5065;
-  --sidebar: #131416;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #333333;
+  --secondary-foreground: #ffffff;
+  --muted: #333333;
+  --muted-foreground: #808080;
+  --accent: #333333;
+  --accent-foreground: #ffffff;
+  --destructive: #ffffff;
+  --border: #333333;
+  --input: #333333;
+  --ring: #ffffff;
+  --sidebar: #000000;
   --sidebar-foreground: #ffffff;
-  --sidebar-primary: #ff5065;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #232528;
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #333333;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #ff5065;
+  --sidebar-border: #333333;
+  --sidebar-ring: #ffffff;
 }
 
 @layer base {
@@ -177,8 +172,8 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-sans);
-    letter-spacing: 0;
+    font-family: var(--font-favorit);
+    letter-spacing: 0.06em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -209,50 +204,99 @@ code,
 kbd,
 samp {
   font-family: var(--font-mono), ui-monospace, monospace !important;
+  letter-spacing: 0.02em;
 }
 
-/* Gilroy Chunky Headlines: Heavy geometric weight with tight leading */
-h1, h2, h3, h4 {
-  font-family: var(--font-sans);
-  letter-spacing: normal;
-  color: #0e0f10;
-}
-
-/* Contrast Hero Chunky Display Lockup */
-.hero-headline {
-  font-family: var(--font-sans);
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
-  line-height: 0.88;
+/* Foggy Hero Display Headline */
+.hero-foggy-display {
+  font-family: var(--font-foggy), 'Antonio', 'Impact', ui-sans-serif, sans-serif;
+  font-size: clamp(3.25rem, 7.5vw, 6.25rem); /* ~100px at large screens */
+  line-height: 0.83;
   font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #0e0f10;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: #000000;
 }
 
-/* Contrast Card Elevation: Faint shadow (0.06 alpha) on white silence */
-.contrast-card {
-  background-color: #ffffff;
-  border-radius: 24px;
-  border: 1px solid rgba(14, 15, 16, 0.06);
-  box-shadow: 0 5px 25px rgba(38, 42, 62, 0.06);
+/* Section Headline */
+.section-headline {
+  font-family: var(--font-favorit);
+  font-size: 28px;
+  line-height: 1.22;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  color: #000000;
 }
 
-.contrast-card-hover {
-  transition: all 0.2s ease-in-out;
-}
-.contrast-card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(38, 42, 62, 0.09);
-}
-
-/* Signature 'new' diagonal badge / marquee band */
-.badge-new {
+/* DICE Filled Pill Button: 40px radius, pitch black fill, paper white text, 700 weight, 12px, 0.06em tracking, all-caps */
+.dice-btn-filled {
+  border-radius: 40px;
+  background-color: #000000;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 12px 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  background-color: #ffe9eb;
-  color: #ff5065;
-  font-size: 11px;
-  font-weight: 600;
+  justify-content: center;
+  transition: opacity 0.15s ease-in-out;
+  border: 1px solid #000000;
+}
+.dice-btn-filled:hover {
+  opacity: 0.88;
+}
+
+/* DICE Outlined Pill Button: 40px radius, transparent fill, 1px black border, black text */
+.dice-btn-outlined {
+  border-radius: 40px;
+  background-color: transparent;
+  color: #000000;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 12px 22px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000000;
+  transition: all 0.15s ease-in-out;
+}
+.dice-btn-outlined:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* DICE Card: 8px radius, Concrete hairline border, flat (no shadow) */
+.dice-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  box-shadow: none;
+}
+
+/* DICE Dark Band: Full-bleed #000000 section with white text */
+.dice-dark-band {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Phone Mockup Frame: 40px radius Pitch Black frame with screen notch preview */
+.dice-phone-frame {
+  border-radius: 40px;
+  background-color: #000000;
+  padding: 12px;
+  border: 4px solid #333333;
+}
+
+/* DICE Tag / Status Pill: 100px radius */
+.dice-tag {
   border-radius: 100px;
-  padding: 2px 8px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }

@@ -1,12 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
+import { Inter, Antonio, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { PwaRegister } from '@/components/pwa-register';
 
-const gilroySans = Plus_Jakarta_Sans({
-  variable: '--font-gilroy',
+const favoritSans = Inter({
+  variable: '--font-favorit',
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
+  weight: ['300', '400', '700'],
+  display: 'swap',
+});
+
+const foggyDisplay = Antonio({
+  variable: '--font-foggy',
+  subsets: ['latin'],
+  weight: ['400', '700'],
   display: 'swap',
 });
 
@@ -63,7 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${gilroySans.variable} ${monoFont.variable} antialiased bg-white text-[#0e0f10]`}>
+      <body className={`${favoritSans.variable} ${foggyDisplay.variable} ${monoFont.variable} antialiased bg-white text-[#000000] font-sans selection:bg-[#000000] selection:text-[#ffffff]`}>
         <PwaRegister />
         {children}
       </body>

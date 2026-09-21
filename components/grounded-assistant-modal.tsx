@@ -133,22 +133,22 @@ export function GroundedAssistantModal({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0e0f10]/40 p-4 backdrop-blur-sm">
-      <div className="flex h-[85vh] w-full max-w-3xl flex-col rounded-3xl border border-[#0e0f10]/8 bg-white shadow-[0_5px_25px_rgba(38,42,62,0.12)] overflow-hidden">
-        {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-[#0e0f10]/8 bg-white px-6 py-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 font-sans backdrop-blur-xs">
+      <div className="flex h-[88vh] max-h-[780px] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-[#000000] bg-white shadow-none animate-in fade-in zoom-in-95 duration-200">
+        {/* Modal Top Header */}
+        <div className="flex items-center justify-between border-b border-[#d9d9d9] bg-white px-5 py-4 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-[#ff5065]/20 bg-[#ffe9eb] text-[#ff5065]">
-              <Sparkles className="h-5 w-5" />
+            <div className="grid h-10 w-10 place-items-center rounded-full bg-black text-white">
+              <Sparkles className="h-5 w-5 text-[#7ffeb1]" />
             </div>
             <div>
-              <div className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff5065]">
+              <div className="font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#000000]">
                 GROUNDED AI ASSISTANT · HEAT INTELLIGENCE
               </div>
-              <h3 className="font-bold text-[#0e0f10] text-base tracking-tight">
+              <h3 className="font-bold text-[#000000] text-base uppercase tracking-[0.06em]">
                 Operational Telemetry & Decision Support
               </h3>
-              <p className="text-xs text-[#7a7b7c]">
+              <p className="text-xs text-[#595959] tracking-[0.06em]">
                 Live telemetry for {currentCity} • MoES / NCMRWF Decision Support
               </p>
             </div>
@@ -156,12 +156,12 @@ export function GroundedAssistantModal({
 
           <div className="flex items-center gap-2">
             {/* Language Selector */}
-            <div className="flex items-center gap-1.5 rounded-full border border-[#0e0f10]/10 bg-[#f4f4f8] px-3 py-1 text-xs text-[#0e0f10]">
-              <Globe className="h-3.5 w-3.5 text-[#ff5065]" />
+            <div className="flex items-center gap-1.5 rounded-full border border-[#d9d9d9] bg-white px-3 py-1 text-xs text-[#000000]">
+              <Globe className="h-3.5 w-3.5 text-black" />
               <select
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value as SupportedLanguage)}
-                className="bg-transparent text-xs font-semibold text-[#0e0f10] focus:outline-none cursor-pointer"
+                className="bg-transparent text-xs font-bold uppercase tracking-[0.06em] text-[#000000] focus:outline-none cursor-pointer"
               >
                 <option value="en">EN</option>
                 <option value="hi">हिन्दी</option>
@@ -181,8 +181,8 @@ export function GroundedAssistantModal({
               title={isSpeaking ? 'Mute speech output' : 'Enable voice read-aloud'}
               className={`rounded-full border p-2 transition ${
                 isSpeaking
-                  ? 'border-[#ff5065] bg-[#ffe9eb] text-[#ff5065]'
-                  : 'border-[#0e0f10]/10 bg-white text-[#7a7b7c] hover:text-[#0e0f10] hover:bg-[#f4f4f8]'
+                  ? 'border-black bg-black text-white'
+                  : 'border-[#d9d9d9] bg-white text-[#595959] hover:text-black'
               }`}
             >
               {isSpeaking ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
@@ -190,7 +190,7 @@ export function GroundedAssistantModal({
 
             <button
               onClick={onClose}
-              className="rounded-full border border-[#0e0f10]/10 bg-white p-2 text-[#7a7b7c] hover:bg-[#ffe9eb] hover:text-[#ff5065] transition"
+              className="rounded-full border border-[#000000] bg-white p-2 text-[#000000] hover:bg-black hover:text-white transition"
             >
               <X className="h-4 w-4" />
             </button>
@@ -198,7 +198,7 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Messages Body */}
-        <div className="flex-1 overflow-y-auto bg-[#f4f4f8] p-5 sm:p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto bg-[#eeeeee] p-5 sm:p-6 space-y-4">
           {messages.map((msg) => {
             const isBot = msg.sender === 'assistant';
 
@@ -210,40 +210,40 @@ export function GroundedAssistantModal({
                 <div
                   className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
                     isBot
-                      ? 'border-[#ff5065]/20 bg-white text-[#ff5065] shadow-xs'
-                      : 'border-[#0e0f10] bg-[#0e0f10] text-white'
+                      ? 'border-[#d9d9d9] bg-white text-black'
+                      : 'border-black bg-black text-white'
                   }`}
                 >
                   {isBot ? <Bot className="h-4 w-4" /> : <User className="h-4 w-4" />}
                 </div>
 
                 <div
-                  className={`max-w-[85%] rounded-2xl p-4 text-xs leading-relaxed ${
+                  className={`max-w-[85%] rounded-lg p-4 text-xs leading-relaxed tracking-[0.06em] ${
                     isBot
-                      ? 'border border-[#0e0f10]/6 bg-white text-[#0e0f10] shadow-[0_4px_16px_rgba(38,42,62,0.04)]'
-                      : 'bg-[#0e0f10] text-white'
+                      ? 'border border-[#d9d9d9] bg-white text-[#000000] shadow-none'
+                      : 'bg-[#000000] text-white'
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{msg.text}</p>
 
                   {/* Structured Data Attachment if available */}
                   {msg.structured_data && (
-                    <div className="mt-3 rounded-xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3">
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff5065] mb-2">
+                    <div className="mt-3 rounded-md border border-[#d9d9d9] bg-[#eeeeee] p-3 text-black">
+                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#000000] mb-2">
                         GROUNDED APPLICATION TELEMETRY
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-[11px]">
                         {Object.entries(msg.structured_data).map(([k, v]) => (
-                          <div key={k} className="flex justify-between border-b border-[#0e0f10]/6 pb-1">
-                            <span className="text-[#7a7b7c]">{k}:</span>
-                            <strong className="text-[#0e0f10] font-mono">{String(v)}</strong>
+                          <div key={k} className="flex justify-between border-b border-[#d9d9d9] pb-1">
+                            <span className="text-[#595959]">{k}:</span>
+                            <strong className="text-black font-mono">{String(v)}</strong>
                           </div>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  <span className={`mt-2 block font-mono text-[10px] tracking-wider text-right ${isBot ? 'text-[#7a7b7c]' : 'text-white/60'}`}>
+                  <span className={`mt-2 block font-mono text-[10px] tracking-[0.06em] text-right ${isBot ? 'text-[#808080]' : 'text-white/60'}`}>
                     {msg.timestamp}
                   </span>
                 </div>
@@ -254,8 +254,8 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Quick Suggestion Chips */}
-        <div className="border-t border-[#0e0f10]/8 bg-white px-5 py-3">
-          <div className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#7a7b7c] mb-2">
+        <div className="border-t border-[#d9d9d9] bg-white px-5 py-3">
+          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#595959] mb-2">
             SUGGESTED GROUNDED INQUIRIES:
           </div>
           <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
@@ -263,7 +263,7 @@ export function GroundedAssistantModal({
               <button
                 key={prompt}
                 onClick={() => handleSendMessage(prompt)}
-                className="shrink-0 rounded-full border border-[#0e0f10]/10 bg-[#f4f4f8] px-3.5 py-1 text-[11px] font-semibold text-[#0e0f10] hover:border-[#ff5065] hover:bg-[#ffe9eb] hover:text-[#ff5065] transition"
+                className="shrink-0 rounded-full border border-[#d9d9d9] bg-white px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.06em] text-[#000000] hover:bg-black hover:text-white transition"
               >
                 {prompt}
               </button>
@@ -272,7 +272,7 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Input Bar */}
-        <div className="border-t border-[#0e0f10]/8 bg-white p-4">
+        <div className="border-t border-[#d9d9d9] bg-white p-4">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -285,12 +285,12 @@ export function GroundedAssistantModal({
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
               placeholder={`Ask anything regarding heat risk, cooling centers, or response action in ${currentCity}...`}
-              className="flex-1 rounded-full border border-[#0e0f10]/12 bg-[#f4f4f8] px-4 py-2.5 text-xs text-[#0e0f10] placeholder-[#7a7b7c] focus:border-[#ff5065] focus:bg-white focus:outline-none transition"
+              className="flex-1 rounded-full border border-[#d9d9d9] bg-white px-4 py-2.5 text-xs text-[#000000] placeholder-[#808080] focus:border-[#000000] focus:outline-none transition tracking-[0.06em]"
             />
             <button
               type="submit"
               disabled={!inputQuery.trim()}
-              className="flex items-center gap-1.5 rounded-full bg-[#ff5065] px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-[#ff3850] shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-1.5 rounded-full bg-black px-5 py-2.5 text-xs font-bold uppercase tracking-[0.06em] text-white transition hover:opacity-85 shadow-none disabled:opacity-40 disabled:cursor-not-allowed border border-black"
             >
               <Send className="h-3.5 w-3.5" />
               <span>Query</span>
