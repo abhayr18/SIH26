@@ -91,6 +91,7 @@ import { DataTelemetryView } from '@/components/data-telemetry-view';
 import { HyperlocalWardGis } from '@/components/hyperlocal-ward-gis';
 import { GroundedAssistantModal } from '@/components/grounded-assistant-modal';
 import { CityWardMap } from '@/components/city-ward-map';
+import { LeafletIndiaMap } from '@/components/leaflet-india-map';
 
 type Risk = 'Low' | 'Moderate' | 'High' | 'Extreme' | 'Emergency';
 type Contribution = {
@@ -943,168 +944,17 @@ function IndiaMap({
         </button>
       </div>
 
-      {/* SVG Map Container */}
-      <div
-        className={`relative overflow-hidden rounded-[1.6rem] border border-[#dbe1e8] bg-[radial-gradient(circle_at_50%_34%,#ffffff_0%,#f2f5f7_56%,#e8edf2_100%)] shadow-[inset_0_1px_rgb(255_255_255/90%)] ${expanded ? 'h-[440px] sm:h-[600px]' : 'h-[360px] sm:h-[420px]'}`}
-      >
-        <div className="absolute left-2.5 top-2.5 sm:left-4 sm:top-4 z-10 flex flex-wrap items-center gap-1.5">
-          <div className="flex items-center gap-1.5 rounded-xl border border-white/90 bg-white/95 px-2.5 py-1 sm:px-3 sm:py-1.5 shadow-sm backdrop-blur">
-            <span className="rounded-lg bg-slate-900 text-white px-1.5 py-0.5 text-[10px] sm:text-xs font-bold shadow-xs">
-              {activeDayConfig.title}
-            </span>
-            <span className="text-[10px] sm:text-xs font-semibold text-slate-700">
-              {getDayDateLabel(forecastDay)}
-            </span>
-          </div>
-        </div>
-
-        {/* Selected District Callout in Corner */}
-        <div className="pointer-events-none absolute right-2.5 top-2.5 sm:right-4 sm:top-4 z-10 rounded-xl sm:rounded-2xl border border-white/80 bg-white/95 px-2.5 py-1 sm:px-3.5 sm:py-2 text-right shadow-sm backdrop-blur max-w-[140px] sm:max-w-none">
-          <span className="block text-[8px] sm:text-[9px] font-semibold uppercase tracking-wide text-slate-400">
-            Selected District
-          </span>
-          <strong className="text-xs sm:text-sm text-slate-900 truncate block">{selected.district}</strong>
-          <div className="mt-0.5 flex items-center justify-end gap-1 sm:gap-1.5">
-            <i
-              className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full"
-              style={{ backgroundColor: selectedDistrictForecast.warningConfig.color }}
-            />
-            <span
-              className="text-[9.5px] sm:text-[10.5px] font-bold"
-              style={{ color: selectedDistrictForecast.warningConfig.color }}
-            >
-              {selectedDistrictForecast.warningConfig.shortLabel} · {selectedDistrictForecast.temp}°C
-            </span>
-          </div>
-        </div>
-
-        <svg
-          viewBox={indiaMap.viewBox}
-          className="h-full w-full px-2 sm:px-8 pb-10 sm:pb-14 pt-10 sm:pt-12 drop-shadow-[0_18px_24px_rgb(37_58_88/12%)]"
-          aria-label={`Geographic heat-risk map of India showing 16 monitored cities for ${activeDayConfig.title}`}
-          preserveAspectRatio="xMidYMid meet"
-        >
-          <defs>
-            <linearGradient id="india-land" x1="0" y1="0" x2="0.8" y2="1">
-              <stop offset="0%" stopColor="#fffdf8" />
-              <stop offset="52%" stopColor="#edf2f5" />
-              <stop offset="100%" stopColor="#dfe8ef" />
-            </linearGradient>
-            <filter id="marker-glow" x="-80%" y="-80%" width="260%" height="260%">
-              <feGaussianBlur stdDeviation="5" result="blur" />
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          <g aria-hidden="true">
-            {indiaLocations.map((location) => (
-              <path
-                key={location.id}
-                d={location.path}
-                fill="url(#india-land)"
-                stroke="#afbfcb"
-                strokeWidth="1.15"
-                vectorEffect="non-scaling-stroke"
-                className="transition-colors duration-200 hover:fill-blue-50"
-              />
-            ))}
-          </g>
-
-          {[...districts]
-            .sort(
-              (a, b) =>
-                Number(a.district === hoveredName) -
-                Number(b.district === hoveredName),
-            )
-            .map((item) => {
-              const point = project(item.lat, item.lon);
-              const isSelected = selected.district === item.district;
-              const forecast = getDistrictForecast(item, forecastDay);
-              const color = forecast.warningConfig.color;
-              const markerRadius = districts.length > 24 ? 8.5 : 11;
-              const markerCore = districts.length > 24 ? 4.25 : 5.5;
-
-              return (
-                <a
-                  key={item.district}
-                  href={`#district-${item.district.toLowerCase().replaceAll(' ', '-')}`}
-                  tabIndex={0}
-                  aria-label={`${item.district}: ${forecast.warningConfig.name}, Forecast ${forecast.temp}°C on ${activeDayConfig.title}`}
-                  className="group cursor-pointer focus:outline-none"
-                  onMouseEnter={() => setHoveredName(item.district)}
-                  onMouseLeave={() => setHoveredName(null)}
-                  onFocus={() => setHoveredName(item.district)}
-                  onBlur={() => setHoveredName(null)}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    onSelect(item);
-                    setViewMode('city');
-                  }}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                      event.preventDefault();
-                      onSelect(item);
-                      setViewMode('city');
-                    }
-                  }}
-                >
-                  <title>{`${item.district} · ${forecast.warningConfig.name} · ${forecast.temp}°C — Click to zoom into municipal wards`}</title>
-                  <circle cx={point.x} cy={point.y} r="15" fill="transparent" />
-                  <circle
-                    cx={point.x}
-                    cy={point.y}
-                    r={isSelected ? 13 : markerRadius}
-                    fill={forecast.warningConfig.soft}
-                    fillOpacity="0.96"
-                    stroke="white"
-                    strokeWidth="4"
-                    filter={isSelected ? 'url(#marker-glow)' : undefined}
-                    className="transition-all duration-200 group-hover:r-[14px] group-focus:stroke-blue-700"
-                  />
-                  <circle
-                    cx={point.x}
-                    cy={point.y}
-                    r={isSelected ? 6.5 : markerCore}
-                    fill={color}
-                    stroke={isSelected ? 'white' : color}
-                    strokeWidth="1.5"
-                  />
-                  {(hoveredName === item.district || (!hoveredName && isSelected)) && (
-                    <g pointerEvents="none" transform={`translate(${point.x - 75} ${point.y - 52})`}>
-                      <rect width="150" height="36" rx="8" fill="#0f172a" stroke={color} strokeWidth="1.5" />
-                      <text x="75" y="15" textAnchor="middle" fontSize="9.5" fontWeight="700" fill="white">
-                        {item.district} ({forecast.temp}°C)
-                      </text>
-                      <text x="75" y="27" textAnchor="middle" fontSize="7.5" fontWeight="700" fill={color}>
-                        {activeDayConfig.title}: {forecast.warningConfig.name} ➔
-                      </text>
-                    </g>
-                  )}
-                </a>
-              );
-            })}
-        </svg>
-
-        {/* IMD 4-Tier Legend Bar */}
-        <div className="absolute inset-x-2.5 bottom-2.5 sm:inset-x-3 sm:bottom-3 flex flex-wrap justify-between items-center gap-1.5 rounded-xl sm:rounded-2xl border border-white/90 bg-white/95 px-2.5 py-1.5 sm:px-4 sm:py-2 text-[9.5px] sm:text-[10px] text-slate-700 shadow-[0_8px_24px_rgb(37_58_88/10%)] backdrop-blur">
-          <div className="flex items-center gap-1 font-semibold text-slate-800">
-            <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-blue-600 animate-pulse" />
-            <span className="hidden sm:inline">Official IMD Warning Scale:</span>
-            <span className="sm:hidden">IMD Scale:</span>
-          </div>
-          <div className="flex items-center gap-2 sm:gap-3 font-medium overflow-x-auto max-w-full">
-            {(['No Warning', 'Watch', 'Alert', 'Warning'] as ImdWarningTier[]).map((tier) => (
-              <span key={tier} className="flex items-center gap-1 shrink-0">
-                <i className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full" style={{ backgroundColor: IMD_WARNING_CONFIG[tier].color }} />
-                <span className="font-semibold text-slate-900">{IMD_WARNING_CONFIG[tier].name}</span>
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* Leaflet India Map */}
+      <LeafletIndiaMap
+        districts={districts}
+        selected={selected}
+        forecastDay={forecastDay}
+        imdWarningConfig={IMD_WARNING_CONFIG}
+        imdForecastDays={IMD_FORECAST_DAYS}
+        onSelect={onSelect}
+        onZoomToCity={(item) => { onSelect(item); setViewMode('city'); }}
+        expanded={expanded}
+      />
 
       {/* 5-Day Heatwave Warning Outlook Matrix for Selected District */}
       <div className="rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 shadow-xs">

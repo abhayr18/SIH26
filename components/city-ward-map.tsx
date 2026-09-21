@@ -8,19 +8,13 @@ import {
   HardHat,
   Home,
   Building2,
-  HeartPulse,
-  Info,
-  Layers,
   Sparkles,
-  RotateCcw,
-  ZoomIn,
-  ZoomOut,
   MapPin,
-  CheckCircle2,
-  AlertTriangle,
 } from 'lucide-react';
 import { getCitySpatialProfile, WardSpatialData } from '@/lib/city-wards';
 import { calculateThermalMetrics } from '@/lib/thermal-engine';
+import { LeafletWardMap } from '@/components/leaflet-ward-map';
+import type { GisLayerMode } from '@/components/hyperlocal-ward-gis';
 
 interface CityWardMapProps {
   cityName: string;
@@ -48,8 +42,6 @@ export function CityWardMap({
   const [selectedWardId, setSelectedWardId] = useState<string>(
     profile.wards[0]?.id || ''
   );
-  const [hoveredWardId, setHoveredWardId] = useState<string | null>(null);
-  const [zoomLevel, setZoomLevel] = useState<number>(1);
 
   const selectedWard = useMemo(
     () => profile.wards.find((w) => w.id === selectedWardId) || profile.wards[0],
@@ -174,188 +166,30 @@ export function CityWardMap({
         </div>
       </div>
 
-      {/* Main Grid: Interactive Map Visualizer & Ward Telemetry Panel */}
+      {/* Main Grid: Leaflet Map + Ward Telemetry Panel */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Interactive SVG Ward Map Canvas */}
-        <div className="relative rounded-xl border border-slate-200 bg-slate-50 p-2.5 sm:p-3 shadow-2xs lg:col-span-8 overflow-hidden min-h-[320px] sm:min-h-[380px]">
-          {/* Map Top Badge */}
-          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex items-center gap-1.5 sm:gap-2 rounded-lg border border-slate-200 bg-white/95 px-2.5 py-1 shadow-xs text-xs max-w-[calc(100%-80px)] truncate backdrop-blur-xs">
-            <span className="h-2 w-2 shrink-0 rounded-full bg-blue-600 animate-pulse" />
-            <span className="font-semibold text-slate-900 truncate">{profile.wards.length} Wards Active</span>
-            <span className="text-slate-300 hidden sm:inline">·</span>
-            <span className="text-slate-500 hidden sm:inline">Click any ward to inspect</span>
-          </div>
-
-          {/* Map Zoom Controls */}
-          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex flex-col gap-1 rounded-lg border border-slate-200 bg-white p-1 shadow-xs">
-            <button
-              onClick={() => setZoomLevel((z) => Math.min(1.4, z + 0.1))}
-              className="p-1.5 rounded-md hover:bg-slate-100 text-slate-700"
-              title="Zoom in"
-            >
-              <ZoomIn className="h-3.5 w-3.5" />
-            </button>
-            <button
-              onClick={() => setZoomLevel((z) => Math.max(0.8, z - 0.1))}
-              className="p-1.5 rounded-md hover:bg-slate-100 text-slate-700"
-              title="Zoom out"
-            >
-              <ZoomOut className="h-3.5 w-3.5" />
-            </button>
-            <button
-              onClick={() => setZoomLevel(1)}
-              className="p-1.5 rounded-md hover:bg-slate-100 text-slate-700"
-              title="Reset zoom"
-            >
-              <RotateCcw className="h-3.5 w-3.5" />
-            </button>
-          </div>
-
-          {/* SVG Map */}
-          <svg
-            viewBox="0 0 510 360"
-            className="w-full h-[300px] sm:h-[400px] transition-transform duration-300"
-            style={{ transform: `scale(${zoomLevel})` }}
-          >
-            <defs>
-              <filter id="ward-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="2" stdDeviation="4" floodOpacity="0.15" />
-              </filter>
-            </defs>
-
-            {/* Background Grid Lines */}
-            <g stroke="#94a3b8" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.2">
-              {[60, 120, 180, 240, 300].map((y) => (
-                <line key={`h-${y}`} x1="10" y1={y} x2="500" y2={y} />
-              ))}
-              {[100, 200, 300, 400].map((x) => (
-                <line key={`v-${x}`} x1={x} y1="10" x2={x} y2="350" />
-              ))}
-            </g>
-
-            {/* Natural River Feature (if applicable) */}
-            {profile.riverPath && (
-              <g>
-                <path
-                  d={profile.riverPath}
-                  fill="none"
-                  stroke="#38bdf8"
-                  strokeWidth="14"
-                  strokeLinecap="round"
-                  opacity="0.35"
-                />
-                <path
-                  d={profile.riverPath}
-                  fill="none"
-                  stroke="#0284c7"
-                  strokeWidth="2.5"
-                  strokeDasharray="6 3"
-                  opacity="0.6"
-                />
-              </g>
-            )}
-
-            {/* Municipal Wards Polygons */}
-            {profile.wards.map((ward) => {
-              const isSelected = selectedWard?.id === ward.id;
-              const isHovered = hoveredWardId === ward.id;
-              const fillColor = getWardFill(ward, isHovered, isSelected);
-
-              return (
-                <g
-                  key={ward.id}
-                  className="cursor-pointer transition-all duration-150"
-                  onClick={() => handleWardClick(ward)}
-                  onMouseEnter={() => setHoveredWardId(ward.id)}
-                  onMouseLeave={() => setHoveredWardId(null)}
-                >
-                  {/* Ward Polygon */}
-                  <polygon
-                    points={ward.polygon}
-                    fill={fillColor}
-                    stroke={isSelected ? '#0f172a' : isHovered ? '#334155' : 'rgba(148, 163, 184, 0.5)'}
-                    strokeWidth={isSelected ? '2.5' : isHovered ? '1.8' : '1'}
-                    filter={isSelected || isHovered ? 'url(#ward-glow)' : undefined}
-                    className="transition-all duration-200"
-                  />
-
-                  {/* Ward Center Label */}
-                  <g pointerEvents="none" transform={`translate(${ward.center.x}, ${ward.center.y})`}>
-                    <rect
-                      x="-26"
-                      y="-14"
-                      width="52"
-                      height="24"
-                      rx="6"
-                      fill={isSelected ? '#0f172a' : '#ffffff'}
-                      fillOpacity={isSelected ? 0.95 : 0.9}
-                      stroke={isSelected ? '#3b82f6' : 'rgba(226, 232, 240, 0.8)'}
-                      strokeWidth="1"
-                    />
-                    <text
-                      x="0"
-                      y="-3"
-                      textAnchor="middle"
-                      fontSize="8"
-                      fontWeight="600"
-                      fill={isSelected ? '#93c5fd' : '#64748b'}
-                      fontFamily="monospace"
-                    >
-                      W-{String(ward.wardNumber).padStart(2, '0')}
-                    </text>
-                    <text
-                      x="0"
-                      y="7"
-                      textAnchor="middle"
-                      fontSize="8.5"
-                      fontWeight="700"
-                      fill={isSelected ? '#ffffff' : '#0f172a'}
-                    >
-                      {(baseTemp + ward.uhiOffsetC).toFixed(1)}°C
-                    </text>
-                  </g>
-                </g>
-              );
-            })}
-
-            {/* City Landmarks Pins */}
-            {profile.landmarks.map((lm) => (
-              <g key={lm.name} transform={`translate(${lm.x}, ${lm.y})`} pointerEvents="none">
-                <circle r="3.5" fill="#0f172a" stroke="#ffffff" strokeWidth="1.5" />
-                <text
-                  y="11"
-                  textAnchor="middle"
-                  fontSize="7.5"
-                  fontWeight="600"
-                  fill="#475569"
-                >
-                  {lm.name}
-                </text>
-              </g>
-            ))}
-          </svg>
-
-          {/* Map Bottom Legend */}
-          <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 pt-2 text-[10.5px] text-slate-500">
-            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto max-w-full">
-              <span className="font-semibold text-slate-900 shrink-0">Scale:</span>
-              <span className="flex items-center gap-1 shrink-0">
-                <span className="h-2.5 w-2.5 rounded bg-emerald-500" /> Normal
-              </span>
-              <span className="flex items-center gap-1 shrink-0">
-                <span className="h-2.5 w-2.5 rounded bg-amber-400" /> Watch
-              </span>
-              <span className="flex items-center gap-1 shrink-0">
-                <span className="h-2.5 w-2.5 rounded bg-orange-500" /> Warning
-              </span>
-              <span className="flex items-center gap-1 shrink-0">
-                <span className="h-2.5 w-2.5 rounded bg-red-500" /> Critical
-              </span>
-            </div>
+        {/* Leaflet Ward Map */}
+        <div className="lg:col-span-8">
+          <LeafletWardMap
+            profile={profile}
+            activeLayer={activeLayer as GisLayerMode}
+            activeIndicator={null}
+            selectedWardId={selectedWardId}
+            baseTemp={baseTemp}
+            baseHumidity={baseHumidity}
+            onSelectWard={(ward) => { setSelectedWardId(ward.id); if (onSelectWard) onSelectWard(ward); }}
+            isWardMatchingIndicator={() => true}
+            getWardFill={getWardFill}
+          />
+          {/* Legend */}
+          <div className="mt-2 flex flex-wrap items-center gap-2 sm:gap-3 text-[10.5px] text-slate-500">
+            <span className="font-semibold text-slate-900 shrink-0">Scale:</span>
+            <span className="flex items-center gap-1 shrink-0"><span className="h-2.5 w-2.5 rounded bg-emerald-500" /> Normal</span>
+            <span className="flex items-center gap-1 shrink-0"><span className="h-2.5 w-2.5 rounded bg-amber-400" /> Watch</span>
+            <span className="flex items-center gap-1 shrink-0"><span className="h-2.5 w-2.5 rounded bg-orange-500" /> Warning</span>
+            <span className="flex items-center gap-1 shrink-0"><span className="h-2.5 w-2.5 rounded bg-red-500" /> Critical</span>
             {profile.riverName && (
-              <span className="font-medium text-sky-600 text-[10px] sm:text-xs shrink-0">
-                Natural feature: {profile.riverName}
-              </span>
+              <span className="font-medium text-sky-600 ml-auto">{profile.riverName}</span>
             )}
           </div>
         </div>
