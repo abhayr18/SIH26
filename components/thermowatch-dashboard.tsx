@@ -475,17 +475,21 @@ const navigation: Array<{
   { id: 'overview', label: '1. Thermal Stress (HTSI)', icon: LayoutDashboard, group: 'core' },
   { id: 'hyperlocal-gis', label: '2. Exposure & Vulnerability', icon: MapPin, group: 'core' },
   { id: 'cascade', label: '3. Explainable Risk Cascade', icon: Activity, group: 'core' },
-  { id: 'what-if', label: '4. What-If Intervention', icon: Sliders, group: 'core' },
 
   // 2. Authority Operations (Confidential to Nodal Officers)
+  { id: 'what-if', label: 'What-If Scenario Simulator', icon: Sliders, group: 'authority', authorityOnly: true },
+  { id: 'response', label: 'Hospital & Facility Response', icon: HeartPulse, group: 'authority', authorityOnly: true },
+  { id: 'alerts', label: 'Multichannel Alert Dispatch', icon: Bell, group: 'authority', authorityOnly: true },
   { id: 'cooling-centers', label: 'Authority Heat Action Plan', icon: ShieldCheck, group: 'authority', authorityOnly: true },
-  { id: 'response', label: 'Hospital & Facility Response', icon: HeartPulse, group: 'authority' },
-  { id: 'alerts', label: 'Multichannel Alert Dispatch', icon: Bell, group: 'authority' },
 ];
 
 const officerViews = new Set<View>([
+  'what-if',
+  'response',
+  'alerts',
   'cooling-centers',
   'authority',
+  'hospitals',
   'history',
 ]);
 
@@ -1507,10 +1511,6 @@ export function ThermoWatchDashboard() {
     setMobileNav(false);
   }
   function changeView(next: View) {
-    if (officerViews.has(next) && !canManage) {
-      window.location.assign('/login?next=/');
-      return;
-    }
     setView(next);
     setMobileNav(false);
     setNotice('');
@@ -1815,17 +1815,13 @@ export function ThermoWatchDashboard() {
             {/* 2. Officer Operations Group */}
             <div>
               <p className="px-2 pb-1 font-mono text-[9.5px] font-semibold tracking-wider text-slate-400 uppercase">
-                {canManage ? 'OFFICER COMMAND ACTIVE' : 'OFFICER OPERATIONS'}
+                {canManage ? 'OFFICER COMMAND ACTIVE' : 'AUTHORITY OPERATIONS'}
               </p>
               <div className="space-y-0.5">
                 {navigation
-                  .filter((n) => {
-                    if (n.group !== 'authority') return false;
-                    if (n.authorityOnly && !canManage) return false;
-                    return true;
-                  })
+                  .filter((n) => n.group === 'authority')
                   .map(({ id, icon: Icon }) => {
-                    const locked = officerViews.has(id) && !canManage;
+                    const locked = !canManage;
                     const isActive = view === id;
                     return (
                       <button
@@ -1834,24 +1830,26 @@ export function ThermoWatchDashboard() {
                         className={`group flex min-h-8.5 w-full items-center gap-2.5 rounded-lg px-2.5 text-left text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900 ${
                           isActive
                             ? 'bg-slate-900 text-white font-medium shadow-2xs'
-                            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-normal'
+                            : locked
+                              ? 'text-slate-400 hover:bg-slate-50 hover:text-slate-600 font-normal'
+                              : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-normal'
                         }`}
                       >
                         <span
                           className={`grid h-4.5 w-4.5 shrink-0 place-items-center rounded-md transition-colors ${
-                            isActive ? 'text-blue-400' : 'text-slate-400 group-hover:text-slate-600'
+                            isActive ? 'text-blue-400' : locked ? 'text-slate-300' : 'text-slate-400 group-hover:text-slate-600'
                           }`}
                         >
                           <Icon className="h-3.5 w-3.5" />
                         </span>
                         <span className="truncate">{copy.nav[id]}</span>
-                        {locked && <LockKeyhole className="ml-auto h-3 w-3 text-slate-400" />}
-                        {id === 'alerts' && (
+                        {locked && <LockKeyhole className="ml-auto h-3 w-3 text-slate-300" />}
+                        {!locked && id === 'alerts' && (
                           <span className="ml-auto rounded-full bg-red-50 border border-red-200 text-red-700 px-1.5 py-0.2 font-mono text-[9px] font-bold">
                             {highCount} High
                           </span>
                         )}
-                        {id === 'cooling-centers' && (
+                        {!locked && id === 'cooling-centers' && (
                           <span className="ml-auto rounded border border-slate-200 bg-slate-100 px-1.5 py-0.2 font-mono text-[9px] text-slate-600 font-medium">
                             Officer
                           </span>
@@ -1860,6 +1858,21 @@ export function ThermoWatchDashboard() {
                     );
                   })}
               </div>
+              {!canManage && (
+                <div className="mt-2 rounded-lg border border-dashed border-amber-200 bg-amber-50/60 p-2.5">
+                  <p className="text-[10px] text-amber-800 font-medium leading-snug mb-1.5">
+                    Authority tools require officer sign-in.
+                  </p>
+                  <Link
+                    href="/login?next=/"
+                    onClick={() => setMobileNav(false)}
+                    className="flex w-full items-center justify-center gap-1 rounded-md bg-slate-900 py-1.5 text-[10px] font-semibold text-white hover:bg-slate-800 transition"
+                  >
+                    <ShieldCheck className="h-3 w-3" />
+                    Officer Sign In
+                  </Link>
+                </div>
+              )}
             </div>
           </nav>
           <div className="mt-auto pt-2.5">
@@ -2553,45 +2566,48 @@ export function ThermoWatchDashboard() {
                   <Card>
                     <CardHeader>
                       <PanelTitle
-                        eyebrow="RESPONSE GUIDE"
-                        title="Three actions now"
+                        eyebrow="AUTHORITY OPERATIONS"
+                        title="Officer command center"
+                        note={canManage ? `Signed in as ${session?.name ?? 'officer'} · Full access.` : 'Restricted to authorized disaster management officers.'}
                       />
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                      {[
-                        [
-                          '1',
-                          'Observe',
-                          'Monitor the forecast and thermal-stress trend.',
-                        ],
-                        [
-                          '2',
-                          'Prepare',
-                          'Open cooling spaces and adjust outdoor work.',
-                        ],
-                        [
-                          '3',
-                          'Alert',
-                          'Notify vulnerable groups before the peak.',
-                        ],
-                      ].map(([number, title, copy]) => (
-                        <div key={number} className="flex gap-3">
-                          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-blue-50 font-mono text-xs font-bold text-blue-700">
-                            {number}
-                          </span>
-                          <p className="text-xs text-slate-500">
-                            <b className="block text-slate-800">{title}</b>
-                            {copy}
+                    <CardContent className="space-y-3">
+                      {canManage ? (
+                        <>
+                          {[
+                            { label: 'What-If Simulator', id: 'what-if' as View, icon: Sliders, color: 'text-blue-700 bg-blue-50 border-blue-200' },
+                            { label: 'Hospital & Facility Response', id: 'response' as View, icon: HeartPulse, color: 'text-indigo-700 bg-indigo-50 border-indigo-200' },
+                            { label: 'Multichannel Alert Dispatch', id: 'alerts' as View, icon: Bell, color: 'text-red-700 bg-red-50 border-red-200' },
+                            { label: 'Authority Heat Action Plan', id: 'cooling-centers' as View, icon: ShieldCheck, color: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+                          ].map(({ label, id: btnId, icon: Ico, color }) => (
+                            <button
+                              key={btnId}
+                              onClick={() => changeView(btnId)}
+                              className={`flex w-full items-center gap-2.5 rounded-xl border p-3 text-xs font-semibold transition hover:opacity-90 ${color}`}
+                            >
+                              <Ico className="h-4 w-4 shrink-0" />
+                              {label}
+                              <ChevronRight className="ml-auto h-3.5 w-3.5 opacity-60" />
+                            </button>
+                          ))}
+                        </>
+                      ) : (
+                        <div className="text-center py-4">
+                          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 mb-3">
+                            <LockKeyhole className="h-6 w-6" />
+                          </div>
+                          <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+                            Sign in as an authorized officer to access heat action plans, multichannel alert dispatch, and hospital response coordination.
                           </p>
+                          <Link
+                            href="/login?next=/"
+                            className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-5 py-2.5 text-xs font-bold text-white shadow-xs hover:bg-slate-800 transition"
+                          >
+                            <ShieldCheck className="h-4 w-4" />
+                            Officer Sign In
+                          </Link>
                         </div>
-                      ))}
-                      <Button
-                        className="w-full"
-                        onClick={() => setView('alerts')}
-                      >
-                        <Bell />
-                        Open alert center
-                      </Button>
+                      )}
                     </CardContent>
                   </Card>
                 </div>
@@ -2933,6 +2949,32 @@ export function ThermoWatchDashboard() {
                 ) : (
                   <Loading />
                 )}
+              </div>
+            )}
+
+            {view === 'authority' && !canManage && (
+              <div className="rounded-xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-2xs">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-200/80">
+                  <LockKeyhole className="h-7 w-7" />
+                </div>
+                <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-900 font-display">
+                  Authority Command — Restricted Access
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                  This dashboard contains live operational data, priority queues, and recommended interventions reserved for authorized disaster management officers.
+                </p>
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  <Button variant="outline" onClick={() => setView('overview')}>
+                    Return to Public Overview
+                  </Button>
+                  <Link
+                    href="/login?next=/"
+                    className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-slate-800 transition"
+                  >
+                    <ShieldCheck className="h-4 w-4" />
+                    <span>Officer Sign In</span>
+                  </Link>
+                </div>
               </div>
             )}
 
@@ -3943,11 +3985,37 @@ export function ThermoWatchDashboard() {
 
             {/* SIH26083 Unique Feature Views */}
             {view === 'hyperlocal-gis' && (
-              <HyperlocalWardGis
-                currentCity={selected.district}
-                baseTemp={selected.temp}
-                baseHumidity={selected.humidity}
-              />
+              <div className="space-y-4">
+                {/* City Selector Bar */}
+                <div className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 shadow-xs">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-blue-600" />
+                    <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                      CITY / DISTRICT:
+                    </span>
+                  </div>
+                  <NativeSelect
+                    value={selectedName}
+                    onChange={(event) => setSelectedName(event.target.value)}
+                    aria-label="Select city for exposure and vulnerability analysis"
+                    className="h-8 text-xs border-slate-200 rounded-lg max-w-[200px] bg-white text-slate-800"
+                  >
+                    {alphabeticalDistricts.map((item) => (
+                      <NativeSelectOption key={item.district} value={item.district}>
+                        {item.district}
+                      </NativeSelectOption>
+                    ))}
+                  </NativeSelect>
+                  <span className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-blue-700">
+                    {selected.temp}°C · {selected.risk} Risk
+                  </span>
+                </div>
+                <HyperlocalWardGis
+                  currentCity={selected.district}
+                  baseTemp={selected.temp}
+                  baseHumidity={selected.humidity}
+                />
+              </div>
             )}
 
             {view === 'digital-twin' && (
@@ -3966,7 +4034,7 @@ export function ThermoWatchDashboard() {
                 <IndiaMap
                   districts={districts}
                   selected={selected}
-                  onSelect={handleDistrictSelect}
+                  onSelect={selectDistrict}
                   expanded={true}
                   initialDay={4}
                 />
@@ -3974,14 +4042,40 @@ export function ThermoWatchDashboard() {
             )}
 
             {view === 'what-if' && (
-              <WhatIfSimulator
-                currentCity={selected.district}
-                currentTemp={selected.temp}
-                currentHumidity={selected.humidity}
-                currentWind={selected.wind ?? 12}
-                currentSolar={selected.solar ?? 600}
-                currentPvs={68}
-              />
+              canManage ? (
+                <WhatIfSimulator
+                  currentCity={selected.district}
+                  currentTemp={selected.temp}
+                  currentHumidity={selected.humidity}
+                  currentWind={selected.wind ?? 12}
+                  currentSolar={selected.solar ?? 600}
+                  currentPvs={68}
+                />
+              ) : (
+                <div className="rounded-xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-2xs">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-blue-50 text-blue-600 border border-blue-200/80">
+                    <Sliders className="h-7 w-7" />
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-900 font-display">
+                    What-If Intervention Simulator
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                    The intervention simulator allows authorized officers to model the effect of cooling interventions, shade structures, and outdoor work stoppages on predicted heat-stress outcomes. Officer sign-in required.
+                  </p>
+                  <div className="mt-6 flex flex-wrap justify-center gap-3">
+                    <Button variant="outline" onClick={() => setView('overview')}>
+                      Return to Overview
+                    </Button>
+                    <Link
+                      href="/login?next=/"
+                      className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-slate-800 transition"
+                    >
+                      <ShieldCheck className="h-4 w-4" />
+                      <span>Officer Sign In</span>
+                    </Link>
+                  </div>
+                </div>
+              )
             )}
 
             {view === 'cascade' && (
