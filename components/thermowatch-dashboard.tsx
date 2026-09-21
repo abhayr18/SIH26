@@ -2368,19 +2368,19 @@ export function ThermoWatchDashboard() {
                       </CardContent>
                     </Card>
                   </div>
-                  <div className="contents">
-                    <Card className="xl:col-span-5">
+                  <div className="contents" data-section="risk-horizon">
+                    <Card className="xl:col-span-12">
                       <CardHeader>
                         <PanelTitle
                           eyebrow="NEXT WARNING WINDOW"
                           title="Risk horizon"
                         />
                       </CardHeader>
-                      <CardContent className="flex flex-1 flex-col justify-between gap-4">
+                      <CardContent>
                         {detailLoading && !detail ? (
                           <Loading />
                         ) : (
-                          <>
+                          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-5 items-start">
                             <div className="grid grid-cols-3 gap-3">
                               {(
                                 detail?.horizons ??
@@ -2395,93 +2395,79 @@ export function ThermoWatchDashboard() {
                                       ? ('Moderate' as Risk)
                                       : selected.risk,
                                   htsi: selected.htsi,
+                                  high_risk_probability: Math.max(
+                                    10,
+                                    selected.probability - index * 15,
+                                  ),
                                 }))
                               ).map((item) => (
                                 <button
                                   key={item.horizon_hours}
                                   onClick={() => setView('forecast')}
-                                  className="min-h-28 cursor-pointer rounded-xl border border-slate-200/80 bg-slate-50/60 p-3 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-400 hover:bg-white hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                                  className="cursor-pointer rounded-xl border border-slate-200/80 bg-slate-50/60 p-4 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-400 hover:bg-white hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 space-y-1.5"
                                 >
-                                  <span className="font-mono text-[9px] text-slate-400">
-                                    {item.horizon_hours}H
+                                  <span className="font-mono text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                                    +{item.horizon_hours}h Forecast
                                   </span>
                                   <strong
-                                    className="my-2 block text-xl"
+                                    className="block text-3xl font-black leading-none"
                                     style={{
-                                      color:
-                                        riskStyle[item.predicted_class].color,
+                                      color: riskStyle[item.predicted_class].color,
                                     }}
                                   >
                                     {item.probability}%
                                   </strong>
-                                  <RiskBadge risk={item.predicted_class} />
+                                  <span className="block text-[10px] text-slate-400 font-mono">probability</span>
+                                  <div className="pt-1">
+                                    <RiskBadge risk={item.predicted_class} />
+                                  </div>
+                                  {'high_risk_probability' in item && (
+                                    <span className="block text-[10px] text-slate-500 font-medium mt-0.5">
+                                      High-risk: {item.high_risk_probability}%
+                                    </span>
+                                  )}
                                 </button>
                               ))}
                             </div>
-                            <div className="mt-4 flex items-center gap-3 rounded-xl border border-blue-100 bg-blue-50/60 p-3 text-xs text-blue-950 font-medium">
-                              <CloudSun className="h-5 w-5" />
-                              <span>
-                                Peak risk in the next five days:{' '}
-                                <b>
-                                  {detail?.peak
-                                    ? new Date(detail.peak.time).toLocaleString(
-                                        dateLocale,
-                                        {
-                                          weekday: 'short',
-                                          day: 'numeric',
-                                          month: 'short',
-                                          hour: 'numeric',
-                                          minute: '2-digit',
-                                          timeZone: 'Asia/Kolkata',
-                                        },
-                                      )
-                                    : 'Forecast unavailable'}
-                                </b>
-                                {detail?.peak && ' IST'}
-                                {detail?.source === 'resilient-fallback' && (
-                                  <small className="mt-1 block">
-                                    Demo estimate — live forecast unavailable.
-                                  </small>
-                                )}
-                              </span>
+                            <div className="flex flex-col gap-3 lg:w-72">
+                              <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-3.5 text-xs text-blue-950 font-medium flex items-start gap-2.5">
+                                <CloudSun className="h-5 w-5 shrink-0 mt-0.5" />
+                                <div>
+                                  <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-blue-600 block mb-0.5">PEAK ALERT WINDOW</span>
+                                  <b className="text-sm">
+                                    {detail?.peak
+                                      ? new Date(detail.peak.time).toLocaleString(
+                                          dateLocale,
+                                          {
+                                            weekday: 'short',
+                                            day: 'numeric',
+                                            month: 'short',
+                                            hour: 'numeric',
+                                            minute: '2-digit',
+                                            timeZone: 'Asia/Kolkata',
+                                          },
+                                        )
+                                      : 'Forecast unavailable'}
+                                    {detail?.peak && ' IST'}
+                                  </b>
+                                  {detail?.source === 'resilient-fallback' && (
+                                    <small className="mt-1 block text-blue-700/70">
+                                      Demo estimate — live forecast unavailable.
+                                    </small>
+                                  )}
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => setView('forecast')}
+                                className="w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition px-3.5 py-2.5 text-xs font-semibold text-slate-700 text-left flex items-center gap-2"
+                              >
+                                <TrendingUp className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                                View full 5-day forecast
+                                <ChevronRight className="ml-auto h-3.5 w-3.5 text-slate-400" />
+                              </button>
                             </div>
-                          </>
+                          </div>
                         )}
-                      </CardContent>
-                    </Card>
-                    <Card className="xl:col-span-7">
-                      <CardHeader>
-                        <PanelTitle
-                          eyebrow="PRIORITY LOCATIONS"
-                          title="Hotspots"
-                          note="Ranked by current HTSI."
-                        />
-                      </CardHeader>
-                      <CardContent className="space-y-1">
-                        {hotspots.map((item, index) => (
-                          <button
-                            key={item.district}
-                            onClick={() => selectDistrict(item)}
-                            className="grid w-full grid-cols-[30px_1fr_auto_38px] items-center gap-2 rounded-xl border border-transparent px-2.5 py-2 text-left transition-colors hover:border-slate-200 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
-                          >
-                            <span className="font-mono text-[10px] text-slate-400">
-                              0{index + 1}
-                            </span>
-                            <span>
-                              <b className="block text-xs">{item.district}</b>
-                              <small className="text-[10px] text-slate-400">
-                                {item.temp}°C · {item.humidity}% RH
-                              </small>
-                            </span>
-                            <RiskBadge risk={item.risk} />
-                            <strong
-                              className="text-right"
-                              style={{ color: riskStyle[item.risk].color }}
-                            >
-                              {item.htsi}
-                            </strong>
-                          </button>
-                        ))}
                       </CardContent>
                     </Card>
                   </div>
