@@ -932,7 +932,7 @@ function IndiaMap({
 
 function Empty({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-[1.2rem] border border-dashed border-[#d6d0c5] bg-[#f8f6f1] p-8 text-center text-sm text-slate-500">
+    <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50/60 p-8 text-center text-sm text-slate-500">
       {children}
     </div>
   );
@@ -1817,17 +1817,16 @@ export function ThermoWatchDashboard() {
               <div className="space-y-5">
                 <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-12">
                   <div className="contents">
-                    <Card className="relative border-[#1f365b] bg-[radial-gradient(circle_at_90%_5%,rgb(70_111_174/35%),transparent_17rem),linear-gradient(155deg,#14294b_0%,#0d1c34_65%,#091629_100%)] text-white shadow-[0_26px_60px_rgb(13_28_52/20%)] ring-white/5 xl:col-span-4">
-                      <div className="pointer-events-none absolute right-6 top-6 h-24 w-24 rounded-full border border-white/5" />
-                      <CardHeader className="flex-row items-start justify-between">
+                    <Card className="relative border-slate-200/80 bg-white text-slate-900 shadow-sm xl:col-span-4">
+                      <CardHeader className="flex-row items-start justify-between pb-2">
                         <div>
-                          <p className="font-mono text-[9px] tracking-[0.17em] text-blue-200/55">
+                          <p className="font-mono text-[10px] font-bold tracking-wider text-slate-400 uppercase">
                             CURRENT HUMAN THERMAL STRESS
                           </p>
-                          <h2 className="mt-2 text-2xl font-bold tracking-[-0.025em] text-white">
+                          <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
                             {selected.district}
                           </h2>
-                          <p className="mt-1 text-xs text-blue-100/55">
+                          <p className="mt-0.5 text-xs text-slate-500 font-medium">
                             {selected.temp}°C · {selected.humidity}% humidity ·{' '}
                             {selected.source !== 'resilient-fallback'
                               ? 'live weather'
@@ -1837,67 +1836,69 @@ export function ThermoWatchDashboard() {
                         <RiskBadge risk={selected.risk} />
                       </CardHeader>
                       <CardContent>
-                        <div className="mt-5 flex items-end gap-2">
+                        <div className="mt-2 flex items-baseline gap-2">
                           <strong
-                            className="text-6xl leading-none"
+                            className="text-6xl font-black leading-none tracking-tight"
                             style={{ color: riskStyle[selected.risk].color }}
                           >
                             {selected.htsi}
                           </strong>
-                          <span className="pb-1 text-sm text-blue-100/45">
+                          <span className="pb-1 text-sm font-semibold text-slate-400">
                             / 100 HTSI
                           </span>
                         </div>
-                        <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/10">
+                        <div className="mt-3.5 h-2 overflow-hidden rounded-full bg-slate-100">
                           <i
-                            className="block h-full rounded-full"
+                            className="block h-full rounded-full transition-all duration-300"
                             style={{
                               width: `${selected.htsi}%`,
                               background: riskStyle[selected.risk].color,
                             }}
                           />
                         </div>
-                        <div className="mt-6 grid grid-cols-3 gap-2 text-center">
-                          <div className="rounded-xl border border-white/8 bg-white/[0.06] p-3 backdrop-blur">
-                            <span className="block text-[9px] text-blue-100/45">
+                        <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-2.5">
+                            <span className="block font-mono text-[9px] font-bold uppercase tracking-wider text-slate-400">
                               WBGT
                             </span>
-                            <b>
+                            <b className="mt-0.5 block text-sm font-bold text-slate-800">
                               {selected.wbgt ?? detail?.current.wbgt ?? '—'}°C
                             </b>
                           </div>
-                          <div className="rounded-xl border border-white/8 bg-white/[0.06] p-3 backdrop-blur">
-                            <span className="block text-[9px] text-blue-100/45">
+                          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-2.5">
+                            <span className="block font-mono text-[9px] font-bold uppercase tracking-wider text-slate-400">
                               HEAT INDEX
                             </span>
-                            <b>
+                            <b className="mt-0.5 block text-sm font-bold text-slate-800">
                               {selected.heat_index ??
                                 detail?.current.heat_index ??
                                 '—'}
                               °C
                             </b>
                           </div>
-                          <div className="rounded-xl border border-white/8 bg-white/[0.06] p-3 backdrop-blur">
-                            <span className="block text-[9px] text-blue-100/45">
+                          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-2.5">
+                            <span className="block font-mono text-[9px] font-bold uppercase tracking-wider text-slate-400">
                               PET
                             </span>
-                            <b>
+                            <b className="mt-0.5 block text-sm font-bold text-slate-800">
                               {selected.pet ?? detail?.current.pet ?? '—'}°C
                             </b>
                           </div>
                         </div>
                         <div
-                          className="mt-5 rounded-[1.15rem] border p-4 text-xs leading-relaxed shadow-[inset_0_1px_rgb(255_255_255/50%)]"
+                          className="mt-4 rounded-xl border p-3.5 text-xs leading-relaxed"
                           style={{
                             background: riskStyle[selected.risk].soft,
-                            borderColor: `${riskStyle[selected.risk].color}22`,
+                            borderColor: `${riskStyle[selected.risk].color}30`,
                             color: riskStyle[selected.risk].color,
                           }}
                         >
-                          <b className="mb-1 block">What to do now</b>
-                          {selected.action ??
-                            detail?.current.action ??
-                            'Increase hydration messaging and reduce peak-hour exposure.'}
+                          <b className="mb-0.5 block font-bold">Recommended Immediate Action</b>
+                          <span className="font-medium text-slate-800">
+                            {selected.action ??
+                              detail?.current.action ??
+                              'Increase hydration messaging and reduce peak-hour exposure.'}
+                          </span>
                         </div>
                       </CardContent>
                     </Card>
@@ -1958,7 +1959,7 @@ export function ThermoWatchDashboard() {
                                 <button
                                   key={item.horizon_hours}
                                   onClick={() => setView('forecast')}
-                                  className="min-h-28 cursor-pointer rounded-[1.05rem] border border-[#ded9cf] bg-[#faf8f3] p-3 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-[#b7c6d8] hover:bg-white hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700"
+                                  className="min-h-28 cursor-pointer rounded-xl border border-slate-200/80 bg-slate-50/60 p-3 text-center transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-400 hover:bg-white hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                                 >
                                   <span className="font-mono text-[9px] text-slate-400">
                                     {item.horizon_hours}H
@@ -1976,7 +1977,7 @@ export function ThermoWatchDashboard() {
                                 </button>
                               ))}
                             </div>
-                            <div className="mt-4 flex items-center gap-3 rounded-[1.05rem] border border-blue-100 bg-[#edf3f8] p-3 text-xs text-blue-950">
+                            <div className="mt-4 flex items-center gap-3 rounded-xl border border-blue-100 bg-blue-50/60 p-3 text-xs text-blue-950 font-medium">
                               <CloudSun className="h-5 w-5" />
                               <span>
                                 Peak risk in the next five days:{' '}
@@ -2020,7 +2021,7 @@ export function ThermoWatchDashboard() {
                           <button
                             key={item.district}
                             onClick={() => selectDistrict(item)}
-                            className="grid w-full grid-cols-[30px_1fr_auto_38px] items-center gap-2 rounded-xl border border-transparent px-2 py-2.5 text-left transition-colors hover:border-[#e3ddd3] hover:bg-[#faf8f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700"
+                            className="grid w-full grid-cols-[30px_1fr_auto_38px] items-center gap-2 rounded-xl border border-transparent px-2.5 py-2 text-left transition-colors hover:border-slate-200 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
                           >
                             <span className="font-mono text-[10px] text-slate-400">
                               0{index + 1}
@@ -2054,7 +2055,7 @@ export function ThermoWatchDashboard() {
                       />
                     </CardHeader>
                     <CardContent>
-                      <div className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-[#e5e0d7] bg-[#faf8f3] px-3 py-2">
+                      <div className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200/80 bg-slate-50 px-3 py-2">
                         <span className="mr-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">
                           Urgency order
                         </span>
@@ -2080,7 +2081,7 @@ export function ThermoWatchDashboard() {
                           priorityProfiles.slice(0, 6).map((item, index) => (
                             <div
                               key={item.profile}
-                              className="relative grid grid-cols-[34px_1fr_auto] items-center gap-3 overflow-hidden rounded-[1.05rem] border border-[#e5e0d7] bg-white p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#cfc7bb] hover:shadow-sm"
+                              className="relative grid grid-cols-[34px_1fr_auto] items-center gap-3 overflow-hidden rounded-xl border border-slate-200/80 bg-white p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm"
                             >
                               <span
                                 aria-hidden="true"
@@ -2190,7 +2191,7 @@ export function ThermoWatchDashboard() {
                         Calculate personal HTSI
                       </Button>
                       {personalResult && (
-                        <div className="rounded-[1.05rem] border bg-[#faf8f3] p-3">
+                        <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-3.5">
                           <div className="flex items-center justify-between">
                             <span className="text-xs text-slate-500">
                               Personal HTSI
@@ -2239,7 +2240,7 @@ export function ThermoWatchDashboard() {
                         ],
                       ].map(([number, title, copy]) => (
                         <div key={number} className="flex gap-3">
-                          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#e8edf4] font-mono text-xs font-bold text-[#244a80]">
+                          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-blue-50 font-mono text-xs font-bold text-blue-700">
                             {number}
                           </span>
                           <p className="text-xs text-slate-500">
@@ -2402,9 +2403,9 @@ export function ThermoWatchDashboard() {
 
             {view === 'map' && (
               <div className="space-y-5">
-                <div className="flex flex-wrap items-center justify-between gap-3 rounded-[1.2rem] border border-[#ddd7cc] bg-white/75 p-3 shadow-sm backdrop-blur">
+                <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white p-3.5 shadow-sm">
                   <div>
-                    <b className="block text-sm text-[#14213a]">
+                    <b className="block text-sm text-slate-900">
                       Forecast risk layer
                     </b>
                     <small className="text-slate-500">

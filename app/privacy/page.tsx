@@ -4,12 +4,12 @@ import { StoredKannadaLocalizer } from '@/components/kannada-localizer';
 export default function PrivacyPage() {
   return (
     <StoredKannadaLocalizer>
-      <main className="min-h-screen bg-[#f5f2ec] px-5 py-12 text-[#17233a]">
-        <article className="mx-auto max-w-3xl rounded-[1.5rem] border border-[#ddd7cc] bg-white p-6 shadow-sm sm:p-10">
-          <p className="font-mono text-[10px] font-semibold tracking-[0.18em] text-[#9a6d19]">
+      <main className="min-h-screen bg-slate-50 px-5 py-12 text-slate-900">
+        <article className="mx-auto max-w-3xl rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-10">
+          <p className="font-mono text-[10px] font-semibold tracking-[0.18em] text-blue-600">
             THERMOWATCH · SIH26083
           </p>
-          <h1 className="mt-3 text-3xl font-bold">Privacy and data use</h1>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Privacy and data use</h1>
           <p className="mt-3 text-sm leading-7 text-slate-600">
             ThermoWatch is an early-warning and decision-support prototype. It
             is not a medical service or an official government warning system.
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
 
           <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
             <section>
-              <h2 className="text-lg font-semibold text-[#17233a]">
+              <h2 className="text-lg font-semibold text-slate-900">
                 Information stored
               </h2>
               <p>
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-[#17233a]">
+              <h2 className="text-lg font-semibold text-slate-900">
                 Identity and permissions
               </h2>
               <p>
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-[#17233a]">
+              <h2 className="text-lg font-semibold text-slate-900">
                 Purpose and sharing
               </h2>
               <p>
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-[#17233a]">
+              <h2 className="text-lg font-semibold text-slate-900">
                 Local assistant and voice
               </h2>
               <p>
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-[#17233a]">
+              <h2 className="text-lg font-semibold text-slate-900">
                 Retention and deletion
               </h2>
               <p>
@@ -80,7 +80,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-[#17233a]">
+              <h2 className="text-lg font-semibold text-slate-900">
                 Safety boundary
               </h2>
               <p>
@@ -93,7 +93,7 @@ export default function PrivacyPage() {
 
           <Link
             href="/"
-            className="mt-9 inline-flex rounded-xl bg-[#10213f] px-5 py-3 text-sm font-semibold text-white"
+            className="mt-9 inline-flex rounded-xl bg-slate-900 hover:bg-slate-800 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors"
           >
             Return to ThermoWatch
           </Link>

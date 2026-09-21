@@ -81,33 +81,33 @@ export function SecurityDemoLogin() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f5f2ec] text-[#12203a]">
+    <main className="min-h-screen bg-slate-50 text-slate-900">
       <div className="grid min-h-screen lg:grid-cols-[0.9fr_1.1fr]">
-        <section className="relative hidden overflow-hidden bg-[#0d1e38] p-12 text-white lg:flex lg:flex-col lg:justify-between xl:p-16">
+        <section className="relative hidden overflow-hidden bg-[#090f1d] p-12 text-white border-r border-slate-800/80 lg:flex lg:flex-col lg:justify-between xl:p-16">
           <div
-            className="absolute -right-28 top-20 h-96 w-96 rounded-full border border-white/10"
+            className="absolute -right-28 top-20 h-96 w-96 rounded-full border border-white/5"
             aria-hidden="true"
           />
           <div
-            className="absolute -right-12 top-36 h-64 w-64 rounded-full border border-[#f2c96c]/25"
+            className="absolute -right-12 top-36 h-64 w-64 rounded-full border border-blue-500/10"
             aria-hidden="true"
           />
-          <Link href="/" className="relative flex w-fit items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#f2c96c]/60">
-            <span className="grid h-11 w-11 place-items-center rounded-xl border border-white/15 bg-white/10 text-[#f2c96c] shadow-lg">
+          <Link href="/" className="relative flex w-fit items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/40">
+            <span className="grid h-11 w-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-blue-400 shadow-sm">
               <ShieldCheck className="h-5 w-5" />
             </span>
             <span>
               <b className="block text-lg">ThermoWatch</b>
-              <small className="font-mono text-[11px] tracking-[0.18em] text-blue-100/55">SIH26083 · INDIA</small>
+              <small className="font-mono text-[11px] tracking-[0.18em] text-slate-400">SIH26083 · INDIA</small>
             </span>
           </Link>
 
           <div className="relative max-w-lg">
-            <p className="mb-4 font-mono text-xs font-semibold tracking-[0.2em] text-[#f2c96c]">SECURE OFFICER WORKSPACE</p>
+            <p className="mb-4 font-mono text-xs font-semibold tracking-[0.2em] text-blue-400">SECURE OFFICER WORKSPACE</p>
             <h1 className="text-4xl font-bold leading-tight tracking-[-0.04em] xl:text-5xl">
               Trusted access for critical heat-response work.
             </h1>
-            <p className="mt-5 max-w-md text-base leading-7 text-blue-100/70">
+            <p className="mt-5 max-w-md text-base leading-7 text-slate-400">
               Public heat information stays open. Operational records, response tools and warning controls require verified officer access.
             </p>
             <div className="mt-9 grid gap-4">
