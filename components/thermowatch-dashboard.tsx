@@ -1693,47 +1693,54 @@ export function ThermoWatchDashboard() {
 
   return (
     <KannadaLocalizer enabled={uiLanguage === 'kn'}>
-      <div className="min-h-screen bg-white text-[#000000] lg:flex font-sans selection:bg-[#000000] selection:text-white">
+      <div className="min-h-screen bg-slate-50 text-slate-900 lg:flex font-sans selection:bg-slate-900 selection:text-white">
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-[270px] flex flex-col border-r border-[#d9d9d9] bg-white px-4 py-5 text-[#000000] transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${mobileNav ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`fixed inset-y-0 left-0 z-50 w-[265px] flex flex-col border-r border-slate-200 bg-white px-3.5 py-4 text-slate-900 transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${mobileNav ? 'translate-x-0' : '-translate-x-full'}`}
         >
-          {/* DICE Brand Header */}
-          <div className="relative flex items-center justify-between px-2 lg:mb-4">
+          {/* Copernicus Brand Header */}
+          <div className="relative flex items-center justify-between px-2 mb-3">
             <div className="flex items-center gap-2.5">
-              <span className="h-3 w-3 rounded-full bg-black" />
-              <div className="flex items-baseline gap-2">
-                <span className="text-[22px] font-bold tracking-[0.06em] uppercase text-[#000000] font-sans">
-                  HeatVector
-                </span>
-                <span className="rounded-full bg-black text-white px-2 py-0.2 text-[9px] font-bold uppercase tracking-[0.06em]">
-                  LIVE
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white font-bold text-xs shadow-xs shadow-blue-500/20">
+                <Activity className="h-4 w-4" />
+              </div>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-base font-bold tracking-tight text-slate-900 font-display">
+                    HeatVector
+                  </span>
+                  <span className="rounded bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 font-mono text-[9px] font-bold text-emerald-700">
+                    LIVE
+                  </span>
+                </div>
+                <span className="font-mono text-[9.5px] text-slate-400 block tracking-wider uppercase">
+                  DISASTER DECISION
                 </span>
               </div>
             </div>
             <Button
               variant="ghost"
-              size="icon"
-              className="ml-auto text-[#808080] hover:bg-[#eeeeee] hover:text-[#000000] rounded-full lg:hidden"
+              size="icon-sm"
+              className="ml-auto text-slate-400 hover:bg-slate-100 hover:text-slate-900 rounded-md lg:hidden"
               onClick={() => setMobileNav(false)}
               aria-label="Close navigation"
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
             </Button>
           </div>
 
           {/* Officer Session Banner inside Drawer */}
-          <div className="my-2.5 rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3">
+          <div className="my-2 rounded-lg border border-slate-200 bg-slate-50/80 p-2.5">
             {canManage ? (
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#7ffeb1] text-[#000000]">
-                    <ShieldCheck className="h-4 w-4" />
+                  <span className="grid h-6.5 w-6.5 shrink-0 place-items-center rounded-md bg-emerald-50 text-emerald-600 border border-emerald-200">
+                    <ShieldCheck className="h-3.5 w-3.5" />
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate text-xs font-bold uppercase tracking-[0.06em] text-[#000000]">
+                    <p className="truncate text-xs font-semibold text-slate-900">
                       {session?.name ?? 'Officer'}
                     </p>
-                    <p className="font-mono text-[9px] uppercase tracking-[0.06em] text-[#595959]">Command Active</p>
+                    <p className="font-mono text-[9px] text-emerald-700 font-medium">Command Active</p>
                   </div>
                 </div>
                 <button
@@ -1742,7 +1749,7 @@ export function ThermoWatchDashboard() {
                     signOutOfficer();
                     setMobileNav(false);
                   }}
-                  className="rounded-full border border-[#000000] bg-white px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.06em] text-[#000000] hover:bg-black hover:text-white shrink-0 font-bold"
+                  className="rounded-md border border-slate-200 bg-white px-2 py-0.5 font-mono text-[9.5px] text-slate-600 hover:bg-slate-100 hover:text-slate-900 shrink-0 font-medium"
                 >
                   Sign out
                 </button>
@@ -1750,18 +1757,18 @@ export function ThermoWatchDashboard() {
             ) : (
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white text-[#595959] border border-[#d9d9d9]">
-                    <LockKeyhole className="h-4 w-4" />
+                  <span className="grid h-6.5 w-6.5 shrink-0 place-items-center rounded-md bg-white text-slate-500 border border-slate-200">
+                    <LockKeyhole className="h-3.5 w-3.5" />
                   </span>
                   <div className="min-w-0">
-                    <p className="text-xs font-bold uppercase tracking-[0.06em] text-[#000000]">Public Observer</p>
-                    <p className="font-mono text-[9px] uppercase tracking-[0.06em] text-[#595959]">Restricted Tools</p>
+                    <p className="text-xs font-semibold text-slate-800">Public Observer</p>
+                    <p className="font-mono text-[9px] text-slate-400">Restricted Tools</p>
                   </div>
                 </div>
                 <Link
                   href="/login?next=/"
                   onClick={() => setMobileNav(false)}
-                  className="rounded-full bg-[#000000] px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.06em] text-white hover:opacity-80 shrink-0 font-bold"
+                  className="rounded-md bg-slate-900 px-2.5 py-0.5 font-mono text-[10px] text-white hover:bg-slate-800 shrink-0 font-medium shadow-2xs"
                 >
                   Sign In
                 </Link>
@@ -1770,30 +1777,30 @@ export function ThermoWatchDashboard() {
           </div>
 
           <nav
-            className="flex-1 space-y-4 overflow-y-auto pr-1 text-xs"
+            className="flex-1 space-y-3.5 overflow-y-auto pr-1 text-xs"
             aria-label="Main navigation"
           >
             {/* 1. Core Innovations Group */}
             <div>
-              <p className="px-2.5 pb-1.5 font-mono text-[9.5px] font-bold tracking-[0.06em] text-[#595959] uppercase">
+              <p className="px-2 pb-1 font-mono text-[9.5px] font-semibold tracking-wider text-slate-400 uppercase">
                 CORE PROTOTYPE FLOW
               </p>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {navigation.filter((n) => n.group === 'core').map(({ id, icon: Icon }) => {
                   const isActive = view === id;
                   return (
                     <button
                       key={id}
                       onClick={() => changeView(id)}
-                      className={`group flex min-h-9 w-full items-center gap-2.5 rounded-full px-3.5 text-left text-[12px] uppercase tracking-[0.06em] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+                      className={`group flex min-h-8.5 w-full items-center gap-2.5 rounded-lg px-2.5 text-left text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900 ${
                         isActive
-                          ? 'bg-[#000000] text-white font-bold shadow-none'
-                          : 'text-[#000000] hover:bg-[#eeeeee] font-medium'
+                          ? 'bg-slate-900 text-white font-medium shadow-2xs'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-normal'
                       }`}
                     >
                       <span
-                        className={`grid h-5 w-5 shrink-0 place-items-center rounded-full transition-colors ${
-                          isActive ? 'bg-white text-black' : 'text-[#595959] group-hover:text-black'
+                        className={`grid h-4.5 w-4.5 shrink-0 place-items-center rounded-md transition-colors ${
+                          isActive ? 'text-blue-400' : 'text-slate-400 group-hover:text-slate-600'
                         }`}
                       >
                         <Icon className="h-3.5 w-3.5" />
@@ -1807,10 +1814,10 @@ export function ThermoWatchDashboard() {
 
             {/* 2. Officer Operations Group */}
             <div>
-              <p className="px-2.5 pb-1.5 font-mono text-[9.5px] font-bold tracking-[0.06em] text-[#595959] uppercase">
+              <p className="px-2 pb-1 font-mono text-[9.5px] font-semibold tracking-wider text-slate-400 uppercase">
                 {canManage ? 'OFFICER COMMAND ACTIVE' : 'OFFICER OPERATIONS'}
               </p>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {navigation
                   .filter((n) => {
                     if (n.group !== 'authority') return false;
@@ -1824,28 +1831,28 @@ export function ThermoWatchDashboard() {
                       <button
                         key={id}
                         onClick={() => changeView(id)}
-                        className={`group flex min-h-9 w-full items-center gap-2.5 rounded-full px-3.5 text-left text-[12px] uppercase tracking-[0.06em] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black ${
+                        className={`group flex min-h-8.5 w-full items-center gap-2.5 rounded-lg px-2.5 text-left text-xs transition-colors duration-150 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-slate-900 ${
                           isActive
-                            ? 'bg-[#000000] text-white font-bold shadow-none'
-                            : 'text-[#000000] hover:bg-[#eeeeee] font-medium'
+                            ? 'bg-slate-900 text-white font-medium shadow-2xs'
+                            : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-normal'
                         }`}
                       >
                         <span
-                          className={`grid h-5 w-5 shrink-0 place-items-center rounded-full transition-colors ${
-                            isActive ? 'bg-white text-black' : 'text-[#595959] group-hover:text-black'
+                          className={`grid h-4.5 w-4.5 shrink-0 place-items-center rounded-md transition-colors ${
+                            isActive ? 'text-blue-400' : 'text-slate-400 group-hover:text-slate-600'
                           }`}
                         >
                           <Icon className="h-3.5 w-3.5" />
                         </span>
                         <span className="truncate">{copy.nav[id]}</span>
-                        {locked && <LockKeyhole className="ml-auto h-3 w-3 text-[#808080]" />}
+                        {locked && <LockKeyhole className="ml-auto h-3 w-3 text-slate-400" />}
                         {id === 'alerts' && (
-                          <span className="ml-auto rounded-full bg-black text-white px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.06em] font-bold">
+                          <span className="ml-auto rounded-full bg-red-50 border border-red-200 text-red-700 px-1.5 py-0.2 font-mono text-[9px] font-bold">
                             {highCount} High
                           </span>
                         )}
                         {id === 'cooling-centers' && (
-                          <span className="ml-auto rounded-full bg-[#eeeeee] border border-[#d9d9d9] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.06em] text-[#000000] font-bold">
+                          <span className="ml-auto rounded border border-slate-200 bg-slate-100 px-1.5 py-0.2 font-mono text-[9px] text-slate-600 font-medium">
                             Officer
                           </span>
                         )}
@@ -1855,15 +1862,15 @@ export function ThermoWatchDashboard() {
               </div>
             </div>
           </nav>
-          <div className="mt-auto pt-3">
-            <div className="rounded-lg border border-[#d9d9d9] bg-[#eeeeee] p-3 font-mono text-[10px] text-[#595959]">
+          <div className="mt-auto pt-2.5">
+            <div className="rounded-lg border border-slate-200 bg-slate-50/80 p-2.5 font-mono text-[10px] text-slate-500">
               <div className="flex items-center gap-2">
                 <span
-                  className={`inline-block h-2 w-2 rounded-full ${hasLiveWeather ? 'bg-[#000000]' : 'bg-[#595959]'}`}
+                  className={`inline-block h-2 w-2 rounded-full ${hasLiveWeather ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`}
                 />
-                <span className="text-[#000000] font-bold uppercase tracking-[0.06em]">{sourceLabel}</span>
+                <span className="text-slate-800 font-medium">{sourceLabel}</span>
               </div>
-              <span className="mt-1.5 block border-t border-[#d9d9d9] pt-1.5 text-[9px] text-[#595959]">
+              <span className="mt-1 block border-t border-slate-200/80 pt-1 text-[9px] text-slate-400">
                 MODEL {dashboard?.model.model_version ?? 'htsi-logit-4.0'}
               </span>
             </div>
@@ -1871,35 +1878,35 @@ export function ThermoWatchDashboard() {
         </aside>
         {mobileNav && (
           <button
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-xs lg:hidden"
+            className="fixed inset-0 z-40 bg-slate-900/40 backdrop-blur-xs lg:hidden"
             onClick={() => setMobileNav(false)}
             aria-label="Close navigation overlay"
           />
         )}
 
         <section className="min-w-0 flex-1">
-          <header className="sticky top-0 z-30 flex min-h-[58px] sm:min-h-[64px] items-center justify-between gap-2 border-b border-[#d9d9d9] bg-white/95 px-3 py-2 sm:px-6 sm:py-2.5 backdrop-blur-md lg:px-8 shadow-none">
+          <header className="sticky top-0 z-30 flex min-h-[56px] sm:min-h-[60px] items-center justify-between gap-2 border-b border-slate-200 bg-white/95 px-3 py-2 sm:px-6 sm:py-2.5 backdrop-blur-md lg:px-8 shadow-2xs">
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <Button
                 variant="outline"
                 size="icon"
-                className="h-8 w-8 sm:h-9 sm:w-9 lg:hidden border-[#000000] rounded-full shrink-0"
+                className="h-8 w-8 sm:h-8.5 sm:w-8.5 lg:hidden border-slate-200 rounded-lg shrink-0"
                 onClick={() => setMobileNav(true)}
                 aria-label="Open navigation"
               >
                 <Menu className="h-4 w-4" />
               </Button>
-              <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-[#000000] min-w-0 truncate tracking-[0.06em] uppercase">
-                <span className="text-[#808080] hidden xs:inline">HeatVector</span>
-                <span className="text-[#808080]/40 hidden xs:inline">/</span>
-                <span className="font-bold truncate">{navLabel}</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-slate-800 min-w-0 truncate">
+                <span className="text-slate-400 hidden xs:inline">HeatVector</span>
+                <span className="text-slate-300 hidden xs:inline">/</span>
+                <span className="font-semibold text-slate-900 truncate">{navLabel}</span>
               </div>
               <div
-                className="hidden xl:flex items-center gap-1.5 rounded-full border border-[#000000] bg-white px-3 py-1 text-[11px] text-[#000000] tracking-[0.06em] uppercase"
+                className="hidden xl:flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50/70 px-2.5 py-0.5 text-[11px] text-blue-700"
                 title="HeatVector is a human-risk and intervention decision-support layer built on top of meteorological forecasts."
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-black"></span>
-                <span className="font-bold">Human-Risk Decision Layer</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+                <span className="font-medium">Human-Risk Decision Layer</span>
               </div>
             </div>
 
@@ -1908,19 +1915,19 @@ export function ThermoWatchDashboard() {
                 <button
                   type="button"
                   onClick={signOutOfficer}
-                  className="inline-flex min-h-8 items-center gap-1 sm:gap-1.5 rounded-full bg-[#000000] px-3.5 text-xs font-bold uppercase tracking-[0.06em] text-white transition-opacity hover:opacity-85"
+                  className="inline-flex h-8 items-center gap-1.5 rounded-lg bg-slate-900 px-3 text-xs font-medium text-white shadow-2xs transition hover:bg-slate-800"
                   title={`Signed in as ${session?.name ?? 'officer'}. Click to sign out.`}
                 >
-                  <ShieldCheck className="h-3.5 w-3.5 text-white shrink-0" />
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
                   <span className="hidden md:inline">Officer &middot; Sign out</span>
                   <span className="md:hidden text-[11px]">Officer</span>
                 </button>
               ) : (
                 <Link
                   href="/login?next=/"
-                  className="hidden sm:inline-flex min-h-8 items-center gap-1.5 rounded-full border border-[#000000] bg-white px-3.5 text-xs font-bold uppercase tracking-[0.06em] text-[#000000] transition-colors hover:bg-black hover:text-white"
+                  className="hidden sm:inline-flex h-8 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 text-xs font-medium text-slate-700 transition-colors hover:bg-slate-50 hover:text-slate-900 shadow-2xs"
                 >
-                  <LockKeyhole className="h-3.5 w-3.5" />
+                  <LockKeyhole className="h-3.5 w-3.5 text-slate-500" />
                   <span>Officer Sign In</span>
                 </Link>
               )}
@@ -1931,7 +1938,7 @@ export function ThermoWatchDashboard() {
                   changeLanguage(event.target.value as UiLanguage)
                 }
                 aria-label="Interface language"
-                className="h-8 w-[68px] sm:w-[84px] text-xs border-[#d9d9d9] rounded-full px-1 sm:px-2 bg-white text-[#000000] uppercase tracking-[0.06em]"
+                className="h-8 w-[64px] sm:w-[76px] text-xs border-slate-200 rounded-lg px-1 sm:px-2 bg-white text-slate-700"
               >
                 <NativeSelectOption value="en">EN</NativeSelectOption>
                 <NativeSelectOption value="hi">हिन्दी</NativeSelectOption>
@@ -1941,21 +1948,21 @@ export function ThermoWatchDashboard() {
               </NativeSelect>
 
               <Button
-                variant="default"
+                variant="cobalt"
                 size="sm"
                 onClick={() => setAssistantModalOpen(true)}
-                className="h-8 bg-[#000000] hover:opacity-85 text-white font-bold text-xs rounded-full flex items-center gap-1.5 px-3.5 uppercase tracking-[0.06em]"
+                className="h-8 text-white font-medium text-xs rounded-lg flex items-center gap-1.5 px-3 shadow-2xs"
                 title="AI Assistant"
               >
-                <Sparkles className="h-3.5 w-3.5 text-[#7ffeb1] shrink-0" />
-                <span className="hidden sm:inline">AI Intelligence</span>
+                <Sparkles className="h-3.5 w-3.5 text-blue-200 shrink-0" />
+                <span className="hidden sm:inline">AI Assistant</span>
               </Button>
 
               <NativeSelect
                 value={selected.district}
                 onChange={(event) => setSelectedName(event.target.value)}
                 aria-label="Select monitoring district"
-                className="h-8 text-xs border-[#d9d9d9] rounded-full max-w-[95px] xs:max-w-[125px] sm:max-w-[160px] md:max-w-[180px] bg-white text-[#000000] uppercase tracking-[0.06em]"
+                className="h-8 text-xs border-slate-200 rounded-lg max-w-[95px] xs:max-w-[125px] sm:max-w-[160px] md:max-w-[180px] bg-white text-slate-800"
               >
                 {alphabeticalDistricts.map((item) => (
                   <NativeSelectOption key={item.district} value={item.district}>
@@ -1967,7 +1974,7 @@ export function ThermoWatchDashboard() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 px-2 sm:px-2.5 border-[#000000] rounded-full hover:bg-black hover:text-white text-[#000000]"
+                className="h-8 px-2 sm:px-2.5 border-slate-200 rounded-lg hover:bg-slate-50 text-slate-700"
                 onClick={loadDashboard}
                 disabled={loading}
                 title={copy.refresh}
@@ -1980,7 +1987,7 @@ export function ThermoWatchDashboard() {
             {error && (
               <div
                 role="alert"
-                className="mb-4 flex items-center justify-between rounded-lg border border-[#000000] bg-[#eeeeee] px-4 py-2.5 text-xs sm:text-sm text-[#000000] tracking-[0.06em]"
+                className="mb-4 flex items-center justify-between rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-xs sm:text-sm text-red-700"
               >
                 <span>{error}</span>
                 <button onClick={() => setError('')} aria-label="Dismiss error">
@@ -1989,102 +1996,109 @@ export function ThermoWatchDashboard() {
               </div>
             )}
             {!online && (
-              <div className="mb-4 flex items-center gap-2 rounded-lg border border-[#d9d9d9] bg-[#eeeeee] px-4 py-2.5 text-xs sm:text-sm text-[#595959] tracking-[0.06em]">
-                <CloudSun className="h-4 w-4" />
+              <div className="mb-4 flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-100 px-4 py-2.5 text-xs sm:text-sm text-slate-600">
+                <CloudSun className="h-4 w-4 text-slate-500" />
                 Offline mode: cached public weather and forecast views remain available. Record submission and authority actions require a connection.
               </div>
             )}
             {notice && (
-              <div className="mb-4 flex items-center gap-2 rounded-lg border border-[#000000] bg-[#eeeeee] px-4 py-2.5 text-xs sm:text-sm text-[#000000] tracking-[0.06em]">
-                <Check className="h-4 w-4 text-[#000000]" />
+              <div className="mb-4 flex items-center gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-xs sm:text-sm text-emerald-800">
+                <Check className="h-4 w-4 text-emerald-600" />
                 {notice}
               </div>
             )}
 
             {view === 'overview' && (
               <div className="space-y-6">
-                {/* DICE Hero Banner: Foggy 106px display headline + Phone Mockup Frame */}
-                <div className="rounded-lg border border-[#000000] bg-white p-6 sm:p-10 shadow-none">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    <div className="lg:col-span-8 space-y-4">
-                      <div className="inline-flex items-center gap-2 rounded-full border border-[#000000] px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.06em]">
-                        <span className="h-2 w-2 rounded-full bg-black animate-ping" />
-                        <span>DISASTER MANAGEMENT &middot; LIVE OVERVIEW</span>
+                {/* Copernicus & Palantir Command Hero Header */}
+                <div className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div className="lg:col-span-8 space-y-3.5">
+                      <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-3 py-0.5 text-[11px] font-semibold text-blue-700">
+                        <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>DISASTER MANAGEMENT · LIVE OVERVIEW</span>
                       </div>
-                      <h1 className="hero-foggy-display">
-                        HEAT CONDITIONS,<br/>
-                        MADE ACTIONABLE.
+                      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 font-display">
+                        Heat conditions, made actionable.
                       </h1>
-                      <p className="text-sm sm:text-base text-[#595959] max-w-xl font-normal leading-relaxed tracking-[0.06em]">
-                        See where heat is rising, who is exposed, and what response should come next.
+                      <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
+                        See where heat is rising, who is exposed, and what response should come next. Real-time biometeorological synthesis across Indian urban centers.
                       </p>
-                      <div className="flex flex-wrap items-center gap-3 pt-2">
+                      <div className="flex flex-wrap items-center gap-2.5 pt-1">
                         <Button
                           onClick={() => setAssistantModalOpen(true)}
-                          className="dice-btn-filled"
+                          className="bg-slate-900 text-white hover:bg-slate-800 shadow-xs h-8.5 px-4 text-xs font-medium rounded-lg"
                         >
+                          <Sparkles className="h-3.5 w-3.5 text-blue-300" />
                           Ask Heat Assistant &rarr;
                         </Button>
                         <Button
                           variant="outline"
                           onClick={() => changeView('hyperlocal-gis')}
-                          className="dice-btn-outlined"
+                          className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50 h-8.5 px-4 text-xs font-medium rounded-lg"
                         >
+                          <MapPin className="h-3.5 w-3.5 text-slate-500" />
                           Inspect Ward GIS
                         </Button>
                       </div>
                     </div>
 
-                    {/* DICE Phone Mockup Frame with Neon-Green Screen */}
-                    <div className="lg:col-span-4 flex justify-center">
-                      <div className="dice-phone-frame w-full max-w-[270px]">
-                        <div className="rounded-[28px] bg-[#7ffeb1] p-4 text-[#000000] flex flex-col justify-between h-[230px]">
-                          <div>
-                            <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.06em] font-bold">
-                              <span>HEAT DIRECTIVE</span>
-                              <span className="rounded-full bg-black text-white px-2 py-0.5 text-[9px]">LIVE</span>
-                            </div>
-                            <div className="mt-4">
-                              <span className="text-4xl font-bold tracking-tight block">{selected.temp}°C</span>
-                              <p className="text-xs font-bold mt-1 uppercase tracking-[0.06em]">{selected.district}</p>
-                              <p className="text-[11px] font-mono mt-0.5 opacity-80">{selected.risk} Risk · {selected.htsi} HTSI</p>
-                            </div>
-                          </div>
-                          <button
-                            onClick={() => setAssistantModalOpen(true)}
-                            className="w-full rounded-full bg-black text-white py-2 text-xs font-bold uppercase tracking-[0.06em] hover:opacity-80 transition-opacity"
-                          >
-                            VIEW ACTION &rarr;
-                          </button>
+                    {/* Operational Directive HUD Card */}
+                    <div className="lg:col-span-4">
+                      <div className="rounded-xl border border-slate-800 bg-slate-950 p-5 text-white shadow-sm">
+                        <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
+                          <span className="flex items-center gap-1.5">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            HEAT DIRECTIVE
+                          </span>
+                          <span className="rounded bg-slate-800 border border-slate-700 text-slate-300 px-1.5 py-0.2 text-[9px]">
+                            {selected.source !== 'resilient-fallback' ? 'LIVE' : 'DEMO'}
+                          </span>
                         </div>
+                        <div className="mt-3.5 flex items-baseline justify-between">
+                          <div>
+                            <span className="text-3xl font-bold tracking-tight text-white">{selected.temp}°C</span>
+                            <p className="text-xs font-semibold text-slate-200 mt-0.5">{selected.district}</p>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-xs font-bold text-amber-400 font-mono block">{selected.htsi}/100</span>
+                            <span className="text-[10px] font-mono text-slate-400 uppercase">{selected.risk} Risk</span>
+                          </div>
+                        </div>
+                        <button
+                          onClick={() => setAssistantModalOpen(true)}
+                          className="mt-4 w-full rounded-lg bg-blue-600 hover:bg-blue-500 py-2 text-xs font-semibold text-white transition-colors shadow-xs"
+                        >
+                          View Action Plan &rarr;
+                        </button>
                       </div>
                     </div>
                   </div>
 
-                  {/* DICE Monochromatic Stats Row */}
-                  <div className="mt-8 pt-6 border-t border-[#d9d9d9] grid grid-cols-3 gap-4 text-center sm:text-left">
+                  {/* Telemetry Counter Stats Row */}
+                  <div className="mt-6 pt-5 border-t border-slate-100 grid grid-cols-3 gap-4 text-center sm:text-left">
                     <div>
-                      <p className="text-3xl sm:text-4xl font-bold tracking-tight text-[#000000]">
+                      <p className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
                         50+
                       </p>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959] mt-0.5">
-                        DISTRICTS
+                      <p className="font-mono text-[10px] uppercase tracking-wider text-slate-500 mt-0.5">
+                        DISTRICTS MONITORED
                       </p>
                     </div>
                     <div>
-                      <p className="text-3xl sm:text-4xl font-bold tracking-tight text-[#000000]">
-                        48+
+                      <p className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+                        48h
                       </p>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959] mt-0.5">
-                        HOURLY RUNS
+                      <p className="font-mono text-[10px] uppercase tracking-wider text-slate-500 mt-0.5">
+                        ENSEMBLE HORIZON
                       </p>
                     </div>
                     <div>
-                      <p className="text-3xl sm:text-4xl font-bold tracking-tight text-[#000000]">
+                      <p className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
                         600+
                       </p>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[#595959] mt-0.5">
-                        ACTIONS/DAY
+                      <p className="font-mono text-[10px] uppercase tracking-wider text-slate-500 mt-0.5">
+                        DAILY ACTIONS
                       </p>
                     </div>
                   </div>
@@ -4048,17 +4062,17 @@ export function ThermoWatchDashboard() {
               <span>HeatVector · SIH26083</span>
               <span>{copy.decisionSupport}</span>
               <span className="flex flex-wrap gap-3">
-                <Link href="/privacy" className="text-black hover:underline uppercase tracking-[0.06em]">
+                <Link href="/privacy" className="text-slate-600 hover:text-slate-900">
                   Privacy and data use
                 </Link>
-                <Link href="/api/health" className="text-black hover:underline uppercase tracking-[0.06em]">
+                <Link href="/api/health" className="text-slate-600 hover:text-slate-900">
                   System status
                 </Link>
                 <a
                   href="https://open-meteo.com/"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-black hover:underline uppercase tracking-[0.06em]"
+                  className="text-slate-600 hover:text-slate-900"
                 >
                   Open-Meteo
                 </a>
@@ -4066,34 +4080,34 @@ export function ThermoWatchDashboard() {
                   href="https://api.met.no/"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-black hover:underline uppercase tracking-[0.06em]"
+                  className="text-slate-600 hover:text-slate-900"
                 >
                   MET Norway
                 </a>
               </span>
             </footer>
 
-            {/* DICE Persistent Floating Operational Anchor Widget (Bottom-Left) */}
-            <div className="fixed bottom-5 left-5 z-40 hidden md:flex w-[290px] flex-col rounded-lg border border-[#d9d9d9] bg-white p-4 shadow-none">
+            {/* Copernicus Persistent Floating Operational Widget (Bottom-Left) */}
+            <div className="fixed bottom-5 left-5 z-40 hidden md:flex w-[290px] flex-col rounded-xl border border-slate-200 bg-white p-3.5 shadow-md">
               <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#000000]">
-                  <span className="h-2 w-2 rounded-full bg-[#7ffeb1] animate-ping" />
-                  <span>ACTIVE HEAT DIRECTIVE</span>
+                <div className="flex items-center gap-1.5 font-mono text-[10px] font-semibold tracking-wider text-slate-500 uppercase">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>ACTIVE DIRECTIVE</span>
                 </div>
-                <span className="rounded-full bg-black text-white px-2 py-0.2 text-[9px] font-bold uppercase tracking-[0.06em]">LIVE</span>
+                <span className="rounded bg-slate-900 text-white px-1.5 py-0.2 font-mono text-[9px] font-semibold uppercase">LIVE</span>
               </div>
-              <div className="flex items-center gap-3 my-1.5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#eeeeee] text-[#000000] font-bold text-xs border border-[#d9d9d9]">
+              <div className="flex items-center gap-2.5 my-1">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-700 font-bold text-xs border border-blue-200">
                   {selected.temp}°C
                 </div>
                 <div className="min-w-0">
-                  <h4 className="text-xs font-bold uppercase tracking-[0.06em] text-[#000000] truncate">{selected.district}</h4>
-                  <p className="text-[11px] text-[#595959] tracking-[0.06em] truncate">{selected.risk} Risk · {selected.htsi} HTSI</p>
+                  <h4 className="text-xs font-semibold text-slate-900 truncate">{selected.district}</h4>
+                  <p className="text-[11px] text-slate-500 truncate">{selected.risk} Risk · {selected.htsi} HTSI</p>
                 </div>
               </div>
               <button
                 onClick={() => setAssistantModalOpen(true)}
-                className="mt-3 w-full rounded-full bg-black hover:opacity-85 py-2.5 text-xs font-bold uppercase tracking-[0.06em] text-white transition-opacity border border-black"
+                className="mt-2.5 w-full rounded-lg bg-slate-900 hover:bg-slate-800 py-2 text-xs font-medium text-white transition-colors shadow-2xs"
               >
                 Open Grounded Assistant &rarr;
               </button>

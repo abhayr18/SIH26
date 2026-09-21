@@ -1,19 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Antonio, JetBrains_Mono } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { PwaRegister } from '@/components/pwa-register';
 
-const favoritSans = Inter({
-  variable: '--font-favorit',
+const interSans = Inter({
+  variable: '--font-sans',
   subsets: ['latin'],
-  weight: ['300', '400', '700'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 });
 
-const foggyDisplay = Antonio({
-  variable: '--font-foggy',
+const displayFont = Plus_Jakarta_Sans({
+  variable: '--font-display',
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['600', '700', '800'],
   display: 'swap',
 });
 
@@ -26,9 +26,9 @@ const monoFont = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://thermowatch-sih26083.vercel.app'),
-  title: 'HeatVector — Heatwave Early Warning',
+  title: 'HeatVector — Heatwave Early Warning & Decision Support',
   description:
-    'District heat-risk intelligence, early warning and response support for India.',
+    'District heat-risk intelligence, early warning and response decision support for India.',
   manifest: '/manifest.webmanifest',
   applicationName: 'HeatVector',
   appleWebApp: {
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     title: 'HeatVector',
   },
   openGraph: {
-    title: 'HeatVector — Heatwave Early Warning',
+    title: 'HeatVector — Heatwave Early Warning & Decision Support',
     description:
-      'District heat-risk intelligence, early warning and response support for India.',
+      'District heat-risk intelligence, early warning and response decision support for India.',
     images: [
       {
         url: '/og.png',
@@ -51,15 +51,15 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HeatVector — Heatwave Early Warning',
+    title: 'HeatVector — Heatwave Early Warning & Decision Support',
     description:
-      'District heat-risk intelligence, early warning and response support for India.',
+      'District heat-risk intelligence, early warning and response decision support for India.',
     images: ['/og.png'],
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  themeColor: '#0f172a',
   colorScheme: 'light',
 };
 
@@ -70,7 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${favoritSans.variable} ${foggyDisplay.variable} ${monoFont.variable} antialiased bg-white text-[#000000] font-sans selection:bg-[#000000] selection:text-[#ffffff]`}>
+      <body className={`${interSans.variable} ${displayFont.variable} ${monoFont.variable} antialiased bg-slate-50 text-slate-900 font-sans selection:bg-slate-900 selection:text-white`}>
         <PwaRegister />
         {children}
       </body>

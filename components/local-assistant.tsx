@@ -308,32 +308,32 @@ export function LocalAssistant({
     <div className="fixed bottom-5 right-5 z-50">
       {open && (
         <section
-          className="mb-3 flex h-[min(570px,75vh)] w-[min(390px,calc(100vw-2rem))] flex-col overflow-hidden rounded-lg border border-[#000000] bg-white shadow-none"
+          className="mb-3 flex h-[min(570px,75vh)] w-[min(390px,calc(100vw-2rem))] flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg"
           aria-label={text.title}
         >
-          <header className="flex items-center gap-3 bg-white px-4 py-3 text-[#000000] border-b border-[#d9d9d9]">
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-black text-white">
-              <Bot className="h-4 w-4 stroke-[2.5]" />
+          <header className="flex items-center gap-2.5 bg-white px-4 py-3 text-slate-900 border-b border-slate-200">
+            <span className="grid h-7 w-7 place-items-center rounded-lg bg-blue-600 text-white shadow-2xs">
+              <Bot className="h-4 w-4" />
             </span>
             <div>
-              <b className="block text-xs font-bold uppercase tracking-[0.06em] text-[#000000]">{text.title}</b>
-              <small className="font-mono text-[9px] uppercase tracking-[0.06em] text-[#595959]">{text.subtitle}</small>
+              <b className="block text-xs font-semibold text-slate-900">{text.title}</b>
+              <small className="font-mono text-[9px] text-slate-500">{text.subtitle}</small>
             </div>
             <Button
               variant="ghost"
-              size="icon"
-              className="ml-auto rounded-full text-[#808080] hover:bg-[#eeeeee] hover:text-[#000000]"
+              size="icon-xs"
+              className="ml-auto rounded-md text-slate-400 hover:text-slate-900"
               onClick={() => setOpen(false)}
               aria-label="Close local assistant"
             >
-              <X className="h-4 w-4" />
+              <X className="h-3.5 w-3.5" />
             </Button>
           </header>
-          <div className="border-b border-[#d9d9d9] bg-[#eeeeee] px-4 py-2 font-mono text-[9px] uppercase tracking-[0.06em] leading-relaxed text-[#595959]">
+          <div className="border-b border-slate-100 bg-slate-50 px-3.5 py-1.5 font-mono text-[9.5px] text-slate-500">
             Local decision support only · not an emergency service
           </div>
           <div
-            className="flex-1 space-y-3 overflow-y-auto bg-[#eeeeee] p-4"
+            className="flex-1 space-y-2.5 overflow-y-auto bg-slate-50 p-3.5"
             aria-live="polite"
           >
             {visibleMessages.map((message) => (
@@ -342,10 +342,10 @@ export function LocalAssistant({
                 className={`flex gap-2 ${message.from === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[86%] rounded-lg px-3.5 py-2.5 text-xs leading-relaxed tracking-[0.06em] ${
+                  className={`max-w-[86%] rounded-xl px-3.5 py-2 text-xs leading-relaxed ${
                     message.from === 'user'
-                      ? 'bg-[#000000] text-white font-medium'
-                      : 'border border-[#d9d9d9] bg-white text-[#000000] shadow-none'
+                      ? 'bg-slate-900 text-white font-medium shadow-2xs'
+                      : 'border border-slate-200 bg-white text-slate-800 shadow-2xs'
                   }`}
                 >
                   {message.text}
@@ -353,7 +353,7 @@ export function LocalAssistant({
                     <button
                       type="button"
                       onClick={() => speak(message.text)}
-                      className="ml-2 inline-flex align-middle text-black hover:opacity-75"
+                      className="ml-2 inline-flex align-middle text-slate-400 hover:text-slate-700"
                       aria-label="Read response aloud"
                     >
                       <Volume2 className="h-3.5 w-3.5" />
@@ -363,24 +363,24 @@ export function LocalAssistant({
               </div>
             ))}
           </div>
-          <div className="border-t border-[#d9d9d9] bg-white p-3">
+          <div className="border-t border-slate-200 bg-white p-3">
             <div className="mb-2 flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
               {text.quick.map((question) => (
                 <button
                   key={question}
                   type="button"
                   onClick={() => submitMessage(question)}
-                  className="shrink-0 rounded-full border border-[#d9d9d9] bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.06em] text-[#000000] hover:bg-black hover:text-white transition"
+                  className="shrink-0 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 px-2.5 py-1 text-[11px] text-slate-700 transition font-medium"
                 >
                   {question}
                 </button>
               ))}
             </div>
             {voiceError && (
-              <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.06em] text-[#000000]">{voiceError}</p>
+              <p className="mb-2 font-mono text-[9.5px] text-red-600">{voiceError}</p>
             )}
             <form
-              className="flex gap-2"
+              className="flex gap-1.5"
               onSubmit={(event) => {
                 event.preventDefault();
                 submitMessage();
@@ -391,20 +391,20 @@ export function LocalAssistant({
                 onChange={(event) => setInput(event.target.value)}
                 placeholder={listening ? text.listening : text.placeholder}
                 aria-label={text.prompt}
-                className="h-10 rounded-full border-[#d9d9d9] bg-white text-xs text-[#000000] placeholder-[#808080] focus-visible:border-[#000000] focus-visible:ring-0 tracking-[0.06em]"
+                className="h-8.5 rounded-lg border-slate-200 bg-white text-xs text-slate-900 placeholder-slate-400 focus-visible:border-slate-900 focus-visible:ring-1 focus-visible:ring-slate-900"
               />
               <Button
                 type="button"
-                size="icon"
+                size="icon-sm"
                 variant={listening ? 'default' : 'outline'}
                 onClick={startVoice}
                 aria-label={listening ? text.listening : 'Use voice input'}
-                className={`h-10 w-10 rounded-full border border-[#000000] ${listening ? 'bg-black text-white' : 'bg-white text-[#000000] hover:bg-[#eeeeee]'}`}
+                className={`h-8.5 w-8.5 rounded-lg border-slate-200 ${listening ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-700 hover:bg-slate-50'}`}
               >
-                <Mic className={`h-4 w-4 ${listening ? 'animate-pulse' : ''}`} />
+                <Mic className={`h-3.5 w-3.5 ${listening ? 'animate-pulse' : ''}`} />
               </Button>
-              <Button type="submit" size="icon" aria-label="Send question" className="h-10 w-10 rounded-full bg-black text-white hover:opacity-85 border border-black">
-                <Send className="h-4 w-4" />
+              <Button type="submit" size="icon-sm" aria-label="Send question" className="h-8.5 w-8.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 shadow-2xs">
+                <Send className="h-3.5 w-3.5" />
               </Button>
             </form>
           </div>
@@ -412,12 +412,12 @@ export function LocalAssistant({
       )}
       <Button
         size="lg"
-        className="ml-auto rounded-full bg-black text-white px-5 py-3 font-bold text-xs uppercase tracking-[0.06em] hover:opacity-85 shadow-none border border-black transition"
+        className="ml-auto rounded-xl bg-slate-900 text-white px-4 py-2.5 font-medium text-xs hover:bg-slate-800 shadow-md border border-slate-800 transition flex items-center gap-2"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-label={open ? 'Close local heat assistant' : text.prompt}
       >
-        {open ? <X className="h-4 w-4 mr-1.5" /> : <Bot className="h-4 w-4 mr-1.5 stroke-[2.5]" />}
+        {open ? <X className="h-4 w-4" /> : <Bot className="h-4 w-4 text-blue-300" />}
         <span>{open ? 'Close' : text.title}</span>
       </Button>
     </div>

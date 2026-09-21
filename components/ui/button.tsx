@@ -4,31 +4,33 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent bg-clip-padding text-xs font-bold uppercase tracking-[0.06em] whitespace-nowrap transition-all duration-150 outline-none select-none focus-visible:ring-2 focus-visible:ring-black disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
+  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg border border-transparent bg-clip-padding text-xs font-medium whitespace-nowrap transition-all duration-150 outline-none select-none focus-visible:ring-2 focus-visible:ring-slate-900 disabled:pointer-events-none disabled:opacity-40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
   {
     variants: {
       variant: {
-        default: 'bg-[#000000] text-white hover:opacity-85 border border-[#000000]',
+        default: 'bg-slate-900 text-white hover:bg-slate-800 shadow-sm border border-slate-900',
         outline:
-          'border border-[#000000] bg-transparent text-[#000000] hover:bg-[#000000] hover:text-white',
+          'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 shadow-xs',
         secondary:
-          'bg-[#333333] text-white hover:bg-[#000000]',
+          'bg-slate-100 text-slate-900 hover:bg-slate-200/80 border border-slate-200/60',
+        cobalt:
+          'bg-blue-600 text-white hover:bg-blue-700 shadow-xs border border-blue-600',
         ghost:
-          'hover:bg-[#eeeeee] text-[#000000]',
+          'hover:bg-slate-100 text-slate-700 hover:text-slate-900',
         destructive:
-          'bg-[#000000] text-white border border-[#000000] hover:bg-[#333333]',
-        link: 'text-[#000000] underline-offset-4 hover:underline lowercase tracking-normal font-normal',
+          'bg-red-600 text-white border border-red-600 hover:bg-red-700 shadow-xs',
+        link: 'text-blue-600 underline-offset-4 hover:underline font-normal',
       },
       size: {
         default:
-          'h-9 gap-2 px-5 py-2',
-        xs: "h-6 gap-1 px-2.5 text-[10px] [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1.5 px-3.5 text-[11px] [&_svg:not([class*='size-'])]:size-3.5",
-        lg: 'h-11 gap-2.5 px-6 text-sm',
-        icon: 'size-9',
+          'h-8.5 gap-2 px-3.5 py-1.5',
+        xs: "h-6 gap-1 px-2 text-[10px] [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-7.5 gap-1.5 px-3 text-[11px] [&_svg:not([class*='size-'])]:size-3.5",
+        lg: 'h-10 gap-2.5 px-5 text-sm',
+        icon: 'size-8.5',
         'icon-xs': "size-6 [&_svg:not([class*='size-'])]:size-3",
-        'icon-sm': 'size-7',
-        'icon-lg': 'size-11',
+        'icon-sm': 'size-7.5',
+        'icon-lg': 'size-10',
       },
     },
     defaultVariants: {

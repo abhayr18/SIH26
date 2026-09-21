@@ -14,6 +14,7 @@ import {
   User,
   Info,
   Globe,
+  Activity,
 } from 'lucide-react';
 import { queryHeatAssistant, AssistantResponse, AssistantQueryContext } from '@/lib/assistant-engine';
 import { calculateThermalMetrics } from '@/lib/thermal-engine';
@@ -133,35 +134,37 @@ export function GroundedAssistantModal({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 font-sans backdrop-blur-xs">
-      <div className="flex h-[88vh] max-h-[780px] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-[#000000] bg-white shadow-none animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 font-sans backdrop-blur-xs">
+      <div className="flex h-[88vh] max-h-[760px] w-full max-w-4xl flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl animate-in fade-in zoom-in-95 duration-200">
         {/* Modal Top Header */}
-        <div className="flex items-center justify-between border-b border-[#d9d9d9] bg-white px-5 py-4 sm:px-6">
+        <div className="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-3.5 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center rounded-full bg-black text-white">
-              <Sparkles className="h-5 w-5 text-[#7ffeb1]" />
+            <div className="grid h-9 w-9 place-items-center rounded-lg bg-blue-600 text-white shadow-xs">
+              <Sparkles className="h-4.5 w-4.5 text-blue-200" />
             </div>
             <div>
-              <div className="font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#000000]">
-                GROUNDED AI ASSISTANT · HEAT INTELLIGENCE
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-wider text-blue-600">
+                  GROUNDED AI ASSISTANT
+                </span>
+                <span className="rounded bg-slate-100 border border-slate-200 px-1.5 py-0.2 font-mono text-[9px] text-slate-600">
+                  MoES / NCMRWF
+                </span>
               </div>
-              <h3 className="font-bold text-[#000000] text-base uppercase tracking-[0.06em]">
-                Operational Telemetry & Decision Support
+              <h3 className="font-bold text-slate-900 text-sm tracking-tight">
+                Operational Heat Telemetry & Decision Support
               </h3>
-              <p className="text-xs text-[#595959] tracking-[0.06em]">
-                Live telemetry for {currentCity} • MoES / NCMRWF Decision Support
-              </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             {/* Language Selector */}
-            <div className="flex items-center gap-1.5 rounded-full border border-[#d9d9d9] bg-white px-3 py-1 text-xs text-[#000000]">
-              <Globe className="h-3.5 w-3.5 text-black" />
+            <div className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs text-slate-700">
+              <Globe className="h-3.5 w-3.5 text-slate-500" />
               <select
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value as SupportedLanguage)}
-                className="bg-transparent text-xs font-bold uppercase tracking-[0.06em] text-[#000000] focus:outline-none cursor-pointer"
+                className="bg-transparent text-xs font-medium text-slate-800 focus:outline-none cursor-pointer"
               >
                 <option value="en">EN</option>
                 <option value="hi">हिन्दी</option>
@@ -179,10 +182,10 @@ export function GroundedAssistantModal({
                 setIsSpeaking(!isSpeaking);
               }}
               title={isSpeaking ? 'Mute speech output' : 'Enable voice read-aloud'}
-              className={`rounded-full border p-2 transition ${
+              className={`rounded-lg border p-1.5 transition ${
                 isSpeaking
-                  ? 'border-black bg-black text-white'
-                  : 'border-[#d9d9d9] bg-white text-[#595959] hover:text-black'
+                  ? 'border-blue-600 bg-blue-600 text-white'
+                  : 'border-slate-200 bg-white text-slate-500 hover:text-slate-900'
               }`}
             >
               {isSpeaking ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
@@ -190,7 +193,7 @@ export function GroundedAssistantModal({
 
             <button
               onClick={onClose}
-              className="rounded-full border border-[#000000] bg-white p-2 text-[#000000] hover:bg-black hover:text-white transition"
+              className="rounded-lg border border-slate-200 bg-white p-1.5 text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition"
             >
               <X className="h-4 w-4" />
             </button>
@@ -198,52 +201,52 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Messages Body */}
-        <div className="flex-1 overflow-y-auto bg-[#eeeeee] p-5 sm:p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto bg-slate-50 p-5 sm:p-6 space-y-3.5">
           {messages.map((msg) => {
             const isBot = msg.sender === 'assistant';
 
             return (
               <div
                 key={msg.id}
-                className={`flex items-start gap-3 ${isBot ? '' : 'flex-row-reverse'}`}
+                className={`flex items-start gap-2.5 ${isBot ? '' : 'flex-row-reverse'}`}
               >
                 <div
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
+                  className={`flex h-7.5 w-7.5 shrink-0 items-center justify-center rounded-lg border text-xs font-semibold ${
                     isBot
-                      ? 'border-[#d9d9d9] bg-white text-black'
-                      : 'border-black bg-black text-white'
+                      ? 'border-slate-200 bg-white text-blue-600 shadow-2xs'
+                      : 'border-slate-900 bg-slate-900 text-white shadow-2xs'
                   }`}
                 >
                   {isBot ? <Bot className="h-4 w-4" /> : <User className="h-4 w-4" />}
                 </div>
 
                 <div
-                  className={`max-w-[85%] rounded-lg p-4 text-xs leading-relaxed tracking-[0.06em] ${
+                  className={`max-w-[85%] rounded-xl p-3.5 text-xs leading-relaxed ${
                     isBot
-                      ? 'border border-[#d9d9d9] bg-white text-[#000000] shadow-none'
-                      : 'bg-[#000000] text-white'
+                      ? 'border border-slate-200 bg-white text-slate-800 shadow-2xs'
+                      : 'bg-slate-900 text-white shadow-xs'
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{msg.text}</p>
 
                   {/* Structured Data Attachment if available */}
                   {msg.structured_data && (
-                    <div className="mt-3 rounded-md border border-[#d9d9d9] bg-[#eeeeee] p-3 text-black">
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#000000] mb-2">
+                    <div className="mt-2.5 rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-slate-800">
+                      <div className="font-mono text-[9.5px] font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
                         GROUNDED APPLICATION TELEMETRY
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-[11px]">
                         {Object.entries(msg.structured_data).map(([k, v]) => (
-                          <div key={k} className="flex justify-between border-b border-[#d9d9d9] pb-1">
-                            <span className="text-[#595959]">{k}:</span>
-                            <strong className="text-black font-mono">{String(v)}</strong>
+                          <div key={k} className="flex justify-between border-b border-slate-200/60 pb-0.5">
+                            <span className="text-slate-500">{k}:</span>
+                            <strong className="text-slate-900 font-mono">{String(v)}</strong>
                           </div>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  <span className={`mt-2 block font-mono text-[10px] tracking-[0.06em] text-right ${isBot ? 'text-[#808080]' : 'text-white/60'}`}>
+                  <span className={`mt-1.5 block font-mono text-[9.5px] text-right ${isBot ? 'text-slate-400' : 'text-slate-400'}`}>
                     {msg.timestamp}
                   </span>
                 </div>
@@ -254,16 +257,16 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Quick Suggestion Chips */}
-        <div className="border-t border-[#d9d9d9] bg-white px-5 py-3">
-          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-[#595959] mb-2">
+        <div className="border-t border-slate-200 bg-white px-5 py-2.5">
+          <div className="font-mono text-[9.5px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
             SUGGESTED GROUNDED INQUIRIES:
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+          <div className="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
             {samplePrompts.map((prompt) => (
               <button
                 key={prompt}
                 onClick={() => handleSendMessage(prompt)}
-                className="shrink-0 rounded-full border border-[#d9d9d9] bg-white px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.06em] text-[#000000] hover:bg-black hover:text-white transition"
+                className="shrink-0 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 hover:border-slate-300 px-3 py-1 text-xs text-slate-700 transition font-medium"
               >
                 {prompt}
               </button>
@@ -272,25 +275,25 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Input Bar */}
-        <div className="border-t border-[#d9d9d9] bg-white p-4">
+        <div className="border-t border-slate-200 bg-white p-3.5">
           <form
             onSubmit={(e) => {
               e.preventDefault();
               handleSendMessage();
             }}
-            className="flex items-center gap-2.5"
+            className="flex items-center gap-2"
           >
             <input
               type="text"
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
               placeholder={`Ask anything regarding heat risk, cooling centers, or response action in ${currentCity}...`}
-              className="flex-1 rounded-full border border-[#d9d9d9] bg-white px-4 py-2.5 text-xs text-[#000000] placeholder-[#808080] focus:border-[#000000] focus:outline-none transition tracking-[0.06em]"
+              className="flex-1 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-slate-900 focus:outline-none transition"
             />
             <button
               type="submit"
               disabled={!inputQuery.trim()}
-              className="flex items-center gap-1.5 rounded-full bg-black px-5 py-2.5 text-xs font-bold uppercase tracking-[0.06em] text-white transition hover:opacity-85 shadow-none disabled:opacity-40 disabled:cursor-not-allowed border border-black"
+              className="flex items-center gap-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 px-4 py-2 text-xs font-medium text-white transition shadow-xs disabled:opacity-40 disabled:cursor-not-allowed border border-slate-900"
             >
               <Send className="h-3.5 w-3.5" />
               <span>Query</span>
