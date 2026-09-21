@@ -20,6 +20,7 @@ export interface IndiaMapDistrict {
   risk: string;
   probability: number;
   source?: string;
+  [key: string]: any;
 }
 
 export interface ImdWarningConfig {
@@ -40,13 +41,13 @@ export interface ImdForecastDay {
 }
 
 export interface LeafletIndiaMapProps {
-  districts: IndiaMapDistrict[];
-  selected: IndiaMapDistrict;
+  districts: any[];
+  selected: any;
   forecastDay: 1 | 2 | 3 | 4 | 5;
   imdWarningConfig: Record<ImdWarningTier, ImdWarningConfig>;
   imdForecastDays: ImdForecastDay[];
-  onSelect: (district: IndiaMapDistrict) => void;
-  onZoomToCity: (district: IndiaMapDistrict) => void;
+  onSelect: (district: any) => void;
+  onZoomToCity: (district: any) => void;
   expanded?: boolean;
 }
 

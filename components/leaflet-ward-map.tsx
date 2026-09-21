@@ -15,6 +15,7 @@ export interface LeafletWardMapProps {
   activeIndicator: CategoricalIndicator | null;
   selectedWardId: string;
   baseTemp: number;
+  baseHumidity?: number;
   onSelectWard: (ward: WardSpatialData) => void;
   isWardMatchingIndicator: (ward: WardSpatialData, ind: CategoricalIndicator) => boolean;
   getWardFill: (ward: WardSpatialData, isHovered: boolean, isSelected: boolean) => string;
