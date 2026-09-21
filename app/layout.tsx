@@ -16,18 +16,18 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://thermowatch-sih26083.vercel.app'),
-  title: 'ThermoWatch — Heatwave Early Warning',
+  title: 'HeatVector — Heatwave Early Warning',
   description:
     'District heat-risk intelligence, early warning and response support for India.',
   manifest: '/manifest.webmanifest',
-  applicationName: 'ThermoWatch',
+  applicationName: 'HeatVector',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'ThermoWatch',
+    title: 'HeatVector',
   },
   openGraph: {
-    title: 'ThermoWatch — Heatwave Early Warning',
+    title: 'HeatVector — Heatwave Early Warning',
     description:
       'District heat-risk intelligence, early warning and response support for India.',
     images: [
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
         url: '/og.png',
         width: 1200,
         height: 630,
-        alt: 'ThermoWatch heatwave early warning dashboard',
+        alt: 'HeatVector heatwave early warning dashboard',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ThermoWatch — Heatwave Early Warning',
+    title: 'HeatVector — Heatwave Early Warning',
     description:
       'District heat-risk intelligence, early warning and response support for India.',
     images: ['/og.png'],

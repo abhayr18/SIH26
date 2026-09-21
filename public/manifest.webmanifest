@@ -1,6 +1,6 @@
 {
-  "name": "ThermoWatch — Heatwave Early Warning",
-  "short_name": "ThermoWatch",
+  "name": "HeatVector — Heatwave Early Warning",
+  "short_name": "HeatVector",
   "description": "District heat-risk intelligence, early warning and response support for India.",
   "start_url": "/",
   "display": "standalone",

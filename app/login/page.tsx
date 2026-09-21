@@ -3,9 +3,9 @@ import type { Metadata } from 'next';
 import { SecurityDemoLogin } from '@/components/security-demo-login';
 
 export const metadata: Metadata = {
-  title: 'Officer Sign In — ThermoWatch',
+  title: 'Officer Sign In — HeatVector',
   description:
-    'Secure officer access to ThermoWatch operational heat-response tools.',
+    'Secure officer access to HeatVector operational heat-response tools.',
 };
 
 export default function LoginPage() {

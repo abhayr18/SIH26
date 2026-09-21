@@ -7,11 +7,11 @@ export default function PrivacyPage() {
       <main className="min-h-screen bg-slate-50 px-5 py-12 text-slate-900">
         <article className="mx-auto max-w-3xl rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-10">
           <p className="font-mono text-[10px] font-semibold tracking-[0.18em] text-blue-600">
-            THERMOWATCH · SIH26083
+            HEATVECTOR · SIH26083
           </p>
           <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Privacy and data use</h1>
           <p className="mt-3 text-sm leading-7 text-slate-600">
-            ThermoWatch is an early-warning and decision-support prototype. It
+            HeatVector is an early-warning and decision-support prototype. It
             is not a medical service or an official government warning system.
           </p>
 
@@ -46,7 +46,7 @@ export default function PrivacyPage() {
               </h2>
               <p>
                 Data is used to demonstrate heat-risk monitoring, response
-                coordination, validation and accountability. ThermoWatch does
+                coordination, validation and accountability. HeatVector does
                 not sell personal information. Weather requests are sent to
                 Open-Meteo and MET Norway, and facility searches are sent to
                 OpenStreetMap services without incident descriptions or reporter
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
               <p>
                 Assistant answers are created in the browser from the heat-risk
                 data already shown on screen. Chat messages and audio are not
-                stored by ThermoWatch. Optional speech recognition and
+                stored by HeatVector. Optional speech recognition and
                 read-aloud use browser-provided voice services, whose processing
                 and regional-language availability depend on the user&apos;s
                 browser and device. Users can always use text without granting
@@ -95,8 +95,9 @@ export default function PrivacyPage() {
             href="/"
             className="mt-9 inline-flex rounded-xl bg-slate-900 hover:bg-slate-800 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors"
           >
-            Return to ThermoWatch
+            Return to HeatVector
           </Link>
+
         </article>
       </main>
     </StoredKannadaLocalizer>

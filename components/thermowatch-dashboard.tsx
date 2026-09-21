@@ -1473,7 +1473,7 @@ export function ThermoWatchDashboard() {
       );
       fresh.slice(0, 3).forEach((warning) => {
         new Notification(
-          `ThermoWatch · ${warning.district} +${warning.horizon_hours}h`,
+          `HeatVector · ${warning.district} +${warning.horizon_hours}h`,
           {
             body: `${warning.risk} forecast risk · ${Math.round(warning.probability)}% High+ probability.`,
           },
@@ -1606,7 +1606,7 @@ export function ThermoWatchDashboard() {
           'Notification' in window &&
           Notification.permission === 'granted'
         )
-          new Notification(`ThermoWatch demo · ${selected.district}`, {
+          new Notification(`HeatVector demo · ${selected.district}`, {
             body: preview,
           });
         setNotice(
@@ -1633,7 +1633,7 @@ export function ThermoWatchDashboard() {
         'Notification' in window &&
         Notification.permission === 'granted'
       )
-        new Notification(`ThermoWatch · ${selected.district}`, {
+        new Notification(`HeatVector · ${selected.district}`, {
           body: result.message,
         });
       setNotice(
@@ -1703,7 +1703,7 @@ export function ThermoWatchDashboard() {
             </span>
             <div>
               <strong className="block text-sm font-bold tracking-tight text-white">
-                ThermoWatch
+                HeatVector
               </strong>
               <span className="font-mono text-[9px] tracking-[0.16em] text-slate-400">
                 SIH26083 &middot; INDIA
@@ -1889,13 +1889,13 @@ export function ThermoWatchDashboard() {
                 <Menu className="h-4 w-4" />
               </Button>
               <div className="flex items-center gap-1.5 sm:gap-2 text-xs font-semibold text-slate-700 min-w-0 truncate">
-                <span className="text-slate-400 hidden xs:inline">ThermoWatch</span>
+                <span className="text-slate-400 hidden xs:inline">HeatVector</span>
                 <span className="text-slate-300 hidden xs:inline">/</span>
                 <span className="text-slate-900 font-bold truncate">{navLabel}</span>
               </div>
               <div
                 className="hidden xl:flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50/70 px-2.5 py-0.5 text-[11px] text-blue-800"
-                title="ThermoWatch is not another heatwave warning system. It is a human-risk and intervention decision-support layer built on top of meteorological forecasts."
+                title="HeatVector is not another heatwave warning system. It is a human-risk and intervention decision-support layer built on top of meteorological forecasts."
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
                 <span className="font-semibold">Human-Risk Decision Layer</span>
@@ -3958,7 +3958,7 @@ export function ThermoWatchDashboard() {
             )}
 
             <footer className="mt-10 flex flex-wrap justify-between gap-2 border-t border-slate-200 py-6 text-[10px] text-slate-400">
-              <span>ThermoWatch · SIH26083</span>
+              <span>HeatVector · SIH26083</span>
               <span>{copy.decisionSupport}</span>
               <span className="flex flex-wrap gap-3">
                 <Link href="/privacy" className="text-blue-700">

@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     headers: {
       'Content-Type': 'text/csv; charset=utf-8',
       'Content-Disposition':
-        'attachment; filename="thermowatch-authority-brief.csv"',
+        'attachment; filename="heatvector-authority-brief.csv"',
     },
   });
 }

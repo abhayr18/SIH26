@@ -1,9 +1,9 @@
-# ThermoWatch — Extreme Heatwave Early Warning & Heat-Health Intelligence Platform
+# HeatVector — Extreme Heatwave Early Warning & Heat-Health Intelligence Platform
 
 [![SIH 2026](https://img.shields.io/badge/SIH-2026-orange.svg?style=for-the-badge)](https://www.sih.gov.in/)
 [![Problem Statement](https://img.shields.io/badge/Problem%20ID-SIH26083-blue.svg?style=for-the-badge)](https://www.sih.gov.in/)
 [![Ministry](https://img.shields.io/badge/Ministry-MoES%20%7C%20NCMRWF-green.svg?style=for-the-badge)](https://www.moes.gov.in/)
-[![Tests](https://img.shields.io/badge/Tests-31%2F31%20Passing-brightgreen.svg?style=for-the-badge)](#-automated-testing--validation)
+[![Tests](https://img.shields.io/badge/Tests-32%2F32%20Passing-brightgreen.svg?style=for-the-badge)](#-automated-testing--validation)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict%20Zero--Error-blue.svg?style=for-the-badge)](#-tech-stack)
 
 > **Ministry of Earth Sciences (MoES) | National Centre for Medium Range Weather Forecasting (NCMRWF)**  
@@ -13,7 +13,7 @@
 ---
 
 > ### 💡 Key Positioning
-> **“ThermoWatch is not another heatwave warning system. It is a human-risk and intervention decision-support layer built on top of meteorological forecasts.”**
+> **“HeatVector is not another heatwave warning system. It is a human-risk and intervention decision-support layer built on top of meteorological forecasts.”**
 > - **Does not replace** IMD's forecasts or warnings.
 > - **Focuses on** human thermal risk, exposure, and vulnerability.
 > - **Helps authorities decide** where, when, and what intervention will have the maximum impact.
@@ -30,11 +30,12 @@
 
 ## 📌 Executive Summary & Solution Overview
 
-**ThermoWatch** is an **AI-driven heat-health early warning and decision-support system** that goes beyond conventional meteorology and ambient temperature alerts by estimating how forecasted heat conditions will directly affect human health at a localized, actionable level.
+**HeatVector** is an **AI-driven heat-health early warning and decision-support system** that goes beyond conventional meteorology and ambient temperature alerts by estimating how forecasted heat conditions will directly affect human health at a localized, actionable level.
 
 Traditional early warnings rely almost solely on dry-bulb air temperature. However, 40°C in an arid desert with 15% relative humidity permits natural evaporative cooling through sweating, whereas 40°C in a coastal or river basin with 65% humidity disables perspiration, rapidly precipitating hyperthermia, heat syncope, and fatal heatstroke.
 
-ThermoWatch bridges the **missing integration layer** between environmental heat and localized human health impact:
+HeatVector bridges the **missing integration layer** between environmental heat and localized human health impact:
+
 
 $$\mathbf{\text{"What will the weather be?"} \implies \text{"What will the weather do to people?"}}$$
 

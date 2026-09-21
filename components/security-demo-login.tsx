@@ -97,7 +97,7 @@ export function SecurityDemoLogin() {
               <ShieldCheck className="h-5 w-5" />
             </span>
             <span>
-              <b className="block text-lg">ThermoWatch</b>
+              <b className="block text-lg">HeatVector</b>
               <small className="font-mono text-[11px] tracking-[0.18em] text-slate-400">SIH26083 · INDIA</small>
             </span>
           </Link>
@@ -134,7 +134,7 @@ export function SecurityDemoLogin() {
         <section className="flex min-h-screen items-center justify-center p-5 sm:p-8 lg:p-12">
           <div className="w-full max-w-[470px]">
             <Link href="/" className="mb-8 flex w-fit items-center gap-2.5 text-sm font-semibold text-blue-700 hover:underline lg:hidden">
-              <ShieldCheck className="h-5 w-5" /> ThermoWatch
+              <ShieldCheck className="h-5 w-5" /> HeatVector
             </Link>
 
             <div className="mb-6">
