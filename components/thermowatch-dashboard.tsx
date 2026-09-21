@@ -433,34 +433,34 @@ const riskStyle: Record<
   { badge: string; color: string; soft: string; bar: string }
 > = {
   Low: {
-    badge: 'rounded-full border border-[#222222]/8 bg-[#daf7ee] text-[#1b4332] font-mono text-[10.5px] uppercase tracking-[0.025em] px-2.5 py-0.5 shadow-none',
-    color: '#2ec4b6',
-    soft: '#daf7ee',
-    bar: 'bg-[#c094e4]',
+    badge: 'rounded-full border border-[#0e0f10]/8 bg-[#f4f4f8] text-[#7a7b7c] font-mono text-[10.5px] uppercase tracking-wider px-2.5 py-0.5',
+    color: '#7a7b7c',
+    soft: '#f4f4f8',
+    bar: 'bg-[#ff5065]',
   },
   Moderate: {
-    badge: 'rounded-full border border-[#222222]/8 bg-[#cef1e1] text-[#134e4a] font-mono text-[10.5px] uppercase tracking-[0.025em] px-2.5 py-0.5 shadow-none',
-    color: '#52b788',
-    soft: '#cef1e1',
-    bar: 'bg-[#c094e4]',
+    badge: 'rounded-full border border-[#0e0f10]/10 bg-[#f4f4f8] text-[#0e0f10] font-mono text-[10.5px] uppercase tracking-wider px-2.5 py-0.5',
+    color: '#ff7a59',
+    soft: '#ffe9eb',
+    bar: 'bg-[#ff5065]',
   },
   High: {
-    badge: 'rounded-full border border-[#222222]/8 bg-[#ffe9cf] text-[#854d0e] font-mono text-[10.5px] uppercase tracking-[0.025em] px-2.5 py-0.5 shadow-none',
-    color: '#ffb760',
-    soft: '#ffe9cf',
-    bar: 'bg-[#c094e4]',
+    badge: 'rounded-full border border-[#ff5c35]/20 bg-[#ffe9eb] text-[#ff5c35] font-mono text-[10.5px] uppercase tracking-wider px-2.5 py-0.5',
+    color: '#ff5c35',
+    soft: '#ffe9eb',
+    bar: 'bg-[#ff5065]',
   },
   Extreme: {
-    badge: 'rounded-full border border-[#222222]/8 bg-[#fce0ee] text-[#831843] font-mono text-[10.5px] uppercase tracking-[0.025em] px-2.5 py-0.5 shadow-none',
-    color: '#f7bbe6',
-    soft: '#fce0ee',
-    bar: 'bg-[#c094e4]',
+    badge: 'rounded-full border border-[#ff5065]/30 bg-[#ffe9eb] text-[#ff5065] font-mono text-[10.5px] uppercase tracking-wider px-2.5 py-0.5',
+    color: '#ff5065',
+    soft: '#ffe9eb',
+    bar: 'bg-[#ff5065]',
   },
   Emergency: {
-    badge: 'rounded-full border border-[#222222]/8 bg-[#fdebf7] text-[#574853] font-mono text-[10.5px] uppercase tracking-[0.025em] px-2.5 py-0.5 shadow-none',
-    color: '#c094e4',
-    soft: '#fdebf7',
-    bar: 'bg-[#c094e4]',
+    badge: 'rounded-full bg-[#ff5065] text-white font-mono text-[10.5px] uppercase tracking-wider px-2.5 py-0.5',
+    color: '#ff5065',
+    soft: '#ffe9eb',
+    bar: 'bg-[#ff5065]',
   },
 };
 
@@ -872,9 +872,9 @@ function IndiaMap({
   return (
     <div className="space-y-4">
       {/* IMD 5-Day Horizon & Zoom Controller Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-2xl border border-slate-200/90 bg-white p-2.5 sm:p-3 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-3xl border border-[#0e0f10]/6 bg-white p-3 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
         <div className="flex flex-wrap items-center justify-between gap-2 w-full sm:w-auto">
-          <div className="flex items-center gap-1.5 rounded-xl border border-blue-200/70 bg-blue-50/90 px-2.5 py-1 text-xs font-bold text-blue-900 shadow-xs">
+          <div className="flex items-center gap-1.5 rounded-full border border-[#ff5065]/20 bg-[#ffe9eb] px-3 py-1 text-xs font-semibold text-[#ff5065]">
             <span className="text-sm">🇮🇳</span>
             <span>IMD Heatwave Warnings</span>
           </div>
@@ -882,7 +882,7 @@ function IndiaMap({
             href={`https://mausam.imd.gov.in/responsive/districtWiseHeatwaveWarnings.php?day=Day_${forecastDay}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10.5px] font-medium text-slate-600 hover:text-blue-700 hover:border-blue-300 transition"
+            className="inline-flex items-center gap-1 rounded-full border border-[#0e0f10]/10 bg-[#f4f4f8] px-3 py-1 text-[10.5px] font-medium text-[#7a7b7c] hover:text-[#0e0f10] hover:border-[#0e0f10]/20 transition"
             title="Reference: Official IMD District-Wise Heatwave Warnings portal"
           >
             <span>Ref: IMD Day {forecastDay}</span>
@@ -891,7 +891,7 @@ function IndiaMap({
         </div>
 
         {/* Day 1 - Day 5 Tabs */}
-        <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-1 overflow-x-auto max-w-full">
+        <div className="flex items-center gap-1 rounded-full bg-[#f4f4f8] p-1 overflow-x-auto max-w-full">
           {IMD_FORECAST_DAYS.map((d) => {
             const isCurrent = forecastDay === d.day;
             return (
@@ -901,15 +901,15 @@ function IndiaMap({
                   setForecastDay(d.day);
                   setIsPlaying(false);
                 }}
-                className={`flex flex-col items-center rounded-lg px-2 sm:px-2.5 py-1 text-center transition-all shrink-0 ${
+                className={`flex flex-col items-center rounded-full px-3 sm:px-3.5 py-1 text-center transition-all shrink-0 ${
                   isCurrent
-                    ? 'bg-[#10213f] text-white shadow-xs'
-                    : 'text-slate-600 hover:bg-white hover:text-slate-900'
+                    ? 'bg-[#ff5065] text-white font-semibold shadow-sm'
+                    : 'text-[#0e0f10] hover:bg-white hover:text-[#ff5065]'
                 }`}
                 title={`Switch to ${d.title} forecast`}
               >
                 <span className="text-[11px] font-bold leading-tight">{d.title}</span>
-                <span className={`text-[8px] sm:text-[8.5px] leading-tight font-medium ${isCurrent ? 'text-amber-300' : 'text-slate-400'}`}>
+                <span className={`text-[8px] sm:text-[8.5px] leading-tight font-medium ${isCurrent ? 'text-white/80' : 'text-[#7a7b7c]'}`}>
                   {d.sub}
                 </span>
               </button>
@@ -917,10 +917,10 @@ function IndiaMap({
           })}
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className={`ml-0.5 sm:ml-1 flex items-center gap-1 rounded-lg px-2 sm:px-2.5 py-1.5 text-[11px] font-bold transition shrink-0 ${
+            className={`ml-0.5 sm:ml-1 flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-bold transition shrink-0 ${
               isPlaying
-                ? 'bg-amber-500 text-white shadow-xs'
-                : 'bg-white text-slate-700 hover:bg-slate-200 border border-slate-200'
+                ? 'bg-[#0e0f10] text-white'
+                : 'bg-white text-[#0e0f10] hover:bg-[#ffe9eb] border border-[#0e0f10]/10'
             }`}
             title={isPlaying ? 'Pause forecast animation' : 'Auto-play 5-day heatwave timeline'}
           >
@@ -931,7 +931,7 @@ function IndiaMap({
 
         <button
           onClick={() => setViewMode('city')}
-          className="flex w-full sm:w-auto items-center justify-center gap-1.5 rounded-xl border border-blue-700 bg-blue-700 px-3.5 py-2 sm:py-1.5 text-xs font-bold text-white shadow-xs hover:bg-blue-800 transition"
+          className="flex w-full sm:w-auto items-center justify-center gap-1.5 rounded-full bg-[#0e0f10] hover:bg-[#2f3133] px-4 py-2 sm:py-1.5 text-xs font-semibold text-white shadow-sm transition"
           title={`Zoom into ${selected.district} municipal wards`}
         >
           <ZoomIn className="h-3.5 w-3.5" />
@@ -1693,33 +1693,25 @@ export function ThermoWatchDashboard() {
 
   return (
     <KannadaLocalizer enabled={uiLanguage === 'kn'}>
-      <div className="min-h-screen bg-[#fff9f3] text-[#222222] lg:flex font-sans selection:bg-[#fdebf7] selection:text-[#574853]">
+      <div className="min-h-screen bg-white text-[#0e0f10] lg:flex font-sans selection:bg-[#ffe9eb] selection:text-[#ff5065]">
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-[270px] flex flex-col border-r border-[#222222]/8 bg-white px-4 py-5 text-[#222222] transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${mobileNav ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`fixed inset-y-0 left-0 z-50 w-[270px] flex flex-col border-r border-[#0e0f10]/6 bg-white px-4 py-5 text-[#0e0f10] transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${mobileNav ? 'translate-x-0' : '-translate-x-full'}`}
         >
-          {/* Hume AI Wordmark + Dot-Cluster Logo */}
+          {/* Contrast Brand Wordmark + Coral Signal */}
           <div className="relative flex items-center justify-between px-2 lg:mb-3">
             <div className="flex items-center gap-2.5">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
-                <circle cx="12" cy="12" r="2.8" fill="#222222" />
-                <circle cx="6" cy="7" r="2" fill="#222222" />
-                <circle cx="18" cy="7" r="2" fill="#222222" />
-                <circle cx="7" cy="18" r="2" fill="#222222" />
-                <circle cx="17" cy="17" r="2" fill="#222222" />
-              </svg>
+              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5065]" />
               <div className="flex items-baseline gap-1.5">
-                <span className="text-[19px] font-medium tracking-[-0.03em] text-[#222222] lowercase font-sans">
-                  heatvector
+                <span className="text-[20px] font-bold tracking-tight text-[#0e0f10] font-sans">
+                  HeatVector
                 </span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.03em] text-[#7a7876]">
-                  sih26
-                </span>
+                <span className="badge-new">NEW</span>
               </div>
             </div>
             <Button
               variant="ghost"
               size="icon"
-              className="ml-auto text-[#7a7876] hover:bg-[#fff9f3] hover:text-[#222222] rounded-full lg:hidden"
+              className="ml-auto text-[#7a7b7c] hover:bg-[#ffe9eb] hover:text-[#ff5065] rounded-full lg:hidden"
               onClick={() => setMobileNav(false)}
               aria-label="Close navigation"
             >
@@ -1728,18 +1720,18 @@ export function ThermoWatchDashboard() {
           </div>
 
           {/* Officer Session Banner inside Drawer */}
-          <div className="my-2.5 rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-2.5">
+          <div className="my-2.5 rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-2.5">
             {canManage ? (
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#daf7ee] text-[#1b4332]">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#ffe9eb] text-[#ff5065]">
                     <ShieldCheck className="h-4 w-4" />
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate text-xs font-medium text-[#222222]">
+                    <p className="truncate text-xs font-semibold text-[#0e0f10]">
                       {session?.name ?? 'Officer'}
                     </p>
-                    <p className="font-mono text-[9px] uppercase tracking-[0.025em] text-[#7a7876]">Command Active</p>
+                    <p className="font-mono text-[9px] uppercase tracking-wider text-[#7a7b7c]">Command Active</p>
                   </div>
                 </div>
                 <button
@@ -1748,7 +1740,7 @@ export function ThermoWatchDashboard() {
                     signOutOfficer();
                     setMobileNav(false);
                   }}
-                  className="rounded-full border border-[#222222]/10 bg-white px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876] hover:text-[#222222] shrink-0"
+                  className="rounded-full border border-[#0e0f10]/10 bg-white px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-[#7a7b7c] hover:text-[#0e0f10] shrink-0"
                 >
                   Sign out
                 </button>
@@ -1756,18 +1748,18 @@ export function ThermoWatchDashboard() {
             ) : (
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-stone-100 text-[#7a7876]">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white text-[#7a7b7c] border border-[#0e0f10]/8">
                     <LockKeyhole className="h-4 w-4" />
                   </span>
                   <div className="min-w-0">
-                    <p className="text-xs font-medium text-[#222222]">Public Observer</p>
-                    <p className="font-mono text-[9px] uppercase tracking-[0.025em] text-[#7a7876]">Restricted Tools</p>
+                    <p className="text-xs font-semibold text-[#0e0f10]">Public Observer</p>
+                    <p className="font-mono text-[9px] uppercase tracking-wider text-[#7a7b7c]">Restricted Tools</p>
                   </div>
                 </div>
                 <Link
                   href="/login?next=/"
                   onClick={() => setMobileNav(false)}
-                  className="rounded-full bg-[#222222] px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.025em] text-white hover:bg-black shrink-0"
+                  className="rounded-full bg-[#0e0f10] px-3 py-1 font-mono text-[10.5px] uppercase tracking-wider text-white hover:bg-[#2f3133] shrink-0"
                 >
                   Sign In
                 </Link>
@@ -1781,7 +1773,7 @@ export function ThermoWatchDashboard() {
           >
             {/* 1. Core Innovations Group */}
             <div>
-              <p className="px-2.5 pb-1.5 font-mono text-[9.5px] font-medium tracking-[0.025em] text-[#7a7876] uppercase">
+              <p className="px-2.5 pb-1.5 font-mono text-[9.5px] font-bold tracking-wider text-[#7a7b7c] uppercase">
                 CORE PROTOTYPE FLOW
               </p>
               <div className="space-y-1">
@@ -1791,15 +1783,15 @@ export function ThermoWatchDashboard() {
                     <button
                       key={id}
                       onClick={() => changeView(id)}
-                      className={`group flex min-h-9 w-full items-center gap-2.5 rounded-full px-3 text-left text-[12px] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#222222]/20 ${
+                      className={`group flex min-h-9 w-full items-center gap-2.5 rounded-full px-3 text-left text-[12px] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5065]/20 ${
                         isActive
-                          ? 'bg-[#222222] text-white font-medium shadow-none'
-                          : 'text-[#222222] hover:bg-[#fff9f3] font-normal'
+                          ? 'bg-[#ff5065] text-white font-semibold shadow-sm'
+                          : 'text-[#0e0f10] hover:bg-[#ffe9eb] hover:text-[#ff5065] font-medium'
                       }`}
                     >
                       <span
                         className={`grid h-5 w-5 shrink-0 place-items-center rounded-full transition-colors ${
-                          isActive ? 'bg-white/20 text-white' : 'text-[#7a7876] group-hover:text-[#222222]'
+                          isActive ? 'bg-white/20 text-white' : 'text-[#7a7b7c] group-hover:text-[#ff5065]'
                         }`}
                       >
                         <Icon className="h-3.5 w-3.5" />
@@ -1813,7 +1805,7 @@ export function ThermoWatchDashboard() {
 
             {/* 2. Officer Operations Group */}
             <div>
-              <p className="px-2.5 pb-1.5 font-mono text-[9.5px] font-medium tracking-[0.025em] text-[#7a7876] uppercase">
+              <p className="px-2.5 pb-1.5 font-mono text-[9.5px] font-bold tracking-wider text-[#7a7b7c] uppercase">
                 {canManage ? 'OFFICER COMMAND ACTIVE' : 'OFFICER OPERATIONS'}
               </p>
               <div className="space-y-1">
@@ -1830,28 +1822,28 @@ export function ThermoWatchDashboard() {
                       <button
                         key={id}
                         onClick={() => changeView(id)}
-                        className={`group flex min-h-9 w-full items-center gap-2.5 rounded-full px-3 text-left text-[12px] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#222222]/20 ${
+                        className={`group flex min-h-9 w-full items-center gap-2.5 rounded-full px-3 text-left text-[12px] transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5065]/20 ${
                           isActive
-                            ? 'bg-[#222222] text-white font-medium shadow-none'
-                            : 'text-[#222222] hover:bg-[#fff9f3] font-normal'
+                            ? 'bg-[#0e0f10] text-white font-semibold shadow-sm'
+                            : 'text-[#0e0f10] hover:bg-[#ffe9eb] hover:text-[#ff5065] font-medium'
                         }`}
                       >
                         <span
                           className={`grid h-5 w-5 shrink-0 place-items-center rounded-full transition-colors ${
-                            isActive ? 'bg-white/20 text-white' : 'text-[#7a7876] group-hover:text-[#222222]'
+                            isActive ? 'bg-white/20 text-white' : 'text-[#7a7b7c] group-hover:text-[#0e0f10]'
                           }`}
                         >
                           <Icon className="h-3.5 w-3.5" />
                         </span>
                         <span className="truncate">{copy.nav[id]}</span>
-                        {locked && <LockKeyhole className="ml-auto h-3 w-3 text-[#7a7876]" />}
+                        {locked && <LockKeyhole className="ml-auto h-3 w-3 text-[#7a7b7c]" />}
                         {id === 'alerts' && (
-                          <span className="ml-auto rounded-full bg-[#ffe9cf] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.025em] text-[#854d0e]">
+                          <span className="ml-auto rounded-full bg-[#ffe9eb] px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#ff5065] font-bold">
                             {highCount} High
                           </span>
                         )}
                         {id === 'cooling-centers' && (
-                          <span className="ml-auto rounded-full bg-[#daf7ee] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.025em] text-[#1b4332]">
+                          <span className="ml-auto rounded-full bg-[#f4f4f8] px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#0e0f10] font-bold">
                             Officer
                           </span>
                         )}
@@ -1862,14 +1854,14 @@ export function ThermoWatchDashboard() {
             </div>
           </nav>
           <div className="mt-auto pt-3">
-            <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3 font-mono text-[10px] text-[#7a7876]">
+            <div className="rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3 font-mono text-[10px] text-[#7a7b7c]">
               <div className="flex items-center gap-2">
                 <span
-                  className={`inline-block h-2 w-2 rounded-full ${hasLiveWeather ? 'bg-[#2ec4b6]' : 'bg-[#ffb760]'}`}
+                  className={`inline-block h-2 w-2 rounded-full ${hasLiveWeather ? 'bg-[#ff5065]' : 'bg-[#ff7a59]'}`}
                 />
-                <span className="text-[#222222] font-medium">{sourceLabel}</span>
+                <span className="text-[#0e0f10] font-semibold">{sourceLabel}</span>
               </div>
-              <span className="mt-1.5 block border-t border-[#222222]/8 pt-1.5 text-[9px] text-[#7a7876]">
+              <span className="mt-1.5 block border-t border-[#0e0f10]/6 pt-1.5 text-[9px] text-[#7a7b7c]">
                 MODEL {dashboard?.model.model_version ?? 'htsi-logit-4.0'}
               </span>
             </div>
@@ -1877,36 +1869,36 @@ export function ThermoWatchDashboard() {
         </aside>
         {mobileNav && (
           <button
-            className="fixed inset-0 z-40 bg-[#222222]/30 backdrop-blur-xs lg:hidden"
+            className="fixed inset-0 z-40 bg-[#0e0f10]/30 backdrop-blur-xs lg:hidden"
             onClick={() => setMobileNav(false)}
             aria-label="Close navigation overlay"
           />
         )}
 
         <section className="min-w-0 flex-1">
-          <header className="sticky top-0 z-30 flex min-h-[58px] sm:min-h-[64px] items-center justify-between gap-2 border-b border-[#222222]/8 bg-white/95 px-3 py-2 sm:px-6 sm:py-2.5 backdrop-blur-md lg:px-8">
+          <header className="sticky top-0 z-30 flex min-h-[58px] sm:min-h-[64px] items-center justify-between gap-2 border-b border-[#0e0f10]/6 bg-white/95 px-3 py-2 sm:px-6 sm:py-2.5 backdrop-blur-md lg:px-8 shadow-[0_4px_20px_rgba(38,42,62,0.03)]">
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <Button
                 variant="outline"
                 size="icon"
-                className="h-8 w-8 sm:h-9 sm:w-9 lg:hidden border-[#222222]/10 rounded-full shrink-0"
+                className="h-8 w-8 sm:h-9 sm:w-9 lg:hidden border-[#0e0f10]/10 rounded-full shrink-0"
                 onClick={() => setMobileNav(true)}
                 aria-label="Open navigation"
               >
                 <Menu className="h-4 w-4" />
               </Button>
-              <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-[#222222] min-w-0 truncate">
-                <span className="text-[#7a7876] hidden xs:inline">heatvector</span>
-                <span className="text-[#7a7876]/40 hidden xs:inline">/</span>
-                <span className="font-medium truncate">{navLabel}</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-[#0e0f10] min-w-0 truncate">
+                <span className="text-[#7a7b7c] hidden xs:inline">HeatVector</span>
+                <span className="text-[#7a7b7c]/40 hidden xs:inline">/</span>
+                <span className="font-semibold truncate">{navLabel}</span>
               </div>
               <div
-                className="hidden xl:flex items-center gap-1.5 rounded-full border border-[#222222]/8 bg-[#fff9f3] px-3 py-1 text-[11px] text-[#222222]"
+                className="hidden xl:flex items-center gap-1.5 rounded-full border border-[#ff5065]/20 bg-[#ffe9eb] px-3 py-1 text-[11px] text-[#ff5065]"
                 title="HeatVector is a human-risk and intervention decision-support layer built on top of meteorological forecasts."
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-[#c094e4]"></span>
-                <span className="font-medium">Human-Risk Decision Layer</span>
-                <span className="text-[#7a7876] text-[10px] hidden 2xl:inline">&middot; on top of weather forecasts</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-[#ff5065]"></span>
+                <span className="font-semibold">Human-Risk Decision Layer</span>
+                <span className="text-[#7a7b7c] text-[10px] hidden 2xl:inline">&middot; on top of weather forecasts</span>
               </div>
             </div>
 
@@ -1915,19 +1907,19 @@ export function ThermoWatchDashboard() {
                 <button
                   type="button"
                   onClick={signOutOfficer}
-                  className="inline-flex min-h-8 items-center gap-1 sm:gap-1.5 rounded-full border border-[#222222]/8 bg-[#daf7ee] px-3 text-xs font-medium text-[#1b4332] transition-colors hover:bg-[#cef1e1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2ec4b6]"
+                  className="inline-flex min-h-8 items-center gap-1 sm:gap-1.5 rounded-full bg-[#0e0f10] px-3.5 text-xs font-semibold text-white transition-colors hover:bg-[#2f3133] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5065]"
                   title={`Signed in as ${session?.name ?? 'officer'}. Click to sign out.`}
                 >
-                  <ShieldCheck className="h-3.5 w-3.5 text-[#1b4332] shrink-0" />
+                  <ShieldCheck className="h-3.5 w-3.5 text-white shrink-0" />
                   <span className="hidden md:inline">Officer &middot; Sign out</span>
                   <span className="md:hidden text-[11px]">Officer</span>
                 </button>
               ) : (
                 <Link
                   href="/login?next=/"
-                  className="hidden sm:inline-flex min-h-8 items-center gap-1.5 rounded-full border border-[#222222]/10 bg-white px-3 text-xs font-medium text-[#222222] transition-colors hover:bg-[#fff9f3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#222222]/20"
+                  className="hidden sm:inline-flex min-h-8 items-center gap-1.5 rounded-full border border-[#0e0f10] bg-white px-3.5 text-xs font-semibold text-[#0e0f10] transition-colors hover:bg-[#f4f4f8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0e0f10]/20"
                 >
-                  <LockKeyhole className="h-3.5 w-3.5 text-[#7a7876]" />
+                  <LockKeyhole className="h-3.5 w-3.5 text-[#7a7b7c]" />
                   <span>Officer Sign In</span>
                 </Link>
               )}
@@ -1938,7 +1930,7 @@ export function ThermoWatchDashboard() {
                   changeLanguage(event.target.value as UiLanguage)
                 }
                 aria-label="Interface language"
-                className="h-8 w-[68px] sm:w-[84px] text-xs border-[#222222]/10 rounded-full px-1 sm:px-2 bg-white"
+                className="h-8 w-[68px] sm:w-[84px] text-xs border-[#0e0f10]/12 rounded-full px-1 sm:px-2 bg-white text-[#0e0f10]"
               >
                 <NativeSelectOption value="en">EN</NativeSelectOption>
                 <NativeSelectOption value="hi">हिन्दी</NativeSelectOption>
@@ -1951,18 +1943,18 @@ export function ThermoWatchDashboard() {
                 variant="default"
                 size="sm"
                 onClick={() => setAssistantModalOpen(true)}
-                className="h-8 bg-[#222222] hover:bg-black text-white font-medium text-xs rounded-full flex items-center gap-1.5 shadow-none px-3"
+                className="h-8 bg-[#ff5065] hover:bg-[#ff3850] text-white font-semibold text-xs rounded-full flex items-center gap-1.5 shadow-sm px-3.5"
                 title="AI Assistant"
               >
-                <Sparkles className="h-3.5 w-3.5 text-[#f7bbe6] shrink-0" />
-                <span className="hidden sm:inline">AI</span>
+                <Sparkles className="h-3.5 w-3.5 text-white shrink-0" />
+                <span className="hidden sm:inline">AI Intelligence</span>
               </Button>
 
               <NativeSelect
                 value={selected.district}
                 onChange={(event) => setSelectedName(event.target.value)}
                 aria-label="Select monitoring district"
-                className="h-8 text-xs border-[#222222]/10 rounded-full max-w-[95px] xs:max-w-[125px] sm:max-w-[160px] md:max-w-[180px] bg-white"
+                className="h-8 text-xs border-[#0e0f10]/12 rounded-full max-w-[95px] xs:max-w-[125px] sm:max-w-[160px] md:max-w-[180px] bg-white text-[#0e0f10]"
               >
                 {alphabeticalDistricts.map((item) => (
                   <NativeSelectOption key={item.district} value={item.district}>
@@ -1974,12 +1966,12 @@ export function ThermoWatchDashboard() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 px-2 sm:px-2.5 border-[#222222]/10 rounded-full hover:bg-[#fff9f3] text-[#222222]"
+                className="h-8 px-2 sm:px-2.5 border-[#0e0f10]/12 rounded-full hover:bg-[#f4f4f8] text-[#0e0f10]"
                 onClick={loadDashboard}
                 disabled={loading}
                 title={copy.refresh}
               >
-                <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin text-[#c094e4]' : ''}`} />
+                <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin text-[#ff5065]' : ''}`} />
               </Button>
             </div>
           </header>
@@ -1987,7 +1979,7 @@ export function ThermoWatchDashboard() {
             {error && (
               <div
                 role="alert"
-                className="mb-4 flex items-center justify-between rounded-2xl border border-[#222222]/8 bg-[#fce0ee] px-4 py-2.5 text-xs sm:text-sm text-[#831843]"
+                className="mb-4 flex items-center justify-between rounded-2xl border border-[#ff5065]/20 bg-[#ffe9eb] px-4 py-2.5 text-xs sm:text-sm text-[#ff5065]"
               >
                 <span>{error}</span>
                 <button onClick={() => setError('')} aria-label="Dismiss error">
@@ -1996,64 +1988,79 @@ export function ThermoWatchDashboard() {
               </div>
             )}
             {!online && (
-              <div className="mb-4 flex items-center gap-2 rounded-2xl border border-[#222222]/8 bg-[#ffe9cf] px-4 py-2.5 text-xs sm:text-sm text-[#854d0e]">
+              <div className="mb-4 flex items-center gap-2 rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] px-4 py-2.5 text-xs sm:text-sm text-[#666666]">
                 <CloudSun className="h-4 w-4" />
                 Offline mode: cached public weather and forecast views remain available. Record submission and authority actions require a connection.
               </div>
             )}
             {notice && (
-              <div className="mb-4 flex items-center gap-2 rounded-2xl border border-[#222222]/8 bg-[#daf7ee] px-4 py-2.5 text-xs sm:text-sm text-[#1b4332]">
-                <Check className="h-4 w-4" />
+              <div className="mb-4 flex items-center gap-2 rounded-2xl border border-[#ff5065]/20 bg-[#ffe9eb] px-4 py-2.5 text-xs sm:text-sm text-[#0e0f10]">
+                <Check className="h-4 w-4 text-[#ff5065]" />
                 {notice}
               </div>
             )}
 
             {view === 'overview' && (
               <div className="space-y-6">
-                {/* Disaster Management Live Overview Header — Hume AI Scientific Instrument Panel */}
-                <div className="rounded-3xl border border-[#222222]/8 bg-white p-6 sm:p-8">
+                {/* Disaster Management Live Overview Header — Contrast Style */}
+                <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-6 sm:p-8 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
                   <div className="flex flex-wrap items-center justify-between gap-6">
-                    <div className="space-y-2 max-w-2xl">
+                    <div className="space-y-3 max-w-2xl">
                       <div className="flex items-center gap-2">
-                        <span className="relative flex h-2 w-2">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#c094e4] opacity-75"></span>
-                          <span className="relative inline-flex h-2 w-2 rounded-full bg-[#c094e4]"></span>
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ff5065] opacity-75"></span>
+                          <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#ff5065]"></span>
                         </span>
-                        <span className="font-mono text-[10.5px] sm:text-[11px] font-medium tracking-[0.025em] uppercase text-[#7a7876]">
+                        <span className="font-mono text-[10.5px] sm:text-[11px] font-bold tracking-[0.1em] uppercase text-[#ff5065]">
                           DISASTER MANAGEMENT &middot; LIVE OVERVIEW
                         </span>
                       </div>
-                      <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-[#222222]">
-                        Heat conditions, <span className="text-gradient-iris">made actionable.</span>
+                      <h1 className="hero-headline text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#0e0f10]">
+                        Heat conditions, <span className="text-[#ff5065]">made actionable.</span>
                       </h1>
-                      <p className="text-sm sm:text-base text-[#7a7876] font-normal leading-relaxed">
+                      <p className="text-sm sm:text-base text-[#666666] font-normal leading-relaxed">
                         See where heat is rising, who is exposed, and what response should come next.
                       </p>
+                      <div className="flex flex-wrap items-center gap-3 pt-2">
+                        <Button
+                          onClick={() => setAssistantModalOpen(true)}
+                          className="rounded-full bg-[#ff5065] hover:bg-[#ff3850] text-white px-5 py-2.5 text-xs font-semibold shadow-sm"
+                        >
+                          Ask Heat Assistant &rarr;
+                        </Button>
+                        <Button
+                          variant="outline"
+                          onClick={() => changeView('hyperlocal-gis')}
+                          className="rounded-full border border-[#0e0f10] bg-white hover:bg-[#f4f4f8] text-[#0e0f10] px-5 py-2.5 text-xs font-semibold"
+                        >
+                          Inspect Ward GIS
+                        </Button>
+                      </div>
                     </div>
 
-                    {/* Stat Block Row (Hume AI Quantitative Proof Strip) */}
-                    <div className="flex items-center gap-6 sm:gap-10 border-t sm:border-t-0 sm:border-l border-[#222222]/8 pt-4 sm:pt-0 sm:pl-8">
+                    {/* Stat Block Row */}
+                    <div className="flex items-center gap-6 sm:gap-10 border-t sm:border-t-0 sm:border-l border-[#0e0f10]/6 pt-4 sm:pt-0 sm:pl-8">
                       <div>
-                        <p className="font-mono text-2xl sm:text-3xl font-normal tracking-tight text-[#222222]">
+                        <p className="font-sans text-3xl sm:text-4xl font-bold tracking-tight text-[#0e0f10]">
                           50+
                         </p>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876] mt-0.5">
+                        <p className="font-mono text-[10px] uppercase tracking-wider text-[#7a7b7c] mt-0.5">
                           DISTRICTS
                         </p>
                       </div>
                       <div>
-                        <p className="font-mono text-2xl sm:text-3xl font-normal tracking-tight text-[#222222]">
+                        <p className="font-sans text-3xl sm:text-4xl font-bold tracking-tight text-[#0e0f10]">
                           48+
                         </p>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876] mt-0.5">
+                        <p className="font-mono text-[10px] uppercase tracking-wider text-[#7a7b7c] mt-0.5">
                           HOURLY RUNS
                         </p>
                       </div>
                       <div>
-                        <p className="font-mono text-2xl sm:text-3xl font-normal tracking-tight text-[#222222]">
+                        <p className="font-sans text-3xl sm:text-4xl font-bold tracking-tight text-[#0e0f10]">
                           600+
                         </p>
-                        <p className="font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876] mt-0.5">
+                        <p className="font-mono text-[10px] uppercase tracking-wider text-[#7a7b7c] mt-0.5">
                           ACTIONS/DAY
                         </p>
                       </div>
@@ -4043,6 +4050,33 @@ export function ThermoWatchDashboard() {
                 </a>
               </span>
             </footer>
+
+            {/* Contrast Persistent Floating Operational Anchor Widget (Bottom-Left) */}
+            <div className="fixed bottom-5 left-5 z-40 hidden md:flex w-[290px] flex-col rounded-2xl border border-[#0e0f10]/8 bg-white p-4 shadow-[0_5px_25px_rgba(38,42,62,0.08)]">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff5065]">
+                  <span className="h-2 w-2 rounded-full bg-[#ff5065] animate-ping" />
+                  <span>ACTIVE HEAT DIRECTIVE</span>
+                </div>
+                <span className="badge-new text-[9px] py-0 px-1.5">LIVE</span>
+              </div>
+              <div className="flex items-center gap-3 my-1.5">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#ffe9eb] text-[#ff5065] font-bold text-xs">
+                  {selected.temp}°C
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-xs font-bold text-[#0e0f10] truncate">{selected.district}</h4>
+                  <p className="text-[11px] text-[#666666] truncate">{selected.risk} Risk · {selected.htsi} HTSI</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setAssistantModalOpen(true)}
+                className="mt-3 w-full rounded-full bg-[#ff5065] hover:bg-[#ff3850] py-2 text-xs font-semibold text-white transition shadow-sm"
+              >
+                Open Grounded Assistant &rarr;
+              </button>
+            </div>
+
             <LocalAssistant
               language={uiLanguage}
               context={{

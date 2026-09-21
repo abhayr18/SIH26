@@ -17,36 +17,36 @@ export function DataTelemetryView() {
 
   return (
     <div className="space-y-6 font-sans">
-      {/* Top Banner — Hume AI Scientific Instrument Panel */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-[#222222]/8 bg-white p-6 sm:p-7">
+      {/* Top Banner — Contrast Geometric Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-[#0e0f10]/6 bg-white p-6 sm:p-7 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
         <div className="space-y-1.5 max-w-3xl">
           <div className="flex flex-wrap items-center gap-2.5">
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-[#daf7ee] text-[#1b4332] border border-[#222222]/8">
-              <Activity className="h-4 w-4" />
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-[#ffe9eb] text-[#ff5065] border border-[#ff5065]/20">
+              <Activity className="h-4 w-4 stroke-[2.5]" />
             </span>
-            <h2 className="text-xl font-medium tracking-[-0.025em] text-[#222222]">
+            <h2 className="text-xl font-bold tracking-tight text-[#0e0f10]">
               Data Source Health & Telemetry Monitor
             </h2>
-            <span className="rounded-full border border-[#222222]/8 bg-[#fff9f3] px-3 py-0.5 font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
+            <span className="rounded-full border border-[#ff5065]/20 bg-[#ffe9eb] px-3 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[#ff5065] font-semibold">
               Operational Transparency
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-[#7a7876] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#666666] leading-relaxed">
             Real-time pipeline monitoring, data freshness metrics, input completeness audits, and scientific attribution adhering to MoES/NCMRWF data integrity standards.
           </p>
         </div>
 
-        <div className="flex items-center gap-4 rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3.5 shrink-0">
+        <div className="flex items-center gap-4 rounded-2xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-3.5 shrink-0">
           <div>
-            <div className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876]">System Health</div>
-            <div className="font-mono text-xl font-medium text-[#1b4332] mt-0.5">
+            <div className="font-mono text-[9.5px] uppercase tracking-wider text-[#666666] font-medium">System Health</div>
+            <div className="font-mono text-xl font-bold text-[#ff5065] mt-0.5">
               {telemetry.overall_system_health_pct}%
             </div>
           </div>
-          <div className="h-7 w-px bg-[#222222]/8" />
+          <div className="h-7 w-px bg-[#0e0f10]/10" />
           <div>
-            <div className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876]">Last Telemetry Sync</div>
-            <div className="font-mono text-xs font-medium text-[#222222] mt-0.5">
+            <div className="font-mono text-[9.5px] uppercase tracking-wider text-[#666666] font-medium">Last Telemetry Sync</div>
+            <div className="font-mono text-xs font-bold text-[#0e0f10] mt-0.5">
               {telemetry.last_sync_timestamp}
             </div>
           </div>
@@ -55,61 +55,61 @@ export function DataTelemetryView() {
 
       {/* Model & Data Quality Audit KPIs */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <div className="rounded-2xl border border-[#222222]/8 bg-white p-5">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
-            <Cpu className="h-3.5 w-3.5 text-[#222222]" />
+        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
+            <Cpu className="h-3.5 w-3.5 text-[#0e0f10]" />
             Model Confidence
           </div>
-          <div className="mt-2 font-mono text-2xl font-normal text-[#222222]">
+          <div className="mt-2 font-mono text-2xl font-bold text-[#0e0f10]">
             {audit.prediction_confidence_pct}%
           </div>
-          <span className="text-xs text-[#7a7876] mt-0.5 block">Platt temperature scaled</span>
+          <span className="text-xs text-[#666666] mt-0.5 block">Platt temperature scaled</span>
         </div>
 
-        <div className="rounded-2xl border border-[#222222]/8 bg-white p-5">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
-            <FileCheck className="h-3.5 w-3.5 text-[#1b4332]" />
+        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
+            <FileCheck className="h-3.5 w-3.5 text-[#ff5065]" />
             Input Completeness
           </div>
-          <div className="mt-2 font-mono text-2xl font-normal text-[#1b4332]">
+          <div className="mt-2 font-mono text-2xl font-bold text-[#ff5065]">
             {audit.input_completeness_pct}%
           </div>
-          <span className="text-xs text-[#7a7876] mt-0.5 block">All key parameters present</span>
+          <span className="text-xs text-[#666666] mt-0.5 block">All key parameters present</span>
         </div>
 
-        <div className="rounded-2xl border border-[#222222]/8 bg-white p-5">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
-            <Clock className="h-3.5 w-3.5 text-[#854d0e]" />
+        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
+            <Clock className="h-3.5 w-3.5 text-[#ff7a59]" />
             Weather Telemetry Age
           </div>
-          <div className="mt-2 font-mono text-2xl font-normal text-[#854d0e]">
+          <div className="mt-2 font-mono text-2xl font-bold text-[#ff7a59]">
             {audit.weather_data_age_minutes} mins
           </div>
-          <span className="text-xs text-[#7a7876] mt-0.5 block">Fresh within 15-min SLA</span>
+          <span className="text-xs text-[#666666] mt-0.5 block">Fresh within 15-min SLA</span>
         </div>
 
-        <div className="rounded-2xl border border-[#222222]/8 bg-white p-5">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
-            <ShieldCheck className="h-3.5 w-3.5 text-[#c094e4]" />
+        <div className="rounded-3xl border border-[#0e0f10]/6 bg-white p-5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
+          <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[#666666]">
+            <ShieldCheck className="h-3.5 w-3.5 text-[#0e0f10]" />
             Model Version
           </div>
-          <div className="mt-2 font-mono text-base font-normal text-[#c094e4] truncate">
+          <div className="mt-2 font-mono text-base font-bold text-[#0e0f10] truncate">
             {audit.model_id}
           </div>
-          <span className="text-xs text-[#7a7876] mt-0.5 block">F1: {audit.validation_f1_score} hold-out</span>
+          <span className="text-xs text-[#666666] mt-0.5 block">F1: {audit.validation_f1_score} hold-out</span>
         </div>
       </div>
 
       {/* Live Data Source Telemetry Table */}
-      <div className="rounded-2xl border border-[#222222]/8 bg-white overflow-hidden">
-        <div className="border-b border-[#222222]/8 p-5">
-          <h3 className="font-medium text-[#222222] tracking-[-0.025em]">Integrated Services & Endpoints</h3>
-          <p className="text-xs text-[#7a7876] mt-0.5">Continuous ping health, round-trip latency, and licensing attribution</p>
+      <div className="rounded-3xl border border-[#0e0f10]/6 bg-white overflow-hidden shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
+        <div className="border-b border-[#0e0f10]/6 p-5">
+          <h3 className="font-bold text-[#0e0f10] tracking-tight">Integrated Services & Endpoints</h3>
+          <p className="text-xs text-[#666666] mt-0.5">Continuous ping health, round-trip latency, and licensing attribution</p>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-[#222222]/8 bg-[#fff9f3] font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
+            <thead className="border-b border-[#0e0f10]/6 bg-[#f4f4f8] font-mono text-[10px] uppercase tracking-wider text-[#666666]">
               <tr>
                 <th className="p-4">Status</th>
                 <th className="p-4">Service Name</th>
@@ -119,30 +119,30 @@ export function DataTelemetryView() {
                 <th className="p-4">License / Origin</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#222222]/6">
+            <tbody className="divide-y divide-[#0e0f10]/6">
               {telemetry.sources.map((src: DataSourceTelemetry) => (
-                <tr key={src.source_id} className="hover:bg-[#fff9f3]/60 transition">
+                <tr key={src.source_id} className="hover:bg-[#f4f4f8]/60 transition">
                   <td className="p-4">
                     <span className="text-base" title={src.status}>
                       {src.status_indicator}
                     </span>
                   </td>
                   <td className="p-4">
-                    <div className="font-medium text-[#222222]">{src.source_name}</div>
-                    <div className="text-[11px] text-[#7a7876]">{src.notes}</div>
+                    <div className="font-bold text-[#0e0f10]">{src.source_name}</div>
+                    <div className="text-[11px] text-[#666666]">{src.notes}</div>
                   </td>
-                  <td className="p-4 text-[#7a7876]">{src.category}</td>
-                  <td className="p-4 font-mono text-[#222222]">{src.latency_ms} ms</td>
+                  <td className="p-4 text-[#666666]">{src.category}</td>
+                  <td className="p-4 font-mono font-bold text-[#0e0f10]">{src.latency_ms} ms</td>
                   <td className="p-4">
-                    <span className={`rounded-full px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.025em] border border-[#222222]/8 ${
+                    <span className={`rounded-full px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-wider font-semibold border ${
                       src.is_live
-                        ? 'bg-[#daf7ee] text-[#1b4332]'
-                        : 'bg-[#ffe9cf] text-[#854d0e]'
+                        ? 'border-[#0e0f10]/10 bg-[#f4f4f8] text-[#0e0f10]'
+                        : 'border-[#ff7a59]/30 bg-[#ff7a59]/10 text-[#ff7a59]'
                     }`}>
                       {src.is_live ? 'LIVE API' : 'SYNTHETIC / ESTIMATED'}
                     </span>
                   </td>
-                  <td className="p-4 text-[#7a7876] font-mono text-[11px]">{src.license_badge}</td>
+                  <td className="p-4 text-[#666666] font-mono text-[11px]">{src.license_badge}</td>
                 </tr>
               ))}
             </tbody>
@@ -151,13 +151,13 @@ export function DataTelemetryView() {
       </div>
 
       {/* Critical Scientific Protocol Notice */}
-      <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-5">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.025em] text-[#574853]">
-          <Info className="h-4 w-4 text-[#c094e4]" />
+      <div className="rounded-3xl border border-[#0e0f10]/6 bg-[#f4f4f8] p-5 shadow-[0_5px_25px_rgba(38,42,62,0.04)]">
+        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-[#ff5065] font-bold">
+          <Info className="h-4 w-4 text-[#ff5065]" />
           Scientific & Legal Attribution Protocol
         </div>
-        <p className="mt-2 text-xs leading-relaxed text-[#7a7876]">
-          This system strictly differentiates official public meteorological forecasts (Open-Meteo IFS/GFS) from experimental prototype scoring models (HTSS). In compliance with SIH26083 regulations, synthetic or proxy health admissions datasets are explicitly identified with <span className="font-mono text-[#854d0e]">DEMO / SYNTHETIC DATA</span> badges. Under no circumstances are simulated casualty figures represented as actual Ministry of Health statistical returns.
+        <p className="mt-2 text-xs leading-relaxed text-[#666666]">
+          This system strictly differentiates official public meteorological forecasts (Open-Meteo IFS/GFS) from experimental prototype scoring models (HTSS). In compliance with SIH26083 regulations, synthetic or proxy health admissions datasets are explicitly identified with <span className="font-mono font-bold text-[#ff5065]">DEMO / SYNTHETIC DATA</span> badges. Under no circumstances are simulated casualty figures represented as actual Ministry of Health statistical returns.
         </p>
       </div>
     </div>

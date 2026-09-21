@@ -17,37 +17,37 @@ export function DemoScenarioBar({
     DEMO_SCENARIOS.find((s) => s.id === activeScenarioId) || DEMO_SCENARIOS[0];
 
   const badgeColorStyles = {
-    green: 'bg-[#daf7ee] text-[#222222] border border-[#222222]/8',
-    yellow: 'bg-[#ffe9cf] text-[#222222] border border-[#222222]/8',
-    orange: 'bg-[#fce0ee] text-[#222222] border border-[#222222]/8',
-    red: 'bg-[#fdebf7] text-[#222222] border border-[#222222]/8',
+    green: 'bg-[#ffe9eb]/40 text-[#0e0f10] border border-[#0e0f10]/6',
+    yellow: 'bg-[#ff7a59]/15 text-[#0e0f10] border border-[#ff7a59]/20',
+    orange: 'bg-[#ff5c35]/20 text-[#0e0f10] border border-[#ff5c35]/30',
+    red: 'bg-[#ff5065]/20 text-[#ff5065] border border-[#ff5065]/30',
   };
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-[#222222]/8 bg-white px-4 py-2.5 shadow-none">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-[#0e0f10]/6 bg-white px-4 py-2.5 shadow-[0_5px_25px_rgba(38,42,62,0.06)]">
       {/* Left indicator */}
       <div className="flex items-center gap-2.5">
         <span className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c094e4] opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#c094e4]"></span>
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff5065] opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#ff5065]"></span>
         </span>
         <div>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.025em] text-[#7a7876]">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#ff5065]">
               SIMULATION SCENARIO
             </span>
-            <span className="text-xs font-medium text-[#222222]">
+            <span className="text-xs font-bold text-[#0e0f10]">
               {activeScenario.name}
             </span>
           </div>
-          <p className="text-[11px] text-[#7a7876]">
+          <p className="text-[11px] text-[#666666]">
             {activeScenario.description}
           </p>
         </div>
       </div>
 
       {/* Right Segmented Pills */}
-      <div className="flex items-center gap-1 rounded-full border border-[#222222]/8 bg-[#fff9f3] p-1">
+      <div className="flex items-center gap-1 rounded-full border border-[#0e0f10]/6 bg-[#f4f4f8] p-1">
         {DEMO_SCENARIOS.map((scen: DemoScenario) => {
           const isActive = scen.id === activeScenarioId;
 
@@ -55,10 +55,10 @@ export function DemoScenarioBar({
             <button
               key={scen.id}
               onClick={() => onSelectScenario(scen)}
-              className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all ${
+              className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs transition-all ${
                 isActive
-                  ? 'bg-[#222222] text-white shadow-none font-medium'
-                  : 'text-[#7a7876] hover:text-[#222222] hover:bg-[#222222]/5'
+                  ? 'bg-[#ff5065] text-white shadow-none font-semibold'
+                  : 'text-[#666666] hover:text-[#0e0f10] hover:bg-[#0e0f10]/5 font-medium'
               }`}
             >
               <span>{scen.name}</span>

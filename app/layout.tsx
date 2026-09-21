@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { PwaRegister } from '@/components/pwa-register';
 
-const fellixSans = Inter({
-  variable: '--font-fellix',
+const gilroySans = Plus_Jakarta_Sans({
+  variable: '--font-gilroy',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['500', '600', '700'],
   display: 'swap',
 });
 
-const fraktionMono = JetBrains_Mono({
-  variable: '--font-pp-fraktion-mono',
+const monoFont = JetBrains_Mono({
+  variable: '--font-mono',
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   display: 'swap',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#fff9f3',
+  themeColor: '#ffffff',
   colorScheme: 'light',
 };
 
@@ -63,7 +63,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fellixSans.variable} ${fraktionMono.variable} antialiased bg-[#fff9f3] text-[#222222]`}>
+      <body className={`${gilroySans.variable} ${monoFont.variable} antialiased bg-white text-[#0e0f10]`}>
         <PwaRegister />
         {children}
       </body>

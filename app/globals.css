@@ -5,56 +5,61 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  /* Colors — Hume AI Scientific Pastel Palette */
-  --color-ink: #222222;
-  --color-paper: #ffffff;
-  --color-bone: #fff9f3;
-  --color-smoke: #7a7876;
-  --color-carbon: #000000;
-  --color-iris: #c094e4;
-  --color-blush: #fce0ee;
-  --color-rose-mist: #fdebf7;
-  --color-meringue: #ffe9cf;
-  --color-mint: #daf7ee;
-  --color-seafoam: #cef1e1;
-  --color-slate-plum: #574853;
+  /* Colors — Contrast Design System ("neon coral signal on white silence") */
+  --color-signal-coral: #ff5065;
+  --color-ember-wash: #ff7a59;
+  --color-persimmon: #ff5c35;
+  --color-coral-mist: #ffe9eb;
+  --color-carbon-ink: #0e0f10;
+  --color-pure-white: #ffffff;
+  --color-fog: #f4f4f8;
+  --color-graphite: #2f3133;
+  --color-slate: #7a7b7c;
+  --color-smoke: #666666;
 
-  /* Typography — Fellix and PP Fraktion Mono */
-  --font-fellix: var(--font-fellix), 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-pp-fraktion-mono: var(--font-pp-fraktion-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --font-sans: var(--font-fellix);
-  --font-mono: var(--font-pp-fraktion-mono);
-  --font-heading: var(--font-fellix);
-  --font-fira-sans: var(--font-fellix);
-  --font-fira-code: var(--font-pp-fraktion-mono);
+  /* Typography — Gilroy Geometric Grotesque Sans */
+  --font-gilroy: var(--font-gilroy), 'Plus Jakarta Sans', 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-gilroy);
+  --font-heading: var(--font-gilroy);
+  --font-fellix: var(--font-gilroy);
+  --font-fira-sans: var(--font-gilroy);
+  --font-pp-fraktion-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+  --font-fira-code: var(--font-mono);
 
-  /* Spacing */
-  --spacing-4: 4px;
+  /* Spacing Scale — Base 8px unit */
   --spacing-8: 8px;
-  --spacing-12: 12px;
   --spacing-16: 16px;
-  --spacing-20: 20px;
   --spacing-24: 24px;
   --spacing-32: 32px;
+  --spacing-40: 40px;
   --spacing-48: 48px;
+  --spacing-56: 56px;
   --spacing-64: 64px;
-  --spacing-96: 96px;
+  --spacing-72: 72px;
+  --spacing-80: 80px;
+  --spacing-88: 88px;
   --spacing-112: 112px;
-  --spacing-144: 144px;
+  --spacing-120: 120px;
 
   /* Border Radius */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 20px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
   --radius-3xl: 24px;
-  --radius-full: 9999px;
-  --radius-tags: 9999px;
-  --radius-buttons: 9999px;
-  --radius-cards: 16px;
-  --radius-category-tiles: 16px;
-  --radius-hero-illustration: 24px;
+  --radius-4xl: 40px;
+  --radius-full: 100px;
+  --radius-nav: 4px;
+  --radius-cards: 24px;
+  --radius-badges: 100px;
+  --radius-images: 100px;
+  --radius-buttons: 100px;
+  --radius-largecards: 40px;
+  --radius-smallcards: 16px;
+  --radius-extralargecards: 120px;
+
+  /* Shadows */
+  --shadow-xl: 0 5px 25px rgba(38, 42, 62, 0.06);
 
   /* Design Tokens mapped to theme */
   --color-background: var(--background);
@@ -87,87 +92,83 @@
 
 :root {
   /* Colors */
-  --color-ink: #222222;
-  --color-paper: #ffffff;
-  --color-bone: #fff9f3;
-  --color-smoke: #7a7876;
-  --color-carbon: #000000;
-  --color-iris: #c094e4;
-  --gradient-iris: linear-gradient(90deg, #c094e4 0%, #f7bbe6 50%, #ffb760 100%);
-  --color-blush: #fce0ee;
-  --color-rose-mist: #fdebf7;
-  --color-meringue: #ffe9cf;
-  --color-mint: #daf7ee;
-  --color-seafoam: #cef1e1;
-  --color-slate-plum: #574853;
+  --color-signal-coral: #ff5065;
+  --color-ember-wash: #ff7a59;
+  --color-persimmon: #ff5c35;
+  --color-coral-mist: #ffe9eb;
+  --color-carbon-ink: #0e0f10;
+  --color-pure-white: #ffffff;
+  --color-fog: #f4f4f8;
+  --color-graphite: #2f3133;
+  --color-slate: #7a7b7c;
+  --color-smoke: #666666;
 
   /* Surfaces & Functional roles */
-  --background: #fff9f3;
-  --foreground: #222222;
+  --background: #ffffff;
+  --foreground: #0e0f10;
   --card: #ffffff;
-  --card-foreground: #222222;
+  --card-foreground: #0e0f10;
   --popover: #ffffff;
-  --popover-foreground: #222222;
-  --primary: #222222;
+  --popover-foreground: #0e0f10;
+  --primary: #ff5065;
   --primary-foreground: #ffffff;
-  --secondary: #fff9f3;
-  --secondary-foreground: #222222;
-  --muted: #fff9f3;
-  --muted-foreground: #7a7876;
-  --accent: #fdebf7;
-  --accent-foreground: #574853;
-  --destructive: #fce0ee;
-  --border: rgba(34, 34, 34, 0.08);
-  --input: rgba(34, 34, 34, 0.12);
-  --ring: #c094e4;
-  --radius: 1rem;
+  --secondary: #0e0f10;
+  --secondary-foreground: #ffffff;
+  --muted: #f4f4f8;
+  --muted-foreground: #7a7b7c;
+  --accent: #ffe9eb;
+  --accent-foreground: #ff5065;
+  --destructive: #ff5065;
+  --border: rgba(14, 15, 16, 0.08);
+  --input: rgba(14, 15, 16, 0.12);
+  --ring: #ff5065;
+  --radius: 1.5rem;
 
   /* Sidebar Tokens */
   --sidebar: #ffffff;
-  --sidebar-foreground: #222222;
-  --sidebar-primary: #222222;
+  --sidebar-foreground: #0e0f10;
+  --sidebar-primary: #ff5065;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #fff9f3;
-  --sidebar-accent-foreground: #222222;
-  --sidebar-border: rgba(34, 34, 34, 0.08);
-  --sidebar-ring: #c094e4;
+  --sidebar-accent: #f4f4f8;
+  --sidebar-accent-foreground: #0e0f10;
+  --sidebar-border: rgba(14, 15, 16, 0.06);
+  --sidebar-ring: #ff5065;
 
-  /* Chart & Visualization Accent */
-  --chart-1: #c094e4;
-  --chart-2: #f7bbe6;
-  --chart-3: #ffb760;
-  --chart-4: #daf7ee;
-  --chart-5: #cef1e1;
+  /* Data Accents */
+  --chart-1: #ff5065;
+  --chart-2: #ff7a59;
+  --chart-3: #ff5c35;
+  --chart-4: #2f3133;
+  --chart-5: #7a7b7c;
 }
 
 .dark {
-  /* Dark mode maintains laboratory clarity while respecting dark preference */
-  --background: #141312;
-  --foreground: #f7f5f2;
-  --card: #1c1a18;
-  --card-foreground: #f7f5f2;
-  --popover: #1c1a18;
-  --popover-foreground: #f7f5f2;
-  --primary: #f7f5f2;
-  --primary-foreground: #141312;
-  --secondary: #252321;
-  --secondary-foreground: #f7f5f2;
-  --muted: #252321;
-  --muted-foreground: #a39e99;
-  --accent: #2e2832;
-  --accent-foreground: #f7bbe6;
-  --destructive: #7f1d1d;
+  --background: #0e0f10;
+  --foreground: #ffffff;
+  --card: #17181a;
+  --card-foreground: #ffffff;
+  --popover: #17181a;
+  --popover-foreground: #ffffff;
+  --primary: #ff5065;
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff;
+  --secondary-foreground: #0e0f10;
+  --muted: #232528;
+  --muted-foreground: #a1a3a6;
+  --accent: #331d23;
+  --accent-foreground: #ff5065;
+  --destructive: #ff5065;
   --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.12);
-  --ring: #c094e4;
-  --sidebar: #181615;
-  --sidebar-foreground: #f7f5f2;
-  --sidebar-primary: #f7f5f2;
-  --sidebar-primary-foreground: #141312;
-  --sidebar-accent: #252321;
-  --sidebar-accent-foreground: #f7f5f2;
+  --ring: #ff5065;
+  --sidebar: #131416;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #ff5065;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #232528;
+  --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.08);
-  --sidebar-ring: #c094e4;
+  --sidebar-ring: #ff5065;
 }
 
 @layer base {
@@ -177,7 +178,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
-    letter-spacing: -0.025em;
+    letter-spacing: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -202,43 +203,56 @@
   }
 }
 
-/* Lab-label monospace voice: uppercase, +0.025em tracking, disabled ligatures */
+/* Monospace data voice */
 .font-mono,
 code,
 kbd,
 samp {
-  font-family: var(--font-pp-fraktion-mono), ui-monospace, monospace !important;
-  letter-spacing: 0.025em;
-  font-feature-settings: 'calt' 0, 'liga' 0;
+  font-family: var(--font-mono), ui-monospace, monospace !important;
 }
 
-/* Hume Headline Whispering Restraint (Weight 520 / 500) */
+/* Gilroy Chunky Headlines: Heavy geometric weight with tight leading */
 h1, h2, h3, h4 {
-  letter-spacing: -0.025em;
-  font-weight: 500;
+  font-family: var(--font-sans);
+  letter-spacing: normal;
+  color: #0e0f10;
 }
 
-/* Hero signature Iris gradient text (Sole allowed use of oklab/iris gradient) */
-.text-gradient-iris {
-  background: linear-gradient(90deg, #c094e4 0%, #f7bbe6 50%, #ffb760 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+/* Contrast Hero Chunky Display Lockup */
+.hero-headline {
+  font-family: var(--font-sans);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 0.88;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #0e0f10;
 }
 
-/* Zero drop shadow rule across laboratory instruments & cards — elevation via Bone/Paper hue & hairline borders */
-.shadow-2xs,
-.shadow-xs,
-.shadow-sm,
-.shadow-md,
-.shadow-lg,
-.shadow-xl,
-.shadow-2xl {
-  box-shadow: none !important;
+/* Contrast Card Elevation: Faint shadow (0.06 alpha) on white silence */
+.contrast-card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  border: 1px solid rgba(14, 15, 16, 0.06);
+  box-shadow: 0 5px 25px rgba(38, 42, 62, 0.06);
 }
 
-/* Hairline border utility */
-.border-hairline {
-  border-width: 1px;
-  border-color: rgba(34, 34, 34, 0.08);
+.contrast-card-hover {
+  transition: all 0.2s ease-in-out;
+}
+.contrast-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(38, 42, 62, 0.09);
+}
+
+/* Signature 'new' diagonal badge / marquee band */
+.badge-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #ffe9eb;
+  color: #ff5065;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 100px;
+  padding: 2px 8px;
 }

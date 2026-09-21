@@ -4,20 +4,20 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent bg-clip-padding text-xs sm:text-sm font-medium whitespace-nowrap shadow-none transition-all duration-150 outline-none select-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
+  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-full border border-transparent bg-clip-padding text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-150 outline-none select-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-3.5",
   {
     variants: {
       variant: {
-        default: 'bg-[#222222] text-white hover:bg-black',
+        default: 'bg-[#ff5065] text-white hover:bg-[#ff3850]',
         outline:
-          'border border-[#222222]/10 bg-white text-[#222222] hover:bg-[#fff9f3]',
+          'border border-[#0e0f10] bg-white text-[#0e0f10] hover:bg-[#f4f4f8]',
         secondary:
-          'bg-[#fff9f3] text-[#222222] border border-[#222222]/8 hover:bg-stone-100',
+          'bg-[#0e0f10] text-white hover:bg-[#2f3133]',
         ghost:
-          'hover:bg-[#fff9f3] text-[#222222]',
+          'hover:bg-[#ffe9eb] text-[#0e0f10] hover:text-[#ff5065]',
         destructive:
-          'bg-[#fce0ee] text-[#831843] border border-[#222222]/8 hover:bg-[#fdebf7]',
-        link: 'text-[#222222] underline-offset-4 hover:underline',
+          'bg-[#ffe9eb] text-[#ff5065] border border-[#ff5065]/20 hover:bg-[#ff5065] hover:text-white',
+        link: 'text-[#ff5065] underline-offset-4 hover:underline',
       },
       size: {
         default:
