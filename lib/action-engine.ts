@@ -15,6 +15,7 @@ export interface ActionPlanPillar {
   directive: string;
   key_metrics: string;
   badge: string;
+  short_action: string;
 }
 
 export interface RecommendedActionPlan {
@@ -262,25 +263,46 @@ export function generateThermalStressActionPlan(input: ActionEngineInput): Recom
       directive: envDirective,
       key_metrics: `${temp}°C Dry Bulb · ${humidity}% Humidity · ${wbgt.toFixed(1)}°C WBGT · ${solar} W/m² Solar`,
       badge: isLethalEvaporativeLimit ? 'Evaporation Constrained' : isHighRadiantFlux ? 'Peak Solar Irradiance' : 'Standard Summer Ambient',
+      short_action: isLethalEvaporativeLimit
+        ? `Evaporative barrier (${humidity}% RH, ${temp}°C) · Sweat cooling suppressed`
+        : isAridFurnaceHeat
+        ? `Severe radiant heat (${temp}°C) · Pavement >55°C`
+        : isWbgtCritical
+        ? `Critical WBGT (${wbgt.toFixed(1)}°C) · Acute thermal shock risk`
+        : `Heat Index ${heatIndex.toFixed(0)}°C · Restrict midday direct sun`,
     },
     workers: {
       headline: 'Outdoor Labor & Occupational Regimen',
       directive: `${workerDirective} ${workerIsoRegimen}`,
       key_metrics: `Quota: ${workerHydration} · Exposure: ${outdoorLaborPct.toFixed(0)}% workforce`,
       badge: wbgt >= 32.0 ? 'Mandatory Work Stoppage' : wbgt >= 29.5 ? 'ISO 7243 30m/30m Rest' : 'Regular Rest Regimen',
+      short_action: wbgt >= 32.0 || htsi >= 80
+        ? 'Midday work stoppage (11am–4:30pm) · 1.2 L/h ORS'
+        : wbgt >= 29.5 || htsi >= 65
+        ? 'ISO 7243: 30m work / 30m shaded rest · 1.0 L/h ORS'
+        : '15m hourly shaded rest · 0.5–0.7 L/h hydration',
     },
     people: {
       headline: 'Vulnerable Populations & Residents',
       directive: peopleDirective,
       key_metrics: `Elderly: ${elderlyPct.toFixed(1)}% · Slum/Tin-Roofs: ${slumHousingPct.toFixed(1)}% · Children: ${stateDemo.children_ratio_pct}%`,
       badge: slumHousingPct >= 40 ? 'Tin-Roof Heat Trap Alert' : 'Vulnerable Cohort Advisory',
+      short_action: urgency === 'Emergency Immediate'
+        ? `Doorstep ASHA checks (${elderlyPct.toFixed(0)}% seniors) · Open cooling shelters`
+        : urgency === 'Urgent'
+        ? 'Targeted SMS alerts · Reschedule school afternoon sessions'
+        : 'Senior morning errand schedule · Hydration advisories',
     },
     infrastructure: {
       headline: 'Civic, Water & Healthcare Logistics',
       directive: infraDirective,
       key_metrics: `Facilities: ${matchedWard?.hospital_count ?? 3} Clinics · Cooling Centers: ${matchedWard?.cooling_center_count ?? 2} Active`,
       badge: urgency === 'Emergency Immediate' ? 'Emergency Saline/Ice Buffers' : 'Civic Water Tankers Active',
+      short_action: urgency === 'Emergency Immediate' || urgency === 'Urgent'
+        ? '4°C IV cold saline & ice tubs ready · Deploy water tankers'
+        : 'Transit water kiosks & cooling center standby',
     },
     checklist,
   };
 }
+
