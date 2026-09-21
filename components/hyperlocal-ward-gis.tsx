@@ -8,22 +8,15 @@ import {
   HeartPulse,
   Flame,
   ShieldAlert,
-  TreeDeciduous,
-  Home,
   MapPin,
-  ZoomIn,
-  ZoomOut,
-  RotateCcw,
   Sparkles,
-  CheckCircle2,
-  AlertTriangle,
   X,
   TrendingUp,
-  Sliders,
   ChevronRight,
 } from 'lucide-react';
 import { getCitySpatialProfile, WardSpatialData } from '@/lib/city-wards';
 import { calculateThermalMetrics } from '@/lib/thermal-engine';
+import { LeafletWardMap } from '@/components/leaflet-ward-map';
 
 export interface HyperlocalWardGisProps {
   currentCity: string;
@@ -65,9 +58,7 @@ export function HyperlocalWardGis({
   const [selectedWardId, setSelectedWardId] = useState<string>(
     profile.wards[0]?.id || ''
   );
-  const [hoveredWardId, setHoveredWardId] = useState<string | null>(null);
-  const [zoomLevel, setZoomLevel] = useState<number>(1);
-  const [viewTab, setViewTab] = useState<'split' | 'matrix'>('split');
+
 
   // Currently selected ward
   const selectedWard = useMemo(
@@ -400,213 +391,30 @@ export function HyperlocalWardGis({
         )}
       </div>
 
-      {/* 3. Main Display: Interactive SVG GIS Map + Selected Ward Telemetry */}
+      {/* 3. Main Display: Leaflet Real Map + Selected Ward Telemetry */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-        {/* Left: Interactive SVG Ward Map Canvas */}
-        <div className="relative rounded-xl border border-slate-200 bg-slate-50 p-3 shadow-2xs lg:col-span-7 overflow-hidden min-h-[360px]">
-          {/* Map Top Header Badge */}
-          <div className="flex flex-wrap items-center justify-between gap-2 mb-2 pb-2 border-b border-slate-200">
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-blue-600 animate-pulse" />
-              <h3 className="font-bold text-slate-900 text-xs sm:text-sm">
-                {profile.municipalCorporation} &middot; Spatial GIS
-              </h3>
-            </div>
-            <div className="flex items-center gap-1 font-mono text-[10px] text-slate-500">
-              <span>{profile.wards.length} Wards</span>
-              <span>&middot;</span>
-              <span className="text-blue-700 font-semibold uppercase">{activeLayer.replace('-', ' ')}</span>
-            </div>
-          </div>
+        {/* Left: Leaflet OSM Map Canvas */}
+        <div className="lg:col-span-7">
+          <LeafletWardMap
+            profile={profile}
+            activeLayer={activeLayer}
+            activeIndicator={activeIndicator}
+            selectedWardId={selectedWardId}
+            baseTemp={baseTemp}
+            baseHumidity={baseHumidity}
+            onSelectWard={handleSelectWard}
+            isWardMatchingIndicator={isWardMatchingIndicator}
+            getWardFill={getWardFill}
+          />
 
-          {/* Map Zoom Controls */}
-          <div className="absolute top-12 right-4 z-10 flex flex-col gap-1 rounded-lg border border-slate-200 bg-white p-1 shadow-xs">
-            <button
-              type="button"
-              onClick={() => setZoomLevel((z) => Math.min(1.4, z + 0.1))}
-              className="p-1.5 rounded-md hover:bg-slate-100 text-slate-700 cursor-pointer"
-              title="Zoom in"
-            >
-              <ZoomIn className="h-3.5 w-3.5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setZoomLevel((z) => Math.max(0.8, z - 0.1))}
-              className="p-1.5 rounded-md hover:bg-slate-100 text-slate-700 cursor-pointer"
-              title="Zoom out"
-            >
-              <ZoomOut className="h-3.5 w-3.5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setZoomLevel(1)}
-              className="p-1.5 rounded-md hover:bg-slate-100 text-slate-700 cursor-pointer"
-              title="Reset zoom"
-            >
-              <RotateCcw className="h-3.5 w-3.5" />
-            </button>
-          </div>
-
-          {/* Interactive SVG Canvas */}
-          <svg
-            viewBox="0 0 510 360"
-            className="w-full h-[320px] sm:h-[380px] transition-transform duration-300"
-            style={{ transform: `scale(${zoomLevel})` }}
-          >
-            <defs>
-              <filter id="ward-glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="2" stdDeviation="4" floodOpacity="0.2" />
-              </filter>
-            </defs>
-
-            {/* Background Grid Lines */}
-            <g stroke="#cbd5e1" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4">
-              {[60, 120, 180, 240, 300].map((y) => (
-                <line key={`h-${y}`} x1="10" y1={y} x2="500" y2={y} />
-              ))}
-              {[100, 200, 300, 400].map((x) => (
-                <line key={`v-${x}`} x1={x} y1="10" x2={x} y2="350" />
-              ))}
-            </g>
-
-            {/* Natural River Feature */}
-            {profile.riverPath && (
-              <g>
-                <path
-                  d={profile.riverPath}
-                  fill="none"
-                  stroke="#38bdf8"
-                  strokeWidth="14"
-                  strokeLinecap="round"
-                  opacity="0.35"
-                />
-                <path
-                  d={profile.riverPath}
-                  fill="none"
-                  stroke="#0284c7"
-                  strokeWidth="2.5"
-                  strokeDasharray="6 3"
-                  opacity="0.6"
-                />
-              </g>
-            )}
-
-            {/* Municipal Ward Polygons */}
-            {profile.wards.map((ward) => {
-              const isSelected = selectedWard?.id === ward.id;
-              const isHovered = hoveredWardId === ward.id;
-              const matchesFilter = !activeIndicator || isWardMatchingIndicator(ward, activeIndicator);
-              const fillColor = getWardFill(ward, isHovered, isSelected);
-
-              // Value string for ward center label based on active layer
-              let centerMetric = `${(baseTemp + ward.uhiOffsetC).toFixed(1)}°C`;
-              if (activeLayer === 'vulnerability') centerMetric = `PVS ${ward.pvsScore}`;
-              else if (activeLayer === 'outdoor-workers') centerMetric = `${ward.outdoorWorkersPct}% Labor`;
-              else if (activeLayer === 'cooling-centers') centerMetric = ward.coolingCenters > 0 ? `${ward.coolingCenters} Pavilions` : '0 Shelters';
-              else if (activeLayer === 'healthcare') centerMetric = `${ward.hospitals} Hospitals`;
-
-              return (
-                <g
-                  key={ward.id}
-                  className="cursor-pointer transition-all duration-150"
-                  onClick={() => handleSelectWard(ward)}
-                  onMouseEnter={() => setHoveredWardId(ward.id)}
-                  onMouseLeave={() => setHoveredWardId(null)}
-                >
-                  <polygon
-                    points={ward.polygon}
-                    fill={fillColor}
-                    stroke={
-                      isSelected
-                        ? '#0f172a'
-                        : isHovered
-                          ? '#334155'
-                          : matchesFilter
-                            ? 'rgba(100, 116, 139, 0.6)'
-                            : 'rgba(203, 213, 225, 0.4)'
-                    }
-                    strokeWidth={isSelected ? '2.8' : isHovered ? '2' : matchesFilter ? '1.2' : '0.8'}
-                    filter={isSelected || isHovered ? 'url(#ward-glow)' : undefined}
-                    opacity={matchesFilter ? 1 : 0.45}
-                    className="transition-all duration-200"
-                  />
-
-                  {/* Center Badge Label */}
-                  <g pointerEvents="none" transform={`translate(${ward.center.x}, ${ward.center.y})`}>
-                    <rect
-                      x="-28"
-                      y="-14"
-                      width="56"
-                      height="26"
-                      rx="6"
-                      fill={isSelected ? '#0f172a' : '#ffffff'}
-                      fillOpacity={isSelected ? 0.95 : 0.92}
-                      stroke={isSelected ? '#3b82f6' : 'rgba(203, 213, 225, 0.8)'}
-                      strokeWidth="1"
-                    />
-                    <text
-                      x="0"
-                      y="-3"
-                      textAnchor="middle"
-                      fontSize="7.5"
-                      fontWeight="600"
-                      fill={isSelected ? '#93c5fd' : '#64748b'}
-                      fontFamily="monospace"
-                    >
-                      W-{String(ward.wardNumber).padStart(2, '0')}
-                    </text>
-                    <text
-                      x="0"
-                      y="7.5"
-                      textAnchor="middle"
-                      fontSize="8"
-                      fontWeight="700"
-                      fill={isSelected ? '#ffffff' : '#0f172a'}
-                    >
-                      {centerMetric}
-                    </text>
-                  </g>
-                </g>
-              );
-            })}
-
-            {/* Landmarks: Hospitals & Transit */}
-            {profile.landmarks.map((lm) => (
-              <g key={lm.name} transform={`translate(${lm.x}, ${lm.y})`} pointerEvents="none">
-                <circle r="3.5" fill="#0f172a" stroke="#ffffff" strokeWidth="1.5" />
-                <text
-                  y="11"
-                  textAnchor="middle"
-                  fontSize="7.5"
-                  fontWeight="600"
-                  fill="#475569"
-                >
-                  {lm.name}
-                </text>
-              </g>
-            ))}
-          </svg>
-
-          {/* Map Bottom Scale Legend */}
-          <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 pt-2 text-[10.5px] text-slate-500">
-            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto max-w-full">
-              <span className="font-semibold text-slate-900 shrink-0">Scale:</span>
-              <span className="flex items-center gap-1 shrink-0">
-                <span className="h-2.5 w-2.5 rounded bg-emerald-500" /> Safe / Low
-              </span>
-              <span className="flex items-center gap-1 shrink-0">
-                <span className="h-2.5 w-2.5 rounded bg-amber-400" /> Watch / Mod
-              </span>
-              <span className="flex items-center gap-1 shrink-0">
-                <span className="h-2.5 w-2.5 rounded bg-orange-500" /> Warning / High
-              </span>
-              <span className="flex items-center gap-1 shrink-0">
-                <span className="h-2.5 w-2.5 rounded bg-red-600" /> Critical Hotspot
-              </span>
-            </div>
-            <span className="font-mono text-[9.5px] text-slate-400">
-              Click ward polygon to inspect
-            </span>
+          {/* Map Scale Legend */}
+          <div className="mt-2 flex flex-wrap items-center gap-2 sm:gap-3 text-[10.5px] text-slate-500">
+            <span className="font-semibold text-slate-900 shrink-0">Scale:</span>
+            <span className="flex items-center gap-1 shrink-0"><span className="h-2.5 w-2.5 rounded bg-emerald-500" /> Safe / Low</span>
+            <span className="flex items-center gap-1 shrink-0"><span className="h-2.5 w-2.5 rounded bg-amber-400" /> Watch</span>
+            <span className="flex items-center gap-1 shrink-0"><span className="h-2.5 w-2.5 rounded bg-orange-500" /> Warning</span>
+            <span className="flex items-center gap-1 shrink-0"><span className="h-2.5 w-2.5 rounded bg-red-600" /> Critical</span>
+            <span className="font-mono text-[9.5px] text-slate-400 ml-auto">Click ward to inspect</span>
           </div>
         </div>
 
