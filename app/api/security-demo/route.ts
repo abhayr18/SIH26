@@ -1,5 +1,3 @@
-import { env } from 'cloudflare:workers';
-
 import { ensureDatabase } from '@/lib/database';
 import {
   createSecurityDemoSession,
@@ -13,7 +11,7 @@ import { enforceRateLimit, writeAuditLog } from '@/lib/security';
 export const runtime = 'edge';
 
 function configuration() {
-  const values = env as unknown as Record<string, unknown>;
+  const values = typeof process !== 'undefined' && process.env ? process.env : {};
   return {
     username:
       typeof values.THERMOWATCH_DEMO_USER === 'string'

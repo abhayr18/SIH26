@@ -101,8 +101,10 @@ export default async function handler(req, res) {
     const protocol = req.headers['x-forwarded-proto'] || 'https';
     const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost';
     
-    let pathAndSearch = req.headers['x-forwarded-uri'] || req.headers['x-matched-path'] || req.url;
-    if (pathAndSearch.startsWith('/api?') && req.url.includes('__route=')) {
+    let pathAndSearch = req.url;
+    if (typeof req.headers['x-forwarded-uri'] === 'string' && req.headers['x-forwarded-uri'].startsWith('/api')) {
+      pathAndSearch = req.headers['x-forwarded-uri'];
+    } else if (req.url.includes('__route=')) {
       const parsed = new URL(req.url, 'http://localhost');
       const route = parsed.searchParams.get('__route') || '';
       parsed.searchParams.delete('__route');

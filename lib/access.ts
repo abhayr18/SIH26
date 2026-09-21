@@ -1,5 +1,4 @@
 import type { D1Database } from '@cloudflare/workers-types';
-import { env } from 'cloudflare:workers';
 
 import {
   readCookie,
@@ -34,8 +33,8 @@ export async function getRequestActor(
   request: Request,
   db?: D1Database,
 ): Promise<RequestActor> {
-  const configuredSessionSecret = (env as unknown as Record<string, unknown>)
-    .THERMOWATCH_DEMO_SESSION_SECRET;
+  const proc = typeof process !== 'undefined' && process.env ? process.env : {};
+  const configuredSessionSecret = proc.THERMOWATCH_DEMO_SESSION_SECRET;
   const sessionSecret =
     typeof configuredSessionSecret === 'string'
       ? configuredSessionSecret
