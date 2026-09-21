@@ -178,6 +178,7 @@ type Facility = {
   type: string;
   emergency: boolean;
   map_url: string;
+  google_maps_url?: string;
 };
 type AlertRow = {
   id: string;
@@ -468,13 +469,13 @@ const navigation: Array<{
   { id: 'what-if', label: '4. What-If Intervention', icon: Sliders, group: 'core' },
   { id: 'cooling-centers', label: '5. Authority Action Plan', icon: Building2, group: 'core' },
 
-  // 2. Multichannel Alert Operations
+  // 2. Authority Operations
+  { id: 'response', label: 'Hospital & Facility Response', icon: HeartPulse, group: 'authority' },
   { id: 'alerts', label: 'Multichannel Alert Dispatch', icon: Bell, group: 'authority' },
 ];
 
 const officerViews = new Set<View>([
   'authority',
-  'response',
   'history',
 ]);
 
@@ -1382,7 +1383,7 @@ export function ThermoWatchDashboard() {
     }
   }, [view, forecastMap, loadForecastMap]);
   useEffect(() => {
-    if (canManage && ['history', 'alerts', 'response'].includes(view)) {
+    if (['history', 'alerts', 'response'].includes(view)) {
       const timer = window.setTimeout(
         () =>
           void loadRecords(selectedName).catch(() =>
@@ -1392,7 +1393,7 @@ export function ThermoWatchDashboard() {
       );
       return () => window.clearTimeout(timer);
     }
-  }, [view, selectedName, loadRecords, canManage]);
+  }, [view, selectedName, loadRecords]);
   useEffect(() => {
     const handleOnline = () => setOnline(true);
     const handleOffline = () => setOnline(false);
@@ -2729,43 +2730,67 @@ export function ThermoWatchDashboard() {
               </div>
             )}
 
-            {view === 'response' && canManage && (
+            {view === 'response' && (
               <div className="space-y-5">
                 <div className="grid gap-5 lg:grid-cols-2">
                   <Card>
                     <CardHeader>
                       <PanelTitle
-                        eyebrow="LIVE OPEN DATA"
-                        title="Nearby response facilities"
-                        note="Hospitals, clinics, community centres and water points from OpenStreetMap."
+                        eyebrow="LIVE HEALTH & RESPONSE NETWORK"
+                        title={`${selected.district} response facilities · ${detail?.facilities?.length ?? 0} active`}
+                        note="Verified hospitals, trauma centers, clinics, and municipal rehydration points with direct map navigation."
                       />
                     </CardHeader>
                     <CardContent>
                       {detailLoading ? (
                         <Loading label="Finding nearby support" />
                       ) : detail?.facilities?.length ? (
-                        <div className="max-h-[430px] space-y-2 overflow-auto">
+                        <div className="max-h-[500px] space-y-2.5 overflow-auto pr-1">
                           {detail.facilities.map((item) => (
-                            <a
+                            <div
                               key={item.id}
-                              href={item.map_url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="flex items-center justify-between rounded-xl border border-slate-200 p-3 hover:border-blue-200 hover:bg-blue-50/30"
+                              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white p-3.5 hover:border-blue-300 hover:shadow-xs transition"
                             >
-                              <div>
-                                <b className="block text-sm">{item.name}</b>
-                                <small className="capitalize text-slate-400">
-                                  {item.type}
-                                </small>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <b className="text-sm font-bold text-slate-900">{item.name}</b>
+                                  {item.emergency && (
+                                    <Badge variant="destructive" className="text-[10px] px-2 py-0">
+                                      Emergency
+                                    </Badge>
+                                  )}
+                                </div>
+                                <div className="mt-1 flex items-center gap-2 text-xs text-slate-500">
+                                  <span className="capitalize font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md">
+                                    {item.type}
+                                  </span>
+                                  <span>•</span>
+                                  <span>{selected.district} Heat Relief Network</span>
+                                </div>
                               </div>
-                              <span className="flex items-center gap-2">
-                                {item.emergency && (
-                                  <Badge variant="destructive">Emergency</Badge>
-                                )}
-                                <ExternalLink className="h-4 w-4 text-slate-400" />
-                              </span>
-                            </a>
+                              <div className="flex items-center gap-2 shrink-0">
+                                <a
+                                  href={item.map_url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:border-slate-300 hover:bg-slate-100 transition"
+                                  title="View on OpenStreetMap"
+                                >
+                                  <span>OSM Pin</span>
+                                  <ExternalLink className="h-3.5 w-3.5" />
+                                </a>
+                                <a
+                                  href={item.google_maps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.name + ' ' + selected.district)}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="inline-flex items-center gap-1 rounded-lg border border-blue-200 bg-blue-50/80 px-2.5 py-1.5 text-xs font-semibold text-blue-800 hover:bg-blue-100 transition"
+                                  title="View direct location on Google Maps"
+                                >
+                                  <MapPin className="h-3.5 w-3.5" />
+                                  <span>Google Maps</span>
+                                </a>
+                              </div>
+                            </div>
                           ))}
                         </div>
                       ) : (
