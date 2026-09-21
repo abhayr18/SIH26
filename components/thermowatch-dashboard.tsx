@@ -2002,7 +2002,26 @@ export function ThermoWatchDashboard() {
             )}
 
             {view === 'overview' && (
-              <div className="space-y-5">
+              <div className="space-y-6">
+                {/* Disaster Management Live Overview Header */}
+                <div className="rounded-2xl border border-slate-200/80 bg-gradient-to-r from-white via-slate-50/60 to-blue-50/30 p-5 sm:p-6 shadow-2xs">
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                    </span>
+                    <span className="font-mono text-[10.5px] sm:text-[11px] font-bold tracking-[0.2em] uppercase text-blue-600">
+                      DISASTER MANAGEMENT &middot; LIVE OVERVIEW
+                    </span>
+                  </div>
+                  <h1 className="mt-2 text-2xl sm:text-3xl font-bold tracking-tight text-slate-900">
+                    Heat conditions, made actionable.
+                  </h1>
+                  <p className="mt-1.5 text-xs sm:text-sm text-slate-500 font-medium leading-relaxed max-w-3xl">
+                    See where heat is rising, who is exposed, and what response should come next.
+                  </p>
+                </div>
+
                 <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-12">
                   <div className="contents">
                     <Card className="relative border-slate-200/80 bg-white text-slate-900 shadow-sm xl:col-span-4">
