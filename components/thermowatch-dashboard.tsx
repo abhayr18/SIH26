@@ -1382,24 +1382,40 @@ export function ThermoWatchDashboard() {
     [],
   );
 
-  const loadRecords = useCallback(async (district: string) => {
-    const [history, alertData, incidentData, warningData] = await Promise.all([
-      api<HistoryData>(`/api/history?district=${encodeURIComponent(district)}`),
-      api<{ alerts: AlertRow[] }>(
-        `/api/alerts?district=${encodeURIComponent(district)}`,
-      ),
-      api<{ incidents: IncidentRow[] }>(
-        `/api/incidents?district=${encodeURIComponent(district)}`,
-      ),
-      api<{ warnings: AutomaticWarning[] }>(
-        `/api/warnings?district=${encodeURIComponent(district)}`,
-      ),
-    ]);
-    setHistoryData(history);
-    setAlerts(alertData.alerts);
-    setIncidents(incidentData.incidents);
-    setAutomaticWarnings(warningData.warnings);
-  }, []);
+  const loadRecords = useCallback(
+    async (district: string) => {
+      if (!canManage) return;
+      try {
+        const [history, alertData, incidentData, warningData] =
+          await Promise.all([
+            api<HistoryData>(
+              `/api/history?district=${encodeURIComponent(district)}`,
+            ).catch(() => ({
+              district,
+              observations: [],
+              predictions: [],
+              counts: { observations: 0, predictions: 0 },
+            })),
+            api<{ alerts: AlertRow[] }>(
+              `/api/alerts?district=${encodeURIComponent(district)}`,
+            ).catch(() => ({ alerts: [] })),
+            api<{ incidents: IncidentRow[] }>(
+              `/api/incidents?district=${encodeURIComponent(district)}`,
+            ).catch(() => ({ incidents: [] })),
+            api<{ warnings: AutomaticWarning[] }>(
+              `/api/warnings?district=${encodeURIComponent(district)}`,
+            ).catch(() => ({ warnings: [] })),
+          ]);
+        setHistoryData(history);
+        setAlerts(alertData.alerts);
+        setIncidents(incidentData.incidents);
+        setAutomaticWarnings(warningData.warnings);
+      } catch {
+        // Safe fallback - avoid popping user-facing errors
+      }
+    },
+    [canManage],
+  );
 
   useEffect(() => {
     const timer = window.setTimeout(() => void loadDashboard(), 0);
@@ -1407,29 +1423,31 @@ export function ThermoWatchDashboard() {
   }, [loadDashboard]);
   useEffect(() => {
     const timer = window.setTimeout(
-      () => void loadDetail(selectedName, view === 'response'),
+      () => void loadDetail(selectedName, canManage && view === 'response'),
       0,
     );
     return () => window.clearTimeout(timer);
-  }, [selectedName, view, loadDetail]);
+  }, [selectedName, view, canManage, loadDetail]);
   useEffect(() => {
-    if ((view === 'map' || view === 'alerts') && !forecastMap) {
+    if ((view === 'map' || (canManage && view === 'alerts')) && !forecastMap) {
       const timer = window.setTimeout(() => void loadForecastMap(), 0);
       return () => window.clearTimeout(timer);
     }
-  }, [view, forecastMap, loadForecastMap]);
+  }, [view, canManage, forecastMap, loadForecastMap]);
   useEffect(() => {
-    if (['history', 'alerts', 'response'].includes(view)) {
+    if (canManage && ['history', 'alerts', 'response'].includes(view)) {
       const timer = window.setTimeout(
-        () =>
-          void loadRecords(selectedName).catch(() =>
-            setError('Saved records could not be loaded.'),
-          ),
+        () => void loadRecords(selectedName),
         0,
       );
       return () => window.clearTimeout(timer);
     }
-  }, [view, selectedName, loadRecords]);
+  }, [canManage, view, selectedName, loadRecords]);
+  useEffect(() => {
+    if (error === 'Saved records could not be loaded.') {
+      setError('');
+    }
+  }, [error]);
   useEffect(() => {
     const handleOnline = () => setOnline(true);
     const handleOffline = () => setOnline(false);
@@ -1511,6 +1529,10 @@ export function ThermoWatchDashboard() {
     setMobileNav(false);
   }
   function changeView(next: View) {
+    if (officerViews.has(next) && !canManage) {
+      window.location.assign('/login?next=/');
+      return;
+    }
     setView(next);
     setMobileNav(false);
     setNotice('');
@@ -3086,7 +3108,33 @@ export function ThermoWatchDashboard() {
               </div>
             )}
 
-            {view === 'response' && (
+            {view === 'response' && !canManage && (
+              <div className="rounded-xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-2xs">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-200/80">
+                  <LockKeyhole className="h-7 w-7" />
+                </div>
+                <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-900 font-display">
+                  Hospital & Facility Response — Restricted Access
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                  Hospital resource tracking, heat casualty triage management, and emergency response network coordination require verified disaster management officer credentials.
+                </p>
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  <Button variant="outline" onClick={() => setView('overview')}>
+                    Return to Public Overview
+                  </Button>
+                  <Link
+                    href="/login?next=/"
+                    className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-slate-800 transition"
+                  >
+                    <ShieldCheck className="h-4 w-4" />
+                    <span>Officer Sign In</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {view === 'response' && canManage && (
               <div className="space-y-5">
                 <div className="grid gap-5 lg:grid-cols-2">
                   <Card>
@@ -3743,7 +3791,33 @@ export function ThermoWatchDashboard() {
               </div>
             )}
 
-            {view === 'alerts' && (
+            {view === 'alerts' && !canManage && (
+              <div className="rounded-xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-2xs">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-200/80">
+                  <LockKeyhole className="h-7 w-7" />
+                </div>
+                <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-900 font-display">
+                  Multichannel Alert Dispatch — Restricted Access
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                  Broadcasting heatwave alerts across SMS, WhatsApp, and CAP disaster warning channels is strictly restricted to authorized disaster management officers.
+                </p>
+                <div className="mt-6 flex flex-wrap justify-center gap-3">
+                  <Button variant="outline" onClick={() => setView('overview')}>
+                    Return to Public Overview
+                  </Button>
+                  <Link
+                    href="/login?next=/"
+                    className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-slate-800 transition"
+                  >
+                    <ShieldCheck className="h-4 w-4" />
+                    <span>Officer Sign In</span>
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {view === 'alerts' && canManage && (
               <div className="space-y-5">
                 <Card>
                   <CardHeader>
@@ -4095,12 +4169,12 @@ export function ThermoWatchDashboard() {
                   currentHtss={selected.htsi}
                 />
               ) : (
-                <div className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-xs">
-                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 border border-amber-200/80">
+                <div className="rounded-xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-2xs">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-200/80">
                     <LockKeyhole className="h-7 w-7" />
                   </div>
-                  <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-900">
-                    Restricted Authority Access
+                  <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-900 font-display">
+                    Authority Heat Action Plan — Restricted Access
                   </h3>
                   <p className="mt-2 text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
                     The Municipal Heat Action Plan, tactical cooling pavilion allocation, and shelter capacity deployment algorithms are restricted to authorized disaster management officers.
@@ -4111,7 +4185,7 @@ export function ThermoWatchDashboard() {
                     </Button>
                     <Link
                       href="/login?next=/"
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-blue-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-blue-800 transition"
+                      className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white shadow-2xs hover:bg-slate-800 transition"
                     >
                       <ShieldCheck className="h-4 w-4" />
                       <span>Officer Sign In</span>
