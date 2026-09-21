@@ -459,37 +459,23 @@ const navigation: Array<{
   id: View;
   label: string;
   icon: typeof LayoutDashboard;
-  group: 'core' | 'supporting' | 'authority';
+  group: 'core' | 'authority';
 }> = [
-  // 1. Core Innovations (Main Differentiators - 5-Stage Flow)
+  // 1. Core Decision Flow (Main 5-Stage Storyline)
   { id: 'overview', label: '1. Thermal Stress (HTSI)', icon: LayoutDashboard, group: 'core' },
   { id: 'hyperlocal-gis', label: '2. Exposure & Vulnerability', icon: MapPin, group: 'core' },
   { id: 'cascade', label: '3. Explainable Risk Cascade', icon: Activity, group: 'core' },
   { id: 'what-if', label: '4. What-If Intervention', icon: Sliders, group: 'core' },
   { id: 'cooling-centers', label: '5. Authority Action Plan', icon: Building2, group: 'core' },
 
-  // 2. Supporting Modules (Useful context, de-emphasized)
-  { id: 'hospitals', label: 'Hospital Readiness', icon: HeartPulse, group: 'supporting' },
-  { id: 'worker-safety', label: 'Worker Safety Rules', icon: HardHat, group: 'supporting' },
-  { id: 'forecast', label: 'Forecast Charts', icon: TrendingUp, group: 'supporting' },
-  { id: 'map', label: 'National Heat Map', icon: Map, group: 'supporting' },
-  { id: 'memory', label: 'Heatwave Benchmarks', icon: History, group: 'supporting' },
-  { id: 'model', label: 'ML Diagnostics', icon: Sparkles, group: 'supporting' },
-  { id: 'telemetry', label: 'Data Telemetry', icon: Cpu, group: 'supporting' },
-
-  // 3. Authority & Operations
-  { id: 'authority', label: 'Authority Command', icon: ShieldCheck, group: 'authority' },
-  { id: 'alerts', label: 'Alert Dispatch', icon: Bell, group: 'authority' },
-  { id: 'validation', label: 'Scientific Validation', icon: FileText, group: 'authority' },
-  { id: 'response', label: 'Response Hub', icon: Building2, group: 'authority' },
-  { id: 'history', label: 'Incident History', icon: History, group: 'authority' },
+  // 2. Multichannel Alert Operations
+  { id: 'alerts', label: 'Multichannel Alert Dispatch', icon: Bell, group: 'authority' },
 ];
 
 const officerViews = new Set<View>([
   'authority',
   'response',
   'history',
-  'alerts',
 ]);
 
 function weatherSourceLabel(source: unknown) {
@@ -1736,42 +1722,10 @@ export function ThermoWatchDashboard() {
               </div>
             </div>
 
-            {/* 2. Supporting Modules Group */}
+            {/* 2. Officer Operations Group */}
             <div>
               <p className="px-2.5 pb-1.5 font-mono text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase">
-                SUPPORTING INTELLIGENCE
-              </p>
-              <div className="space-y-0.5">
-                {navigation.filter((n) => n.group === 'supporting').map(({ id, icon: Icon }) => {
-                  const isActive = view === id;
-                  return (
-                    <button
-                      key={id}
-                      onClick={() => changeView(id)}
-                      className={`group flex min-h-8 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[11.5px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
-                        isActive
-                          ? 'bg-slate-800 text-white shadow-sm font-semibold border border-slate-700'
-                          : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
-                      }`}
-                    >
-                      <span
-                        className={`grid h-4 w-4 shrink-0 place-items-center rounded transition-colors ${
-                          isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'
-                        }`}
-                      >
-                        <Icon className="h-3 w-3" />
-                      </span>
-                      <span className="truncate">{copy.nav[id]}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 3. Authority Group */}
-            <div>
-              <p className="px-2.5 pb-1.5 font-mono text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase">
-                OFFICER COMMAND
+                OFFICER OPERATIONS
               </p>
               <div className="space-y-0.5">
                 {navigation.filter((n) => n.group === 'authority').map(({ id, icon: Icon }) => {
@@ -1781,24 +1735,24 @@ export function ThermoWatchDashboard() {
                     <button
                       key={id}
                       onClick={() => changeView(id)}
-                      className={`group flex min-h-8 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[11.5px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
+                      className={`group flex min-h-9 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[12px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
                         isActive
                           ? 'bg-slate-800 text-white shadow-sm font-semibold border border-slate-700'
-                          : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                          : 'text-slate-300 hover:bg-white/5 hover:text-white'
                       }`}
                     >
                       <span
-                        className={`grid h-4 w-4 shrink-0 place-items-center rounded transition-colors ${
-                          isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'
+                        className={`grid h-5 w-5 shrink-0 place-items-center rounded-lg transition-colors ${
+                          isActive ? 'bg-white/20 text-blue-300' : 'text-slate-400 group-hover:text-blue-300'
                         }`}
                       >
-                        <Icon className="h-3 w-3" />
+                        <Icon className="h-3.5 w-3.5" />
                       </span>
                       <span className="truncate">{copy.nav[id]}</span>
                       {locked && <LockKeyhole className="ml-auto h-3 w-3 text-slate-500" />}
                       {id === 'alerts' && (
-                        <span className="ml-auto rounded-full bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-bold text-amber-300">
-                          {highCount}
+                        <span className="ml-auto rounded-full bg-amber-500/20 px-2 py-0.5 text-[9px] font-bold text-amber-300">
+                          {highCount} High
                         </span>
                       )}
                     </button>
@@ -3408,7 +3362,7 @@ export function ThermoWatchDashboard() {
               </div>
             )}
 
-            {view === 'alerts' && canManage && (
+            {view === 'alerts' && (
               <div className="space-y-5">
                 <Card>
                   <CardHeader>
