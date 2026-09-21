@@ -1,17 +1,20 @@
 import type { Metadata, Viewport } from 'next';
-import { Fira_Code, Fira_Sans } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { PwaRegister } from '@/components/pwa-register';
 
-const firaSans = Fira_Sans({
-  variable: '--font-fira-sans',
+const fellixSans = Inter({
+  variable: '--font-fellix',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
 });
 
-const firaCode = Fira_Code({
-  variable: '--font-fira-code',
+const fraktionMono = JetBrains_Mono({
+  variable: '--font-pp-fraktion-mono',
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -49,7 +52,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#10213f',
+  themeColor: '#fff9f3',
   colorScheme: 'light',
 };
 
@@ -60,7 +63,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${firaSans.variable} ${firaCode.variable} antialiased`}>
+      <body className={`${fellixSans.variable} ${fraktionMono.variable} antialiased bg-[#fff9f3] text-[#222222]`}>
         <PwaRegister />
         {children}
       </body>

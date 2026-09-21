@@ -17,37 +17,37 @@ export function DemoScenarioBar({
     DEMO_SCENARIOS.find((s) => s.id === activeScenarioId) || DEMO_SCENARIOS[0];
 
   const badgeColorStyles = {
-    green: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    yellow: 'bg-amber-50 text-amber-700 border-amber-200',
-    orange: 'bg-orange-50 text-orange-700 border-orange-200',
-    red: 'bg-rose-50 text-rose-700 border-rose-200',
+    green: 'bg-[#daf7ee] text-[#222222] border border-[#222222]/8',
+    yellow: 'bg-[#ffe9cf] text-[#222222] border border-[#222222]/8',
+    orange: 'bg-[#fce0ee] text-[#222222] border border-[#222222]/8',
+    red: 'bg-[#fdebf7] text-[#222222] border border-[#222222]/8',
   };
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white px-4 py-2.5 shadow-sm">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-[#222222]/8 bg-white px-4 py-2.5 shadow-none">
       {/* Left indicator */}
       <div className="flex items-center gap-2.5">
         <span className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#c094e4] opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#c094e4]"></span>
         </span>
         <div>
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Simulation Scenario
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.025em] text-[#7a7876]">
+              SIMULATION SCENARIO
             </span>
-            <span className="text-xs font-bold text-slate-800">
+            <span className="text-xs font-medium text-[#222222]">
               {activeScenario.name}
             </span>
           </div>
-          <p className="text-[11px] text-slate-500">
+          <p className="text-[11px] text-[#7a7876]">
             {activeScenario.description}
           </p>
         </div>
       </div>
 
       {/* Right Segmented Pills */}
-      <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50/80 p-1">
+      <div className="flex items-center gap-1 rounded-full border border-[#222222]/8 bg-[#fff9f3] p-1">
         {DEMO_SCENARIOS.map((scen: DemoScenario) => {
           const isActive = scen.id === activeScenarioId;
 
@@ -55,15 +55,19 @@ export function DemoScenarioBar({
             <button
               key={scen.id}
               onClick={() => onSelectScenario(scen)}
-              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all ${
                 isActive
-                  ? 'bg-white text-slate-900 shadow-sm border border-slate-200/90 font-bold'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
+                  ? 'bg-[#222222] text-white shadow-none font-medium'
+                  : 'text-[#7a7876] hover:text-[#222222] hover:bg-[#222222]/5'
               }`}
             >
               <span>{scen.name}</span>
               <span
-                className={`rounded border px-1 py-0.2 text-[9px] font-bold ${badgeColorStyles[scen.badgeColor]}`}
+                className={`rounded-full px-1.5 py-0.2 font-mono text-[9px] font-bold ${
+                  isActive
+                    ? 'bg-white/20 text-white'
+                    : badgeColorStyles[scen.badgeColor]
+                }`}
               >
                 {scen.temp_c}°C
               </span>

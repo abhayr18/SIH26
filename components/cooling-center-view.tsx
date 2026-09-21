@@ -3,16 +3,9 @@
 import React from 'react';
 import {
   Building2,
-  MapPin,
   Users,
   Compass,
   Sparkles,
-  CheckCircle2,
-  AlertCircle,
-  Clock,
-  Droplets,
-  Shield,
-  Thermometer,
 } from 'lucide-react';
 import { optimizeCoolingCenters, CoolingCenter, CandidateCoolingSite } from '@/lib/cooling-optimizer';
 
@@ -28,36 +21,38 @@ export function CoolingCenterView({
   const result = optimizeCoolingCenters(currentCity, currentHtss);
 
   return (
-    <div className="space-y-6">
-      {/* Top Banner */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-700 bg-slate-800/80 p-5 backdrop-blur-md">
-        <div>
-          <div className="flex items-center gap-2">
-            <Building2 className="h-6 w-6 text-teal-400" />
-            <h2 className="text-xl font-bold tracking-tight text-white">
+    <div className="space-y-6 font-sans">
+      {/* Top Banner — Hume AI Scientific Instrument Panel */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-[#222222]/8 bg-white p-6 sm:p-7">
+        <div className="space-y-1.5 max-w-3xl">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-[#daf7ee] text-[#1b4332] border border-[#222222]/8">
+              <Building2 className="h-4 w-4" />
+            </span>
+            <h2 className="text-xl font-medium tracking-[-0.025em] text-[#222222]">
               Smart Cooling Center Optimization: {currentCity}
             </h2>
-            <span className="rounded-full border border-teal-500/30 bg-teal-500/10 px-2.5 py-0.5 text-xs font-semibold text-teal-300">
+            <span className="rounded-full border border-[#222222]/8 bg-[#fff9f3] px-3 py-0.5 font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
               Spatial Allocation Engine
             </span>
           </div>
-          <p className="mt-1 text-sm text-slate-300">
-            Algorithmic decision-support module that monitors active cooling shelters and calculates the optimal spatial deployment for temporary misting pavilions based on <span className="font-semibold text-white">Thermal Risk × Vulnerable Population × Distance to Nearest Center</span>.
+          <p className="text-xs sm:text-sm text-[#7a7876] leading-relaxed">
+            Algorithmic decision-support module that monitors active cooling shelters and calculates optimal spatial deployment for temporary misting pavilions based on <span className="text-[#222222] font-medium">Thermal Risk &times; Vulnerable Population &times; Distance Deficit</span>.
           </p>
         </div>
 
         {/* Capacity Summary Badge */}
-        <div className="flex items-center gap-4 rounded-xl border border-slate-700 bg-slate-900/80 p-3.5 w-full sm:w-auto justify-between sm:justify-start">
+        <div className="flex items-center gap-5 rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3.5 w-full sm:w-auto justify-between sm:justify-start shrink-0">
           <div>
-            <div className="text-[10px] uppercase tracking-wider text-slate-400">Total Capacity</div>
-            <div className="font-mono text-lg font-bold text-white">
+            <div className="font-mono text-[9px] uppercase tracking-[0.025em] text-[#7a7876]">Total Capacity</div>
+            <div className="font-mono text-base font-medium text-[#222222]">
               {result.coverage_summary.total_capacity} persons
             </div>
           </div>
-          <div className="h-8 w-px bg-slate-700" />
+          <div className="h-7 w-px bg-[#222222]/8" />
           <div>
-            <div className="text-[10px] uppercase tracking-wider text-slate-400">Avg. Occupancy</div>
-            <div className="font-mono text-lg font-bold text-amber-400">
+            <div className="font-mono text-[9px] uppercase tracking-[0.025em] text-[#7a7876]">Avg. Occupancy</div>
+            <div className="font-mono text-base font-medium text-[#854d0e]">
               {result.coverage_summary.avg_occupancy_pct}%
             </div>
           </div>
@@ -65,49 +60,49 @@ export function CoolingCenterView({
       </div>
 
       {/* Top Optimization Recommendation Highlight Card */}
-      <div className="rounded-xl border border-amber-500/40 bg-gradient-to-br from-slate-900 via-amber-950/20 to-slate-900 p-6 shadow-xl">
-        <div className="flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-amber-400" />
-          <span className="text-xs font-bold uppercase tracking-wider text-amber-300">
+      <div className="rounded-3xl border border-[#222222]/8 bg-[#ffe9cf]/40 p-6 sm:p-7">
+        <div className="flex flex-wrap items-center gap-2">
+          <Sparkles className="h-4 w-4 text-[#c094e4]" />
+          <span className="font-mono text-[10.5px] font-medium uppercase tracking-[0.025em] text-[#854d0e]">
             Top Recommended Intervention (Rank #1)
           </span>
-          <span className="rounded-full border border-amber-400/40 bg-amber-400/10 px-2 py-0.5 text-[10px] font-bold text-amber-300">
+          <span className="rounded-full border border-[#222222]/8 bg-[#ffe9cf] px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.025em] text-[#854d0e]">
             Deploy Next Shelter Here
           </span>
         </div>
 
         <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-12">
           <div className="lg:col-span-8">
-            <h3 className="text-xl font-bold text-white">
+            <h3 className="text-xl font-medium tracking-[-0.025em] text-[#222222]">
               {result.top_recommendation.site_name}
             </h3>
-            <p className="mt-1 text-xs text-slate-400">
-              Location: {result.top_recommendation.ward_name} ({result.top_recommendation.city}) • Facility Type: {result.top_recommendation.site_type}
+            <p className="mt-1 font-mono text-xs text-[#7a7876]">
+              Location: {result.top_recommendation.ward_name} ({result.top_recommendation.city}) &middot; Facility: {result.top_recommendation.site_type}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-slate-200">
+            <p className="mt-3 text-xs sm:text-sm leading-relaxed text-[#222222]">
               {result.top_recommendation.rationale}
             </p>
-            <div className="mt-4 flex flex-wrap gap-4 text-xs">
-              <span className="flex items-center gap-1 text-slate-300">
-                <Compass className="h-4 w-4 text-cyan-400" />
-                Nearest center: <strong className="text-white">{result.top_recommendation.nearest_existing_center_name}</strong> ({result.top_recommendation.distance_to_nearest_center_km} km away)
+            <div className="mt-4 flex flex-wrap gap-4 text-xs text-[#7a7876]">
+              <span className="flex items-center gap-1.5">
+                <Compass className="h-3.5 w-3.5 text-[#222222]" />
+                Nearest: <strong className="text-[#222222] font-medium">{result.top_recommendation.nearest_existing_center_name}</strong> ({result.top_recommendation.distance_to_nearest_center_km} km away)
               </span>
-              <span className="flex items-center gap-1 text-slate-300">
-                <Users className="h-4 w-4 text-purple-400" />
-                Target capacity: <strong className="text-white">{result.top_recommendation.estimated_capacity} beds</strong>
+              <span className="flex items-center gap-1.5">
+                <Users className="h-3.5 w-3.5 text-[#c094e4]" />
+                Target capacity: <strong className="text-[#222222] font-medium">{result.top_recommendation.estimated_capacity} beds</strong>
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col justify-center rounded-xl border border-amber-500/30 bg-slate-950/70 p-4 text-center lg:col-span-4">
-            <span className="text-[11px] font-semibold text-slate-400">Optimization Priority Score</span>
-            <div className="font-mono text-3xl font-black text-amber-400">
+          <div className="flex flex-col justify-center rounded-2xl border border-[#222222]/8 bg-white p-5 text-center lg:col-span-4">
+            <span className="font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">Optimization Priority Score</span>
+            <div className="font-mono text-3xl font-medium text-[#222222] my-1">
               {result.top_recommendation.optimization_score}
             </div>
-            <span className="mt-1 text-[10px] text-slate-400">
-              High Deficit Index (Risk × Pop × Dist)
+            <span className="text-xs text-[#7a7876]">
+              High Deficit Index (Risk &times; Pop &times; Dist)
             </span>
-            <button className="mt-3 rounded-lg border border-amber-500/40 bg-amber-500/20 px-3 py-1.5 text-xs font-bold text-amber-200 transition hover:bg-amber-500/30">
+            <button className="mt-3.5 rounded-full bg-[#222222] hover:bg-black px-4 py-2 font-mono text-[11px] uppercase tracking-[0.025em] font-medium text-white shadow-none transition">
               Issue Deployment Order
             </button>
           </div>
@@ -117,53 +112,47 @@ export function CoolingCenterView({
       {/* Grid: Existing Centers vs Ranked Candidate Pool */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Active Cooling Shelters */}
-        <div className="rounded-xl border border-slate-700 bg-slate-900/90 p-5 shadow-lg">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="rounded-2xl border border-[#222222]/8 bg-white p-6">
+          <div className="flex items-center justify-between border-b border-[#222222]/8 pb-3.5">
             <div className="flex items-center gap-2">
-              <Building2 className="h-5 w-5 text-cyan-400" />
-              <h3 className="font-bold text-white">Active Cooling Shelters ({result.existing_centers.length})</h3>
+              <Building2 className="h-4 w-4 text-[#222222]" />
+              <h3 className="font-medium text-[#222222] tracking-[-0.025em]">Active Shelters ({result.existing_centers.length})</h3>
             </div>
-            <span className="text-xs text-slate-400">Real-time occupancy</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">Occupancy</span>
           </div>
 
           <div className="mt-4 space-y-3.5">
             {result.existing_centers.map((center: CoolingCenter) => (
               <div
                 key={center.id}
-                className="rounded-lg border border-slate-800 bg-slate-950/60 p-3.5 transition hover:border-slate-700"
+                className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-4 transition hover:bg-white"
               >
                 <div className="flex items-start justify-between">
                   <div>
-                    <h4 className="font-bold text-slate-200 text-sm">{center.name}</h4>
-                    <p className="text-xs text-slate-400">{center.ward} • {center.type}</p>
+                    <h4 className="font-medium text-[#222222] text-sm tracking-[-0.025em]">{center.name}</h4>
+                    <p className="text-xs text-[#7a7876]">{center.ward} &middot; {center.type}</p>
                   </div>
-                  <span className={`rounded border px-2 py-0.5 text-[10px] font-bold ${
+                  <span className={`rounded-full px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.025em] border border-[#222222]/8 ${
                     center.status === 'Operating Near Capacity'
-                      ? 'border-amber-500/40 bg-amber-500/10 text-amber-400'
+                      ? 'bg-[#ffe9cf] text-[#854d0e]'
                       : center.status === 'Extended Hours Active'
-                      ? 'border-cyan-500/40 bg-cyan-500/10 text-cyan-400'
-                      : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-400'
+                      ? 'bg-[#fdebf7] text-[#574853]'
+                      : 'bg-[#daf7ee] text-[#1b4332]'
                   }`}>
                     {center.status}
                   </span>
                 </div>
 
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
-                  <span>Capacity: <strong className="text-slate-200">{center.capacity_people}</strong></span>
-                  <span>Occupancy: <strong className="text-amber-400">{center.current_occupancy_pct}%</strong></span>
-                  <span>Hours: <strong className="text-slate-300">{center.operating_hours}</strong></span>
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-[#7a7876]">
+                  <span>Capacity: <strong className="text-[#222222] font-mono">{center.capacity_people}</strong></span>
+                  <span>Occupancy: <strong className="text-[#854d0e] font-mono">{center.current_occupancy_pct}%</strong></span>
+                  <span>Hours: <strong className="text-[#222222]">{center.operating_hours}</strong></span>
                 </div>
 
-                {/* Progress bar */}
-                <div className="mt-2 h-1.5 w-full rounded-full bg-slate-800">
+                {/* Progress bar — Iris violet fill */}
+                <div className="mt-2.5 h-1.5 w-full rounded-full bg-stone-200/60 overflow-hidden">
                   <div
-                    className={`h-1.5 rounded-full ${
-                      center.current_occupancy_pct > 80
-                        ? 'bg-red-500'
-                        : center.current_occupancy_pct > 60
-                        ? 'bg-amber-500'
-                        : 'bg-emerald-500'
-                    }`}
+                    className="h-1.5 rounded-full bg-[#c094e4]"
                     style={{ width: `${center.current_occupancy_pct}%` }}
                   />
                 </div>
@@ -173,41 +162,41 @@ export function CoolingCenterView({
         </div>
 
         {/* Ranked Candidate Deployment Sites */}
-        <div className="rounded-xl border border-slate-700 bg-slate-900/90 p-5 shadow-lg">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="rounded-2xl border border-[#222222]/8 bg-white p-6">
+          <div className="flex items-center justify-between border-b border-[#222222]/8 pb-3.5">
             <div className="flex items-center gap-2">
-              <Compass className="h-5 w-5 text-amber-400" />
-              <h3 className="font-bold text-white">Ranked Candidate Expansion Sites</h3>
+              <Compass className="h-4 w-4 text-[#222222]" />
+              <h3 className="font-medium text-[#222222] tracking-[-0.025em]">Ranked Candidate Expansion Sites</h3>
             </div>
-            <span className="text-xs text-slate-400">Optimization pipeline</span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">Pipeline</span>
           </div>
 
           <div className="mt-4 space-y-3.5">
             {result.ranked_recommendations.map((cand: CandidateCoolingSite) => (
               <div
                 key={cand.candidate_id}
-                className="rounded-lg border border-slate-800 bg-slate-950/60 p-3.5 transition hover:border-slate-700"
+                className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-4 transition hover:bg-white"
               >
                 <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-800 text-xs font-bold text-amber-400">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#222222] font-mono text-[10px] font-medium text-white shrink-0">
                       #{cand.recommendation_rank}
                     </span>
                     <div>
-                      <h4 className="font-bold text-slate-200 text-sm">{cand.site_name}</h4>
-                      <p className="text-xs text-slate-400">{cand.ward_name} • {cand.site_type}</p>
+                      <h4 className="font-medium text-[#222222] text-sm tracking-[-0.025em]">{cand.site_name}</h4>
+                      <p className="text-xs text-[#7a7876]">{cand.ward_name} &middot; {cand.site_type}</p>
                     </div>
                   </div>
-                  <span className="font-mono text-xs font-bold text-amber-400">
+                  <span className="font-mono text-xs font-medium text-[#222222]">
                     Score: {cand.optimization_score}
                   </span>
                 </div>
-                <p className="mt-2 text-xs text-slate-300 line-clamp-2">
+                <p className="mt-2 text-xs text-[#7a7876] line-clamp-2">
                   {cand.rationale}
                 </p>
-                <div className="mt-2 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800/80 pt-2">
-                  <span>Dist. to center: <strong className="text-slate-300">{cand.distance_to_nearest_center_km} km</strong></span>
-                  <span>Est. capacity: <strong className="text-slate-300">{cand.estimated_capacity}</strong></span>
+                <div className="mt-2.5 flex items-center justify-between text-[11px] text-[#7a7876] border-t border-[#222222]/8 pt-2">
+                  <span>Dist. to center: <strong className="text-[#222222]">{cand.distance_to_nearest_center_km} km</strong></span>
+                  <span>Est. capacity: <strong className="text-[#222222]">{cand.estimated_capacity}</strong></span>
                 </div>
               </div>
             ))}

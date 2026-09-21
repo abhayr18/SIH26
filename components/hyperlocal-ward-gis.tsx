@@ -55,91 +55,94 @@ export function HyperlocalWardGis({
       )
     : calculateThermalMetrics(baseTemp, baseHumidity);
 
+  const layerOptions: Array<{ id: GisLayerMode; label: string }> = [
+    { id: 'htss-risk', label: 'Thermal Stress (HTSS)' },
+    { id: 'vulnerability', label: 'Vulnerability Index (PVS)' },
+    { id: 'outdoor-workers', label: 'Outdoor Workers' },
+    { id: 'cooling-centers', label: 'Cooling Centers' },
+    { id: 'healthcare', label: 'Hospitals & Clinics' },
+  ];
+
   return (
-    <div className="space-y-5 font-sans">
-      {/* Layer Switcher Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white p-4 shadow-2xs">
+    <div className="space-y-6 font-sans">
+      {/* Hume AI Layer Switcher Bar — Lab Tabs with Stadium Pills */}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#222222]/8 bg-white p-4 sm:p-5">
         <div className="flex items-center gap-2">
-          <Layers className="h-4 w-4 text-blue-600" />
-          <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-slate-500">
+          <Layers className="h-4 w-4 text-[#222222]" />
+          <span className="font-mono text-[10.5px] font-medium uppercase tracking-[0.025em] text-[#7a7876]">
             GIS LAYER OVERLAYS:
           </span>
         </div>
 
         <div className="flex flex-wrap gap-1.5">
-          <button
-            type="button"
-            onClick={() => setActiveLayer('htss-risk')}
-            className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
-              activeLayer === 'htss-risk'
-                ? 'border-amber-400 bg-amber-50 text-amber-900 shadow-2xs font-bold'
-                : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-            }`}
-          >
-            Thermal Stress (HTSS)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveLayer('vulnerability')}
-            className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
-              activeLayer === 'vulnerability'
-                ? 'border-rose-400 bg-rose-50 text-rose-900 shadow-2xs font-bold'
-                : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-            }`}
-          >
-            Vulnerability Index (PVS)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveLayer('outdoor-workers')}
-            className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
-              activeLayer === 'outdoor-workers'
-                ? 'border-purple-400 bg-purple-50 text-purple-900 shadow-2xs font-bold'
-                : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-            }`}
-          >
-            Outdoor Worker Exposure
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveLayer('cooling-centers')}
-            className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
-              activeLayer === 'cooling-centers'
-                ? 'border-teal-400 bg-teal-50 text-teal-900 shadow-2xs font-bold'
-                : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-            }`}
-          >
-            Cooling Centers
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveLayer('healthcare')}
-            className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${
-              activeLayer === 'healthcare'
-                ? 'border-blue-400 bg-blue-50 text-blue-900 shadow-2xs font-bold'
-                : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-            }`}
-          >
-            Hospitals & Clinics
-          </button>
+          {layerOptions.map((opt) => {
+            const isActive = activeLayer === opt.id;
+            return (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => setActiveLayer(opt.id)}
+                className={`rounded-full px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.025em] transition-all duration-150 ${
+                  isActive
+                    ? 'bg-[#222222] text-white font-medium shadow-none'
+                    : 'border border-[#222222]/10 bg-white text-[#222222] hover:bg-[#fff9f3]'
+                }`}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Dataset Composition Legend (Hume AI Scientific Swatch Pattern) */}
+      <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-4">
+        <span className="font-mono text-[10px] font-medium uppercase tracking-[0.025em] text-[#7a7876] block mb-2.5">
+          DATASET COMPOSITION &middot; CATEGORICAL INDICATORS
+        </span>
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 text-xs text-[#222222]">
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-[#c094e4] shrink-0" />
+            <span className="truncate">Thermal Stress</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-[#f7bbe6] shrink-0" />
+            <span className="truncate">Critical Slums</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-[#ffb760] shrink-0" />
+            <span className="truncate">Outdoor Workers</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-[#daf7ee] shrink-0" />
+            <span className="truncate">Canopy Shade</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-[#cef1e1] shrink-0" />
+            <span className="truncate">Cooling Centers</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-[#fce0ee] shrink-0" />
+            <span className="truncate">Elderly Cohorts</span>
+          </div>
         </div>
       </div>
 
       {/* Main Grid: Interactive Ward Matrix & Detail Panel */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         {/* Left: Ward Selection Grid */}
-        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-2xs lg:col-span-7">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3.5">
+        <div className="rounded-2xl border border-[#222222]/8 bg-white p-5 lg:col-span-7">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#222222]/8 pb-3.5">
             <div>
-              <h3 className="font-bold text-slate-900 text-base">
+              <h3 className="font-medium text-[#222222] text-base tracking-[-0.025em]">
                 Hyperlocal Ward Matrix: {currentCity}
               </h3>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-[#7a7876] mt-0.5">
                 Click any municipal ward to inspect detailed demographic and biometeorological metrics.
               </p>
             </div>
-            <span className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-[10px] font-bold text-blue-700">
-              India → {currentCity} → Wards
+            <span className="rounded-full border border-[#222222]/8 bg-[#fff9f3] px-2.5 py-0.5 font-mono text-[10px] text-[#222222]">
+              India &rarr; {currentCity} &rarr; Wards
             </span>
           </div>
 
@@ -152,48 +155,48 @@ export function HyperlocalWardGis({
                 <div
                   key={ward.ward_id}
                   onClick={() => handleSelectWard(ward)}
-                  className={`cursor-pointer rounded-xl p-3.5 transition ${
+                  className={`cursor-pointer rounded-2xl p-4 transition-all duration-150 ${
                     isSelected
-                      ? 'border-2 border-blue-600 bg-blue-50/40 shadow-xs ring-2 ring-blue-500/20'
-                      : 'border border-slate-200/80 bg-slate-50/60 hover:border-slate-300 hover:bg-white shadow-2xs'
+                      ? 'border-2 border-[#222222] bg-[#fff9f3]'
+                      : 'border border-[#222222]/8 bg-white hover:bg-[#fff9f3]'
                   }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <span className="font-mono text-[10px] font-bold text-slate-400">
+                      <span className="font-mono text-[10px] text-[#7a7876]">
                         {ward.ward_id}
                       </span>
-                      <h4 className="font-bold text-slate-900 text-sm leading-tight mt-0.5">
+                      <h4 className="font-medium text-[#222222] text-sm leading-tight mt-0.5 tracking-[-0.025em]">
                         {ward.ward_name}
                       </h4>
                     </div>
                     <span
-                      className={`rounded px-1.5 py-0.5 text-[9px] font-bold uppercase ${
+                      className={`rounded-full px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.025em] border border-[#222222]/8 ${
                         isCritical
-                          ? 'border border-red-200 bg-red-50 text-red-700'
-                          : 'border border-amber-200 bg-amber-50 text-amber-800'
+                          ? 'bg-[#fce0ee] text-[#831843]'
+                          : 'bg-[#ffe9cf] text-[#854d0e]'
                       }`}
                     >
                       {ward.vulnerability_level}
                     </span>
                   </div>
 
-                  <div className="mt-3 grid grid-cols-3 gap-1 border-t border-slate-200/70 pt-2 text-[11px]">
+                  <div className="mt-3 grid grid-cols-3 gap-1 border-t border-[#222222]/8 pt-2.5 text-[11px]">
                     <div>
-                      <span className="text-[10px] text-slate-400 block font-medium">Pop.</span>
-                      <span className="font-mono font-semibold text-slate-700">
+                      <span className="font-mono text-[9.5px] text-[#7a7876] block uppercase tracking-[0.025em]">Pop.</span>
+                      <span className="font-mono font-medium text-[#222222]">
                         {Math.round(ward.population / 1000)}k
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-400 block font-medium">Workers</span>
-                      <span className="font-mono font-bold text-purple-700">
+                      <span className="font-mono text-[9.5px] text-[#7a7876] block uppercase tracking-[0.025em]">Workers</span>
+                      <span className="font-mono font-medium text-[#c094e4]">
                         {ward.outdoor_workers_pct}%
                       </span>
                     </div>
                     <div>
-                      <span className="text-[10px] text-slate-400 block font-medium">PVS</span>
-                      <span className="font-mono font-bold text-amber-700">
+                      <span className="font-mono text-[9.5px] text-[#7a7876] block uppercase tracking-[0.025em]">PVS</span>
+                      <span className="font-mono font-medium text-[#222222]">
                         {ward.pvs_score}
                       </span>
                     </div>
@@ -205,28 +208,28 @@ export function HyperlocalWardGis({
         </div>
 
         {/* Right: Selected Ward Detailed Risk Panel */}
-        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-2xs lg:col-span-5">
+        <div className="rounded-2xl border border-[#222222]/8 bg-white p-5 lg:col-span-5">
           {selectedWard ? (
             <div className="space-y-4">
-              <div className="flex items-start justify-between border-b border-slate-100 pb-3.5">
+              <div className="flex items-start justify-between border-b border-[#222222]/8 pb-3.5">
                 <div>
-                  <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-blue-600">
+                  <span className="font-mono text-[10px] font-medium uppercase tracking-[0.025em] text-[#7a7876]">
                     ZONE: {selectedWard.ward_name}
                   </span>
-                  <h3 className="text-base font-bold text-slate-900 mt-0.5">
+                  <h3 className="text-base font-medium text-[#222222] mt-0.5 tracking-[-0.025em]">
                     Ward Risk & Exposure Profile
                   </h3>
-                  <p className="text-xs text-slate-500">
-                    Density: {selectedWard.density.toLocaleString()} / km² · Slum Housing: {selectedWard.slum_housing_pct}%
+                  <p className="text-xs text-[#7a7876]">
+                    Density: {selectedWard.density.toLocaleString()} / km² · Slum: {selectedWard.slum_housing_pct}%
                   </p>
                 </div>
                 <div className="text-right">
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400">
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876] block">
                     Risk Category
                   </span>
                   <div
-                    className={`font-mono text-lg font-black uppercase ${
-                      thermal.htss_score >= 75 ? 'text-red-600' : 'text-amber-600'
+                    className={`font-mono text-base font-medium uppercase mt-0.5 ${
+                      thermal.htss_score >= 75 ? 'text-[#831843]' : 'text-[#854d0e]'
                     }`}
                   >
                     {thermal.htss_score >= 75 ? 'EXTREME' : 'WARNING'}
@@ -236,107 +239,107 @@ export function HyperlocalWardGis({
 
               {/* Core Metrics Grid */}
               <div className="grid grid-cols-2 gap-2.5 text-xs">
-                <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3">
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400 block">
+                <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3">
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876] block">
                     HTSS Score
                   </span>
-                  <strong className="font-mono text-xl font-black text-amber-600">
+                  <strong className="font-mono text-xl font-normal text-[#222222]">
                     {thermal.htss_score}
                   </strong>
-                  <span className="text-slate-400 text-xs font-medium"> / 100</span>
+                  <span className="text-[#7a7876] text-xs font-normal"> / 100</span>
                 </div>
 
-                <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3">
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400 block">
+                <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3">
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876] block">
                     Dry Bulb Temp
                   </span>
-                  <strong className="font-mono text-xl font-bold text-slate-900">
+                  <strong className="font-mono text-xl font-normal text-[#222222]">
                     {thermal.temperature_c}°C
                   </strong>
                 </div>
 
-                <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3">
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400 block">
+                <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3">
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876] block">
                     Relative Humidity
                   </span>
-                  <strong className="font-mono text-lg font-bold text-blue-700">
+                  <strong className="font-mono text-lg font-normal text-[#222222]">
                     {thermal.humidity_pct}%
                   </strong>
                 </div>
 
-                <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3">
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400 block">
+                <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3">
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876] block">
                     Outdoor WBGT
                   </span>
-                  <strong className="font-mono text-lg font-bold text-amber-700">
+                  <strong className="font-mono text-lg font-normal text-[#222222]">
                     {thermal.wbgt_c}°C
                   </strong>
-                  <span className="text-[10px] text-slate-500 block font-medium">
+                  <span className="text-[10px] text-[#7a7876] block">
                     ({thermal.wbgt_category})
                   </span>
                 </div>
 
-                <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3">
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400 block">
+                <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3">
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876] block">
                     UTCI Bioclimate
                   </span>
-                  <strong className="font-mono text-lg font-bold text-purple-700">
+                  <strong className="font-mono text-lg font-normal text-[#c094e4]">
                     {thermal.utci_c}°C
                   </strong>
-                  <span className="text-[10px] text-slate-500 block font-medium">
+                  <span className="text-[10px] text-[#7a7876] block">
                     ({thermal.utci_category})
                   </span>
                 </div>
 
-                <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3">
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400 block">
+                <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3">
+                  <span className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876] block">
                     72h Trend
                   </span>
-                  <div className="flex items-center gap-1 font-mono text-base font-bold text-rose-600">
-                    <TrendingUp className="h-4 w-4" />
+                  <div className="flex items-center gap-1 font-mono text-sm font-medium text-[#831843]">
+                    <TrendingUp className="h-3.5 w-3.5" />
                     ESCALATING ↑
                   </div>
-                  <span className="text-[10px] text-slate-500 block">
+                  <span className="text-[10px] text-[#7a7876] block">
                     +4.2 pts peak expected
                   </span>
                 </div>
               </div>
 
               {/* Exposure Multipliers */}
-              <div className="rounded-xl border border-slate-200/80 bg-slate-50/60 p-3.5 text-xs space-y-2">
+              <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-3.5 text-xs space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-600 font-medium">Outdoor Worker Exposure:</span>
-                  <strong className="text-purple-700 font-mono font-bold">
+                  <span className="text-[#7a7876]">Outdoor Worker Exposure:</span>
+                  <strong className="text-[#c094e4] font-mono font-medium">
                     {selectedWard.outdoor_workers_pct}% (HIGH)
                   </strong>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-600 font-medium">Elderly Cohort Ratio:</span>
-                  <strong className="text-rose-700 font-mono font-bold">
+                  <span className="text-[#7a7876]">Elderly Cohort Ratio:</span>
+                  <strong className="text-[#831843] font-mono font-medium">
                     {selectedWard.elderly_pct}%
                   </strong>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-600 font-medium">Tree Canopy Buffer:</span>
-                  <strong className="text-emerald-700 font-mono font-bold">
+                  <span className="text-[#7a7876]">Tree Canopy Buffer:</span>
+                  <strong className="text-[#1b4332] font-mono font-medium">
                     {selectedWard.vegetation_cover_pct}% (Low shade)
                   </strong>
                 </div>
-                <div className="flex items-center justify-between border-t border-slate-200/70 pt-2">
-                  <span className="text-slate-600 font-medium">Nearby Cooling Shelters:</span>
-                  <strong className="text-slate-900 font-mono font-bold">
+                <div className="flex items-center justify-between border-t border-[#222222]/8 pt-2">
+                  <span className="text-[#7a7876]">Nearby Cooling Shelters:</span>
+                  <strong className="text-[#222222] font-mono font-medium">
                     {selectedWard.cooling_center_count} centers
                   </strong>
                 </div>
               </div>
 
               {/* Primary Vulnerability Driver */}
-              <div className="rounded-xl border border-amber-200 bg-amber-50/80 p-3 text-xs text-amber-900 font-medium">
-                <strong className="font-bold">Primary Vulnerability Driver:</strong> {selectedWard.primary_driver}
+              <div className="rounded-2xl border border-[#222222]/8 bg-[#ffe9cf] p-3 text-xs text-[#854d0e]">
+                <strong className="font-medium">Primary Vulnerability Driver:</strong> {selectedWard.primary_driver}
               </div>
             </div>
           ) : (
-            <div className="flex h-64 items-center justify-center text-xs text-slate-500">
+            <div className="flex h-64 items-center justify-center font-mono text-xs text-[#7a7876] uppercase tracking-[0.025em]">
               Select a ward from the matrix to view the detailed risk panel
             </div>
           )}

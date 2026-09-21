@@ -133,37 +133,40 @@ export function GroundedAssistantModal({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
-      <div className="flex h-[85vh] w-full max-w-3xl flex-col rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#222222]/30 p-4 backdrop-blur-sm">
+      <div className="flex h-[85vh] w-full max-w-3xl flex-col rounded-3xl border border-[#222222]/8 bg-white shadow-none overflow-hidden">
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 bg-slate-850 px-5 py-4">
+        <div className="flex items-center justify-between border-b border-[#222222]/8 bg-white px-6 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-400">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-[#222222]/8 bg-[#fdebf7] text-[#c094e4]">
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base">
-                AI Heat Assistant: Grounded Intelligence
+              <div className="font-mono text-[10px] font-bold uppercase tracking-[0.025em] text-[#7a7876]">
+                GROUNDED AI ASSISTANT · LABORATORY INTELLIGENCE
+              </div>
+              <h3 className="font-medium text-[#222222] text-base tracking-tight">
+                Heat Intelligence: Grounded Telemetry
               </h3>
-              <p className="text-xs text-slate-400">
-                Connected to live telemetry for {currentCity} • MoES/NCMRWF Decision Support
+              <p className="text-xs text-[#7a7876]">
+                Live telemetry for {currentCity} • MoES / NCMRWF Decision Support
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             {/* Language Selector */}
-            <div className="flex items-center gap-1 rounded-lg border border-slate-700 bg-slate-950 px-2 py-1 text-xs">
-              <Globe className="h-3.5 w-3.5 text-cyan-400" />
+            <div className="flex items-center gap-1.5 rounded-full border border-[#222222]/10 bg-[#fff9f3] px-3 py-1 text-xs text-[#222222]">
+              <Globe className="h-3.5 w-3.5 text-[#c094e4]" />
               <select
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value as SupportedLanguage)}
-                className="bg-transparent text-xs font-bold text-slate-200 focus:outline-none cursor-pointer"
+                className="bg-transparent text-xs font-medium text-[#222222] focus:outline-none cursor-pointer"
               >
-                <option value="en" className="bg-slate-900">EN</option>
-                <option value="hi" className="bg-slate-900">हिन्दी</option>
-                <option value="mr" className="bg-slate-900">मराठी</option>
-                <option value="kn" className="bg-slate-900">ಕನ್ನಡ</option>
+                <option value="en">EN</option>
+                <option value="hi">हिन्दी</option>
+                <option value="mr">मराठी</option>
+                <option value="kn">ಕನ್ನಡ</option>
               </select>
             </div>
 
@@ -176,10 +179,10 @@ export function GroundedAssistantModal({
                 setIsSpeaking(!isSpeaking);
               }}
               title={isSpeaking ? 'Mute speech output' : 'Enable voice read-aloud'}
-              className={`rounded-lg border p-1.5 transition ${
+              className={`rounded-full border p-2 transition ${
                 isSpeaking
-                  ? 'border-amber-400/40 bg-amber-500/20 text-amber-300'
-                  : 'border-slate-700 bg-slate-800 text-slate-400 hover:text-white'
+                  ? 'border-[#c094e4] bg-[#fdebf7] text-[#c094e4]'
+                  : 'border-[#222222]/10 bg-white text-[#7a7876] hover:text-[#222222] hover:bg-[#fff9f3]'
               }`}
             >
               {isSpeaking ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
@@ -187,7 +190,7 @@ export function GroundedAssistantModal({
 
             <button
               onClick={onClose}
-              className="rounded-lg border border-slate-700 bg-slate-800 p-1.5 text-slate-400 hover:bg-slate-700 hover:text-white transition"
+              className="rounded-full border border-[#222222]/10 bg-white p-2 text-[#7a7876] hover:bg-[#fff9f3] hover:text-[#222222] transition"
             >
               <X className="h-4 w-4" />
             </button>
@@ -195,7 +198,7 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Messages Body */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        <div className="flex-1 overflow-y-auto bg-[#fff9f3] p-5 sm:p-6 space-y-4">
           {messages.map((msg) => {
             const isBot = msg.sender === 'assistant';
 
@@ -205,42 +208,42 @@ export function GroundedAssistantModal({
                 className={`flex items-start gap-3 ${isBot ? '' : 'flex-row-reverse'}`}
               >
                 <div
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-xs font-bold ${
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
                     isBot
-                      ? 'border-cyan-500/30 bg-cyan-500/10 text-cyan-300'
-                      : 'border-purple-500/30 bg-purple-500/20 text-purple-300'
+                      ? 'border-[#222222]/10 bg-white text-[#c094e4]'
+                      : 'border-[#222222] bg-[#222222] text-white'
                   }`}
                 >
                   {isBot ? <Bot className="h-4 w-4" /> : <User className="h-4 w-4" />}
                 </div>
 
                 <div
-                  className={`max-w-[85%] rounded-2xl p-4 text-xs leading-relaxed shadow-sm ${
+                  className={`max-w-[85%] rounded-2xl p-4 text-xs leading-relaxed ${
                     isBot
-                      ? 'border border-slate-800 bg-slate-850 text-slate-200'
-                      : 'border border-purple-500/30 bg-purple-950/40 text-white'
+                      ? 'border border-[#222222]/8 bg-white text-[#222222]'
+                      : 'bg-[#222222] text-white'
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{msg.text}</p>
 
                   {/* Structured Data Attachment if available */}
                   {msg.structured_data && (
-                    <div className="mt-3 rounded-xl border border-slate-800 bg-slate-950/70 p-3">
-                      <div className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 mb-2">
-                        Grounded Application Telemetry
+                    <div className="mt-3 rounded-xl border border-[#222222]/8 bg-[#fff9f3] p-3">
+                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.025em] text-[#7a7876] mb-2">
+                        GROUNDED APPLICATION TELEMETRY
                       </div>
                       <div className="grid grid-cols-2 gap-2 text-[11px]">
                         {Object.entries(msg.structured_data).map(([k, v]) => (
-                          <div key={k} className="flex justify-between border-b border-slate-800/60 pb-1">
-                            <span className="text-slate-400">{k}:</span>
-                            <strong className="text-slate-200 font-mono">{String(v)}</strong>
+                          <div key={k} className="flex justify-between border-b border-[#222222]/6 pb-1">
+                            <span className="text-[#7a7876]">{k}:</span>
+                            <strong className="text-[#222222] font-mono">{String(v)}</strong>
                           </div>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  <span className="mt-2 block text-[10px] text-slate-400 text-right">
+                  <span className={`mt-2 block font-mono text-[10px] tracking-[0.025em] text-right ${isBot ? 'text-[#7a7876]' : 'text-white/60'}`}>
                     {msg.timestamp}
                   </span>
                 </div>
@@ -251,14 +254,16 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Quick Suggestion Chips */}
-        <div className="border-t border-slate-800/80 bg-slate-950/60 px-5 py-2.5">
-          <div className="text-[10px] font-semibold text-slate-400 mb-1.5">Evaluator Demo Prompts:</div>
+        <div className="border-t border-[#222222]/8 bg-white px-5 py-3">
+          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.025em] text-[#7a7876] mb-2">
+            SUGGESTED GROUNDED INQUIRIES:
+          </div>
           <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
             {samplePrompts.map((prompt) => (
               <button
                 key={prompt}
                 onClick={() => handleSendMessage(prompt)}
-                className="shrink-0 rounded-full border border-slate-800 bg-slate-900 px-3 py-1 text-[11px] font-medium text-slate-300 hover:border-slate-700 hover:bg-slate-800 hover:text-white transition"
+                className="shrink-0 rounded-full border border-[#222222]/10 bg-[#fff9f3] px-3.5 py-1 text-[11px] font-medium text-[#222222] hover:border-[#222222]/30 hover:bg-[#ffe9cf] transition"
               >
                 {prompt}
               </button>
@@ -267,25 +272,25 @@ export function GroundedAssistantModal({
         </div>
 
         {/* Input Bar */}
-        <div className="border-t border-slate-800 bg-slate-850 p-4">
+        <div className="border-t border-[#222222]/8 bg-white p-4">
           <form
             onSubmit={(e) => {
               e.preventDefault();
               handleSendMessage();
             }}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2.5"
           >
             <input
               type="text"
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
               placeholder={`Ask anything regarding heat risk, cooling centers, or response action in ${currentCity}...`}
-              className="flex-1 rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+              className="flex-1 rounded-full border border-[#222222]/12 bg-[#fff9f3] px-4 py-2.5 text-xs text-[#222222] placeholder-[#7a7876] focus:border-[#222222] focus:bg-white focus:outline-none transition"
             />
             <button
               type="submit"
               disabled={!inputQuery.trim()}
-              className="flex items-center gap-1.5 rounded-xl bg-cyan-600 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-cyan-500 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="flex items-center gap-1.5 rounded-full bg-[#222222] px-5 py-2.5 text-xs font-medium text-white transition hover:bg-black disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <Send className="h-3.5 w-3.5" />
               <span>Query</span>

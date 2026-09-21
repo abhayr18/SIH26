@@ -4,20 +4,20 @@ import { StoredKannadaLocalizer } from '@/components/kannada-localizer';
 export default function PrivacyPage() {
   return (
     <StoredKannadaLocalizer>
-      <main className="min-h-screen bg-slate-50 px-5 py-12 text-slate-900">
-        <article className="mx-auto max-w-3xl rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm sm:p-10">
-          <p className="font-mono text-[10px] font-semibold tracking-[0.18em] text-blue-600">
-            HEATVECTOR · SIH26083
+      <main className="min-h-screen bg-[#fff9f3] px-5 py-12 text-[#222222]">
+        <article className="mx-auto max-w-3xl rounded-3xl border border-[#222222]/8 bg-white p-6 sm:p-10 shadow-none">
+          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.025em] text-[#7a7876]">
+            HEATVECTOR · SIH26083 · PRIVACY & DATA USE
           </p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900">Privacy and data use</h1>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
+          <h1 className="mt-2 text-3xl font-medium tracking-[-0.9px] text-[#222222]">Privacy and data governance</h1>
+          <p className="mt-3 text-xs leading-relaxed text-[#7a7876]">
             HeatVector is an early-warning and decision-support prototype. It
             is not a medical service or an official government warning system.
           </p>
 
-          <div className="mt-8 space-y-7 text-sm leading-7 text-slate-600">
+          <div className="mt-8 space-y-6 text-xs leading-relaxed text-[#7a7876]">
             <section>
-              <h2 className="text-lg font-semibold text-slate-900">
+              <h2 className="text-sm font-medium text-[#222222] mb-1">
                 Information stored
               </h2>
               <p>
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-slate-900">
+              <h2 className="text-sm font-medium text-[#222222] mb-1">
                 Identity and permissions
               </h2>
               <p>
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-slate-900">
+              <h2 className="text-sm font-medium text-[#222222] mb-1">
                 Purpose and sharing
               </h2>
               <p>
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-slate-900">
+              <h2 className="text-sm font-medium text-[#222222] mb-1">
                 Local assistant and voice
               </h2>
               <p>
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-slate-900">
+              <h2 className="text-sm font-medium text-[#222222] mb-1">
                 Retention and deletion
               </h2>
               <p>
@@ -80,7 +80,7 @@ export default function PrivacyPage() {
               </p>
             </section>
             <section>
-              <h2 className="text-lg font-semibold text-slate-900">
+              <h2 className="text-sm font-medium text-[#222222] mb-1">
                 Safety boundary
               </h2>
               <p>
@@ -93,9 +93,9 @@ export default function PrivacyPage() {
 
           <Link
             href="/"
-            className="mt-9 inline-flex rounded-xl bg-slate-900 hover:bg-slate-800 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors"
+            className="mt-8 inline-flex rounded-full bg-[#222222] hover:bg-black px-6 py-2.5 text-xs font-medium text-white transition-colors"
           >
-            Return to HeatVector
+            ← Return to HeatVector
           </Link>
 
         </article>

@@ -3,13 +3,8 @@
 import React, { useState } from 'react';
 import {
   History,
-  Calendar,
-  AlertCircle,
-  TrendingUp,
   Award,
   BookOpen,
-  ArrowRight,
-  Shield,
 } from 'lucide-react';
 import {
   HISTORICAL_BENCHMARKS,
@@ -44,52 +39,54 @@ export function HeatwaveMemoryView({
   );
 
   return (
-    <div className="space-y-6">
-      {/* Top Banner */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-700 bg-slate-800/80 p-5 backdrop-blur-md">
-        <div>
-          <div className="flex items-center gap-2">
-            <History className="h-6 w-6 text-indigo-400" />
-            <h2 className="text-xl font-bold tracking-tight text-white">
-              Institutional Heatwave Memory & Historical Benchmarking
+    <div className="space-y-6 font-sans">
+      {/* Top Banner — Hume AI Scientific Instrument Panel */}
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-[#222222]/8 bg-white p-6 sm:p-7">
+        <div className="space-y-1.5 max-w-3xl">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-[#fdebf7] text-[#574853] border border-[#222222]/8">
+              <History className="h-4 w-4" />
+            </span>
+            <h2 className="text-xl font-medium tracking-[-0.025em] text-[#222222]">
+              Institutional Heatwave Memory: {currentCity}
             </h2>
-            <span className="rounded-full border border-indigo-500/30 bg-indigo-500/10 px-2.5 py-0.5 text-xs font-semibold text-indigo-300">
-              Disaster Risk Memory
+            <span className="rounded-full border border-[#222222]/8 bg-[#fff9f3] px-3 py-0.5 font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
+              Historical Benchmark Engine
             </span>
           </div>
-          <p className="mt-1 text-sm text-slate-300">
-            Compare active conditions in <span className="font-semibold text-white">{currentCity}</span> against landmark modern Indian heatwaves to evaluate severity, cumulative exposure, and lessons learned.
+          <p className="text-xs sm:text-sm text-[#7a7876] leading-relaxed">
+            Compare active conditions in <span className="text-[#222222] font-medium">{currentCity}</span> against landmark modern Indian heatwaves to evaluate severity, cumulative exposure, and lessons learned.
           </p>
         </div>
 
         {/* Severity Percentile Badge */}
-        <div className="rounded-xl border border-indigo-500/40 bg-indigo-500/10 p-3.5 text-left sm:text-right w-full sm:w-auto">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-indigo-300">
-            Historical Severity Percentile
+        <div className="rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-4 text-left sm:text-right w-full sm:w-auto shrink-0">
+          <div className="font-mono text-[9.5px] uppercase tracking-[0.025em] text-[#7a7876]">
+            Historical Severity
           </div>
-          <div className="font-mono text-2xl font-black text-indigo-400">
+          <div className="font-mono text-2xl font-medium text-[#c094e4] mt-0.5">
             {comparison.historical_severity_percentile}th %ile
           </div>
-          <div className="text-[10px] text-slate-300">
-            Ranked against major Indian heatwaves
+          <div className="font-mono text-[10.5px] text-[#7a7876] mt-0.5">
+            Ranked against major Indian events
           </div>
         </div>
       </div>
 
       {/* Benchmark Selector Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/90 p-4">
-        <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
-          Select Historical Benchmark Event:
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-[#222222]/8 bg-[#fff9f3] p-4 sm:p-5">
+        <span className="font-mono text-[10.5px] font-medium uppercase tracking-[0.025em] text-[#7a7876]">
+          Historical Benchmark:
         </span>
         <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-2 w-full sm:w-auto">
           {HISTORICAL_BENCHMARKS.map((bench: HistoricalHeatEvent) => (
             <button
               key={bench.id}
               onClick={() => setSelectedBenchmarkId(bench.id)}
-              className={`rounded-lg border px-3 py-1.5 text-xs font-bold transition ${
+              className={`rounded-full px-4 py-1.5 font-mono text-[11px] uppercase tracking-[0.025em] transition-all ${
                 selectedBenchmarkId === bench.id
-                  ? 'border-indigo-400 bg-indigo-500/20 text-white shadow'
-                  : 'border-slate-700 bg-slate-800 text-slate-400 hover:bg-slate-750 hover:text-slate-200'
+                  ? 'bg-[#222222] text-white font-medium shadow-none'
+                  : 'border border-[#222222]/10 bg-white text-[#222222] hover:bg-stone-50'
               }`}
             >
               {bench.event_name.split(' ')[0]} {bench.event_name.split(' ')[1]} ({bench.year})
@@ -99,57 +96,57 @@ export function HeatwaveMemoryView({
       </div>
 
       {/* Comparative Synthesis Narrative */}
-      <div className="rounded-xl border border-slate-700 bg-slate-900/90 p-5 shadow-lg">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-400">
-          <BookOpen className="h-4 w-4" />
+      <div className="rounded-2xl border border-[#222222]/8 bg-white p-6">
+        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.025em] text-[#574853]">
+          <BookOpen className="h-4 w-4 text-[#c094e4]" />
           Comparative Analysis & Institutional Context
         </div>
-        <p className="mt-2 text-sm leading-relaxed text-slate-200">
+        <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#222222] font-normal">
           {comparison.comparison_narrative}
         </p>
       </div>
 
       {/* Detailed Side-by-Side Comparison Table */}
-      <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-900/90 shadow-xl">
-        <div className="border-b border-slate-800 p-4">
-          <h3 className="font-bold text-white">
+      <div className="overflow-hidden rounded-2xl border border-[#222222]/8 bg-white">
+        <div className="border-b border-[#222222]/8 p-5">
+          <h3 className="font-medium text-[#222222] text-base tracking-[-0.025em]">
             Current Scenario vs {comparison.benchmark.event_name}
           </h3>
-          <p className="text-xs text-slate-400">
-            Region impacted: {comparison.benchmark.primary_regions.join(', ')} • Period: {comparison.benchmark.month_span}
+          <p className="text-xs text-[#7a7876] mt-0.5">
+            Region impacted: {comparison.benchmark.primary_regions.join(', ')} &middot; Period: {comparison.benchmark.month_span}
           </p>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="border-b border-slate-800 bg-slate-950/80 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            <thead className="border-b border-[#222222]/8 bg-[#fff9f3] font-mono text-[10px] uppercase tracking-[0.025em] text-[#7a7876]">
               <tr>
-                <th className="p-3.5">Metric</th>
-                <th className="p-3.5 text-amber-400">Current Observation ({currentCity})</th>
-                <th className="p-3.5 text-indigo-300">Historical Benchmark ({comparison.benchmark.year})</th>
-                <th className="p-3.5 text-slate-300">Difference</th>
-                <th className="p-3.5 text-slate-300">All-Time Indian Record</th>
-                <th className="p-3.5">Significance</th>
+                <th className="p-4">Metric</th>
+                <th className="p-4 text-[#854d0e]">Current ({currentCity})</th>
+                <th className="p-4 text-[#574853]">Historical ({comparison.benchmark.year})</th>
+                <th className="p-4 text-[#222222]">Difference</th>
+                <th className="p-4 text-[#7a7876]">All-Time Record</th>
+                <th className="p-4">Significance</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/80">
+            <tbody className="divide-y divide-[#222222]/6">
               {comparison.comparison_table.map((row) => (
-                <tr key={row.metric_name} className="hover:bg-slate-850/50 transition">
-                  <td className="p-3.5 font-bold text-white">{row.metric_name}</td>
-                  <td className="p-3.5 font-mono font-black text-amber-300">
+                <tr key={row.metric_name} className="hover:bg-[#fff9f3]/60 transition">
+                  <td className="p-4 font-medium text-[#222222]">{row.metric_name}</td>
+                  <td className="p-4 font-mono font-medium text-[#854d0e]">
                     {row.current_event_value}
                   </td>
-                  <td className="p-3.5 font-mono font-bold text-indigo-200">
+                  <td className="p-4 font-mono font-medium text-[#574853]">
                     {row.benchmark_event_value}
                   </td>
-                  <td className="p-3.5 font-mono font-bold text-slate-200">
+                  <td className="p-4 font-mono font-medium text-[#222222]">
                     {row.difference_vs_benchmark}
                   </td>
-                  <td className="p-3.5 text-slate-400">
-                    <strong className="text-slate-200">{row.historical_max_value}</strong>
-                    <div className="text-[10px] text-slate-500">{row.historical_record_holder}</div>
+                  <td className="p-4 text-[#7a7876]">
+                    <strong className="text-[#222222] font-mono font-medium">{row.historical_max_value}</strong>
+                    <div className="font-mono text-[9.5px] text-[#7a7876]">{row.historical_record_holder}</div>
                   </td>
-                  <td className="p-3.5 font-medium text-slate-300">{row.significance}</td>
+                  <td className="p-4 text-[#7a7876]">{row.significance}</td>
                 </tr>
               ))}
             </tbody>
@@ -158,15 +155,15 @@ export function HeatwaveMemoryView({
       </div>
 
       {/* Historical Lesson Learned Box */}
-      <div className="rounded-xl border border-indigo-500/30 bg-indigo-950/20 p-5">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-400">
-          <Award className="h-4 w-4" />
+      <div className="rounded-2xl border border-[#222222]/8 bg-[#fdebf7]/50 p-6">
+        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.025em] text-[#574853]">
+          <Award className="h-4 w-4 text-[#c094e4]" />
           Lesson Learned from {comparison.benchmark.event_name}
         </div>
-        <p className="mt-2 text-xs leading-relaxed text-indigo-200">
+        <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#574853]">
           {comparison.benchmark.institutional_lessons_learned}
         </p>
-        <p className="mt-2 text-[11px] text-slate-400">
+        <p className="mt-2 font-mono text-[10.5px] text-[#7a7876]">
           Synoptic Trigger: {comparison.benchmark.meteorological_synoptic_cause}
         </p>
       </div>
