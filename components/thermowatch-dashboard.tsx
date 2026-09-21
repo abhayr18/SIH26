@@ -461,20 +461,22 @@ const navigation: Array<{
   label: string;
   icon: typeof LayoutDashboard;
   group: 'core' | 'authority';
+  authorityOnly?: boolean;
 }> = [
-  // 1. Core Decision Flow (Main 5-Stage Storyline)
+  // 1. Core Public Decision Flow
   { id: 'overview', label: '1. Thermal Stress (HTSI)', icon: LayoutDashboard, group: 'core' },
   { id: 'hyperlocal-gis', label: '2. Exposure & Vulnerability', icon: MapPin, group: 'core' },
   { id: 'cascade', label: '3. Explainable Risk Cascade', icon: Activity, group: 'core' },
   { id: 'what-if', label: '4. What-If Intervention', icon: Sliders, group: 'core' },
-  { id: 'cooling-centers', label: '5. Authority Action Plan', icon: Building2, group: 'core' },
 
-  // 2. Authority Operations
+  // 2. Authority Operations (Confidential to Nodal Officers)
+  { id: 'cooling-centers', label: 'Authority Heat Action Plan', icon: ShieldCheck, group: 'authority', authorityOnly: true },
   { id: 'response', label: 'Hospital & Facility Response', icon: HeartPulse, group: 'authority' },
   { id: 'alerts', label: 'Multichannel Alert Dispatch', icon: Bell, group: 'authority' },
 ];
 
 const officerViews = new Set<View>([
+  'cooling-centers',
   'authority',
   'history',
 ]);
@@ -1726,39 +1728,50 @@ export function ThermoWatchDashboard() {
             {/* 2. Officer Operations Group */}
             <div>
               <p className="px-2.5 pb-1.5 font-mono text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase">
-                OFFICER OPERATIONS
+                {canManage ? 'OFFICER COMMAND ACTIVE' : 'OFFICER OPERATIONS'}
               </p>
               <div className="space-y-0.5">
-                {navigation.filter((n) => n.group === 'authority').map(({ id, icon: Icon }) => {
-                  const locked = officerViews.has(id) && !canManage;
-                  const isActive = view === id;
-                  return (
-                    <button
-                      key={id}
-                      onClick={() => changeView(id)}
-                      className={`group flex min-h-9 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[12px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
-                        isActive
-                          ? 'bg-slate-800 text-white shadow-sm font-semibold border border-slate-700'
-                          : 'text-slate-300 hover:bg-white/5 hover:text-white'
-                      }`}
-                    >
-                      <span
-                        className={`grid h-5 w-5 shrink-0 place-items-center rounded-lg transition-colors ${
-                          isActive ? 'bg-white/20 text-blue-300' : 'text-slate-400 group-hover:text-blue-300'
+                {navigation
+                  .filter((n) => {
+                    if (n.group !== 'authority') return false;
+                    if (n.authorityOnly && !canManage) return false;
+                    return true;
+                  })
+                  .map(({ id, icon: Icon }) => {
+                    const locked = officerViews.has(id) && !canManage;
+                    const isActive = view === id;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => changeView(id)}
+                        className={`group flex min-h-9 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[12px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
+                          isActive
+                            ? 'bg-slate-800 text-white shadow-sm font-semibold border border-slate-700'
+                            : 'text-slate-300 hover:bg-white/5 hover:text-white'
                         }`}
                       >
-                        <Icon className="h-3.5 w-3.5" />
-                      </span>
-                      <span className="truncate">{copy.nav[id]}</span>
-                      {locked && <LockKeyhole className="ml-auto h-3 w-3 text-slate-500" />}
-                      {id === 'alerts' && (
-                        <span className="ml-auto rounded-full bg-amber-500/20 px-2 py-0.5 text-[9px] font-bold text-amber-300">
-                          {highCount} High
+                        <span
+                          className={`grid h-5 w-5 shrink-0 place-items-center rounded-lg transition-colors ${
+                            isActive ? 'bg-white/20 text-blue-300' : 'text-slate-400 group-hover:text-blue-300'
+                          }`}
+                        >
+                          <Icon className="h-3.5 w-3.5" />
                         </span>
-                      )}
-                    </button>
-                  );
-                })}
+                        <span className="truncate">{copy.nav[id]}</span>
+                        {locked && <LockKeyhole className="ml-auto h-3 w-3 text-slate-500" />}
+                        {id === 'alerts' && (
+                          <span className="ml-auto rounded-full bg-amber-500/20 px-2 py-0.5 text-[9px] font-bold text-amber-300">
+                            {highCount} High
+                          </span>
+                        )}
+                        {id === 'cooling-centers' && (
+                          <span className="ml-auto rounded-full bg-emerald-500/20 px-2 py-0.5 text-[9px] font-bold text-emerald-300">
+                            Officer
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
               </div>
             </div>
           </nav>
@@ -3681,10 +3694,36 @@ export function ThermoWatchDashboard() {
             )}
 
             {view === 'cooling-centers' && (
-              <CoolingCenterView
-                currentCity={selected.district}
-                currentHtss={selected.htsi}
-              />
+              canManage ? (
+                <CoolingCenterView
+                  currentCity={selected.district}
+                  currentHtss={selected.htsi}
+                />
+              ) : (
+                <div className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-xs">
+                  <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 border border-amber-200/80">
+                    <LockKeyhole className="h-7 w-7" />
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-900">
+                    Restricted Authority Access
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                    The Municipal Heat Action Plan, tactical cooling pavilion allocation, and shelter capacity deployment algorithms are restricted to authorized disaster management officers.
+                  </p>
+                  <div className="mt-6 flex flex-wrap justify-center gap-3">
+                    <Button variant="outline" onClick={() => setView('overview')}>
+                      Return to Public Overview
+                    </Button>
+                    <Link
+                      href="/login?next=/"
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-blue-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-blue-800 transition"
+                    >
+                      <ShieldCheck className="h-4 w-4" />
+                      <span>Officer Sign In</span>
+                    </Link>
+                  </div>
+                </div>
+              )
             )}
 
             {view === 'hospitals' && (
