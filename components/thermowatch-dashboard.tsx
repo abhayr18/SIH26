@@ -68,7 +68,6 @@ import {
 } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
 import type { AlertChannel } from '@/lib/alerting';
-import { sortByUrgency } from '@/lib/triage';
 import { LocalAssistant } from '@/components/local-assistant';
 import { KannadaLocalizer } from '@/components/kannada-localizer';
 
@@ -82,8 +81,6 @@ import { HeatwaveMemoryView } from '@/components/heatwave-memory-view';
 import { DataTelemetryView } from '@/components/data-telemetry-view';
 import { HyperlocalWardGis } from '@/components/hyperlocal-ward-gis';
 import { GroundedAssistantModal } from '@/components/grounded-assistant-modal';
-import { DemoScenarioBar } from '@/components/demo-scenario-bar';
-import { DEMO_SCENARIOS, type DemoScenario, type DemoScenarioId } from '@/lib/demo-scenarios';
 
 type Risk = 'Low' | 'Moderate' | 'High' | 'Extreme' | 'Emergency';
 type Contribution = {
@@ -520,8 +517,6 @@ const shellCopy: Record<
   UiLanguage,
   {
     nav: Record<View, string>;
-    hero: string;
-    overviewNote: string;
     viewNote: string;
     operational: string;
     monitored: string;
@@ -532,9 +527,6 @@ const shellCopy: Record<
 > = {
   en: {
     nav: makeNav({}),
-    hero: 'Heat conditions, made actionable.',
-    overviewNote:
-      'See where heat is rising, who is exposed, and what response should come next.',
     viewNote:
       'Use transparent signals to make an earlier, more targeted response decision.',
     operational: 'System operational',
@@ -565,9 +557,6 @@ const shellCopy: Record<
       history: 'इतिहास',
       alerts: 'चेतावनी केंद्र',
     }),
-    hero: 'गर्मी की स्थिति, अब कार्रवाई योग्य।',
-    overviewNote:
-      'देखें गर्मी कहाँ बढ़ रही है, कौन प्रभावित है और अगली प्रतिक्रिया क्या होनी चाहिए।',
     viewNote: 'पहले और अधिक लक्षित निर्णय के लिए पारदर्शी संकेतों का उपयोग करें।',
     operational: 'सिस्टम चालू है',
     monitored: 'जिलों की निगरानी',
@@ -589,7 +578,7 @@ const shellCopy: Record<
       hospitals: 'ఆసుపత్రి సన్నద్ధత',
       'worker-safety': 'కార్మికుల భద్రత',
       memory: 'వేడి తరంగ జ్ఞాపకం',
-      model: 'వివరణాత్మక AI',
+      model: 'వివరణಾత్మక AI',
       telemetry: 'డేటా టెలిమెట్రీ',
       authority: 'అధికార విభాగం',
       response: 'ప్రతిస్పందన కేంద్రం',
@@ -597,8 +586,6 @@ const shellCopy: Record<
       history: 'చరిత్ర',
       alerts: 'హెచ్చరిక కేంద్రం',
     }),
-    hero: 'వేడి పరిస్థితులను చర్యగా మార్చండి.',
-    overviewNote: 'వేడి ఎక్కడ పెరుగుతోంది, ఎవరు ప్రభావితమవుతున్నారు, తదుపరి చర్య ఏమిటో చూడండి.',
     viewNote: 'ముందస్తు, లక్ష్యిత నిర్ణయాలకు పారదర్శక సంకేతాలను ఉపయోగించండి.',
     operational: 'వ్యవస్థ పనిచేస్తోంది',
     monitored: 'జిల్లాల పర్యవేక్షణ',
@@ -627,9 +614,6 @@ const shellCopy: Record<
       history: 'ಇತಿಹಾಸ',
       alerts: 'ಎಚ್ಚರಿಕೆ ಕೇಂದ್ರ',
     }),
-    hero: 'ಉಷ್ಣ ಪರಿಸ್ಥಿತಿಗಳನ್ನು ಕ್ರಮವಾಗಿ ಪರಿವರ್ತಿಸಿ.',
-    overviewNote:
-      'ಉಷ್ಣತೆ ಎಲ್ಲಿ ಹೆಚ್ಚುತ್ತಿದೆ, ಯಾರು ಅಪಾಯದಲ್ಲಿದ್ದಾರೆ ಮತ್ತು ಮುಂದಿನ ಕ್ರಮ ಏನು ಎಂಬುದನ್ನು ನೋಡಿ.',
     viewNote: 'ಮುಂಚಿತ ಮತ್ತು ಗುರಿಯುಕ್ತ ನಿರ್ಧಾರಕ್ಕಾಗಿ ಪಾರದರ್ಶಕ ಸೂಚನೆಗಳನ್ನು ಬಳಸಿ.',
     operational: 'ವ್ಯವಸ್ಥೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಿದೆ',
     monitored: 'ನಗರಗಳ ಮೇಲ್ವಿಚಾರಣೆ',
@@ -981,32 +965,7 @@ export function ThermoWatchDashboard() {
   } | null>(null);
 
   // SIH26083 Extended State
-  const [demoScenarioId, setDemoScenarioId] = useState<DemoScenarioId>('normal-summer');
   const [assistantModalOpen, setAssistantModalOpen] = useState(false);
-
-  const handleSelectScenario = useCallback((scen: DemoScenario) => {
-    setDemoScenarioId(scen.id);
-    const matching = districts.find(
-      (d) => d.district.toLowerCase() === scen.target_city.toLowerCase()
-    );
-    if (matching) {
-      setSelectedName(matching.district);
-      setDistricts((prev) =>
-        prev.map((d) =>
-          d.district.toLowerCase() === scen.target_city.toLowerCase()
-            ? {
-                ...d,
-                temp: scen.temp_c,
-                humidity: scen.humidity_pct,
-                htsi: Math.min(100, Math.round(scen.temp_c * 1.8 + scen.humidity_pct * 0.2)),
-                risk: scen.expected_alert === 'Extreme' ? 'Extreme' : scen.expected_alert === 'Warning' ? 'High' : scen.expected_alert === 'Watch' ? 'Moderate' : 'Low',
-              }
-            : d
-        )
-      );
-    }
-    setNotice(`Demo Scenario activated: ${scen.name} (${scen.temp_c}°C in ${scen.target_city})`);
-  }, [districts]);
 
   const selected = useMemo(() => {
     const district =
@@ -1028,10 +987,6 @@ export function ThermoWatchDashboard() {
   const hotspots = useMemo(
     () => [...districts].sort((a, b) => b.htsi - a.htsi).slice(0, 5),
     [districts],
-  );
-  const priorityProfiles = useMemo(
-    () => sortByUrgency(detail?.profiles ?? []),
-    [detail?.profiles],
   );
   const alphabeticalDistricts = useMemo(
     () =>
@@ -1709,34 +1664,6 @@ export function ThermoWatchDashboard() {
             </div>
           </header>
           <main className="mx-auto max-w-[1540px] p-4 sm:p-6 lg:p-8 xl:px-10">
-            {/* Clean Top Command Header */}
-            <div className="mb-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
-              <div>
-                <div className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  <span>Decision Support Platform</span>
-                  <span>&middot;</span>
-                  <span className="text-blue-600 font-semibold">{view === 'overview' ? 'Live Overview' : navLabel}</span>
-                </div>
-                <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-                  {view === 'overview' ? copy.hero : navLabel}
-                </h1>
-                <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-2xl">
-                  {view === 'overview' ? copy.overviewNote : copy.viewNote}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2.5">
-                <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-1.5 shadow-sm text-xs">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
-                  <span className="font-semibold text-slate-700">{districts.length} Wards Active</span>
-                </div>
-                <DemoScenarioBar
-                  activeScenarioId={demoScenarioId}
-                  onSelectScenario={handleSelectScenario}
-                />
-              </div>
-            </div>
-
             {error && (
               <div
                 role="alert"
@@ -1760,58 +1687,6 @@ export function ThermoWatchDashboard() {
                 {notice}
               </div>
             )}
-
-            {/* 6-Stage Final Prototype Decision Pipeline (Clean Horizontal Stepper) */}
-            <div className="mb-6 rounded-2xl border border-slate-200/90 bg-white p-2.5 shadow-sm">
-              <div className="flex items-center justify-between px-2 py-1 mb-1.5">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                    6-Stage Decision Pipeline
-                  </span>
-                  <span className="hidden md:inline rounded bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 border border-blue-100">
-                    End-to-End Decision Flow
-                  </span>
-                </div>
-                <span className="text-[11px] font-medium text-slate-500 hidden lg:inline">
-                  Raw Weather &rarr; Thermal Stress &rarr; Predictive Risk &rarr; Vulnerability &rarr; Explainability &rarr; Authority Intervention
-                </span>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5">
-                {[
-                  { id: 'overview', step: '1', title: 'Thermal Stress', subtitle: 'HTSI · WBGT · PET' },
-                  { id: 'digital-twin', step: '2', title: '24/48/72h Risk', subtitle: 'Predictive Trajectory' },
-                  { id: 'hyperlocal-gis', step: '3', title: 'Vulnerability', subtitle: 'Ward Spatial GIS' },
-                  { id: 'cascade', step: '4', title: 'Explainable AI', subtitle: 'Attribution Chain' },
-                  { id: 'what-if', step: '5', title: 'What-If Sim', subtitle: 'Test Interventions' },
-                  { id: 'cooling-centers', step: '6', title: 'Authority Action', subtitle: 'Resource Orders' },
-                ].map(({ id, step, title, subtitle }) => {
-                  const isActive = view === id;
-                  return (
-                    <button
-                      key={id}
-                      onClick={() => changeView(id as View)}
-                      className={`group flex items-center gap-2 rounded-xl px-3 py-2 text-left transition-all ${
-                        isActive
-                          ? 'bg-blue-600 text-white shadow-sm font-semibold'
-                          : 'bg-slate-50/80 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-transparent hover:border-slate-200'
-                      }`}
-                    >
-                      <span
-                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[10px] font-bold ${
-                          isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600 group-hover:bg-slate-300'
-                        }`}
-                      >
-                        {step}
-                      </span>
-                      <div className="min-w-0">
-                        <div className="text-xs font-bold leading-tight truncate">{title}</div>
-                        <div className={`text-[10px] truncate ${isActive ? 'text-blue-100' : 'text-slate-400'}`}>{subtitle}</div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
 
             {view === 'overview' && (
               <div className="space-y-5">
@@ -2046,77 +1921,7 @@ export function ThermoWatchDashboard() {
                   </div>
                 </div>
                 <div className="grid gap-5 lg:grid-cols-2">
-                  <Card className="lg:col-span-2">
-                    <CardHeader>
-                      <PanelTitle
-                        eyebrow="EXPOSURE LENS"
-                        title="Who needs help first?"
-                        note="Highest risk and exposure appear first."
-                      />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border border-slate-200/80 bg-slate-50 px-3 py-2">
-                        <span className="mr-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500">
-                          Urgency order
-                        </span>
-                        {(['Emergency', 'Extreme', 'High'] as Risk[]).map(
-                          (risk, index) => (
-                            <span
-                              key={risk}
-                              className="flex items-center gap-2"
-                            >
-                              {index > 0 && (
-                                <ChevronRight
-                                  aria-hidden="true"
-                                  className="h-3 w-3 text-slate-300"
-                                />
-                              )}
-                              <RiskBadge risk={risk} />
-                            </span>
-                          ),
-                        )}
-                      </div>
-                      <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-                        {priorityProfiles.length ? (
-                          priorityProfiles.slice(0, 6).map((item, index) => (
-                            <div
-                              key={item.profile}
-                              className="relative grid grid-cols-[34px_1fr_auto] items-center gap-3 overflow-hidden rounded-xl border border-slate-200/80 bg-white p-3 transition-all duration-200 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm"
-                            >
-                              <span
-                                aria-hidden="true"
-                                className="absolute inset-y-0 left-0 w-1"
-                                style={{
-                                  backgroundColor: riskStyle[item.risk].color,
-                                }}
-                              />
-                              <span
-                                className="grid h-8 w-8 place-items-center rounded-full font-mono text-[10px] font-bold"
-                                style={{
-                                  color: riskStyle[item.risk].color,
-                                  backgroundColor: riskStyle[item.risk].soft,
-                                }}
-                                aria-label={`Priority ${index + 1}`}
-                              >
-                                {String(index + 1).padStart(2, '0')}
-                              </span>
-                              <div className="min-w-0">
-                                <b className="block truncate text-xs">
-                                  {item.profile}
-                                </b>
-                                <small className="text-[10px] text-slate-500">
-                                  {item.multiplier}× exposure · HTSI {item.htsi}
-                                </small>
-                              </div>
-                              <RiskBadge risk={item.risk} />
-                            </div>
-                          ))
-                        ) : (
-                          <Loading />
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+
                   <Card>
                     <CardHeader>
                       <PanelTitle
