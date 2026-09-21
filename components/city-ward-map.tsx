@@ -123,13 +123,13 @@ export function CityWardMap({
         </div>
 
         {/* Layer Controls */}
-        <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider hidden md:inline mr-1">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full sm:flex-wrap">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider hidden md:inline mr-1 shrink-0">
             Layer:
           </span>
           <button
             onClick={() => setActiveLayer('thermal')}
-            className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
+            className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition shrink-0 ${
               activeLayer === 'thermal'
                 ? 'bg-red-600 text-white shadow-xs'
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -140,7 +140,7 @@ export function CityWardMap({
           </button>
           <button
             onClick={() => setActiveLayer('vulnerability')}
-            className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
+            className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition shrink-0 ${
               activeLayer === 'vulnerability'
                 ? 'bg-amber-600 text-white shadow-xs'
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -151,7 +151,7 @@ export function CityWardMap({
           </button>
           <button
             onClick={() => setActiveLayer('workers')}
-            className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
+            className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition shrink-0 ${
               activeLayer === 'workers'
                 ? 'bg-purple-600 text-white shadow-xs'
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -162,7 +162,7 @@ export function CityWardMap({
           </button>
           <button
             onClick={() => setActiveLayer('slum')}
-            className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
+            className={`flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold transition shrink-0 ${
               activeLayer === 'slum'
                 ? 'bg-rose-700 text-white shadow-xs'
                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -177,17 +177,17 @@ export function CityWardMap({
       {/* Main Grid: Interactive Map Visualizer & Ward Telemetry Panel */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Interactive SVG Ward Map Canvas */}
-        <div className="relative rounded-2xl border border-slate-200 bg-[radial-gradient(circle_at_50%_40%,#ffffff_0%,#f8fafc_60%,#f1f5f9_100%)] p-3 shadow-inner lg:col-span-8 overflow-hidden min-h-[380px]">
+        <div className="relative rounded-2xl border border-slate-200 bg-[radial-gradient(circle_at_50%_40%,#ffffff_0%,#f8fafc_60%,#f1f5f9_100%)] p-2.5 sm:p-3 shadow-inner lg:col-span-8 overflow-hidden min-h-[320px] sm:min-h-[380px]">
           {/* Map Top Badge */}
-          <div className="absolute top-4 left-4 z-10 flex items-center gap-2 rounded-xl border border-white/80 bg-white/90 px-3 py-1.5 shadow-sm backdrop-blur text-xs">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-semibold text-slate-700">{profile.wards.length} Municipal Wards Active</span>
-            <span className="text-slate-300">·</span>
-            <span className="text-slate-500 font-medium">Click any ward to inspect</span>
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 flex items-center gap-1.5 sm:gap-2 rounded-xl border border-white/80 bg-white/90 px-2.5 py-1 sm:px-3 sm:py-1.5 shadow-sm backdrop-blur text-xs max-w-[calc(100%-80px)] truncate">
+            <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-semibold text-slate-700 truncate">{profile.wards.length} Wards Active</span>
+            <span className="text-slate-300 hidden sm:inline">·</span>
+            <span className="text-slate-500 font-medium hidden sm:inline">Click any ward to inspect</span>
           </div>
 
           {/* Map Zoom Controls */}
-          <div className="absolute top-4 right-4 z-10 flex flex-col gap-1 rounded-xl border border-slate-200 bg-white/95 p-1 shadow-sm backdrop-blur">
+          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex flex-col gap-1 rounded-xl border border-slate-200 bg-white/95 p-1 shadow-sm backdrop-blur">
             <button
               onClick={() => setZoomLevel((z) => Math.min(1.4, z + 0.1))}
               className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600"
@@ -214,7 +214,7 @@ export function CityWardMap({
           {/* SVG Map */}
           <svg
             viewBox="0 0 510 360"
-            className="w-full h-[360px] sm:h-[400px] transition-transform duration-300"
+            className="w-full h-[300px] sm:h-[400px] transition-transform duration-300"
             style={{ transform: `scale(${zoomLevel})` }}
           >
             <defs>
@@ -338,23 +338,23 @@ export function CityWardMap({
 
           {/* Map Bottom Legend */}
           <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200/80 pt-2 text-[10px] text-slate-500">
-            <div className="flex items-center gap-3">
-              <span className="font-semibold text-slate-700">Risk Intensity:</span>
-              <span className="flex items-center gap-1">
+            <div className="flex items-center gap-2 sm:gap-3 overflow-x-auto max-w-full">
+              <span className="font-semibold text-slate-700 shrink-0">Scale:</span>
+              <span className="flex items-center gap-1 shrink-0">
                 <span className="h-2.5 w-2.5 rounded bg-emerald-300" /> Normal
               </span>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 shrink-0">
                 <span className="h-2.5 w-2.5 rounded bg-amber-300" /> High
               </span>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 shrink-0">
                 <span className="h-2.5 w-2.5 rounded bg-orange-400" /> Very High
               </span>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 shrink-0">
                 <span className="h-2.5 w-2.5 rounded bg-red-500" /> Critical
               </span>
             </div>
             {profile.riverName && (
-              <span className="font-medium text-sky-600">
+              <span className="font-medium text-sky-600 text-[10px] sm:text-xs shrink-0">
                 Natural feature: {profile.riverName}
               </span>
             )}

@@ -130,22 +130,22 @@ export function WhatIfSimulator({
               Click an authority action to test how rapid interventions reduce population risk:
             </p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-2 w-full sm:w-auto">
             <button
               onClick={applyWorkShiftIntervention}
-              className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition-all shadow-sm ${workerExposure < 1 ? 'border-amber-300 bg-amber-500 text-white font-bold' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
+              className={`rounded-xl border px-3 py-2 sm:py-1.5 text-xs font-semibold transition-all shadow-xs text-center ${workerExposure < 1 ? 'border-amber-300 bg-amber-500 text-white font-bold' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
             >
               Shift Work Hours (11am–4pm)
             </button>
             <button
               onClick={applyCoolingCenterIntervention}
-              className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition-all shadow-sm ${vulnShift < 0 ? 'border-emerald-300 bg-emerald-600 text-white font-bold' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
+              className={`rounded-xl border px-3 py-2 sm:py-1.5 text-xs font-semibold transition-all shadow-xs text-center ${vulnShift < 0 ? 'border-emerald-300 bg-emerald-600 text-white font-bold' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
             >
               Open 25 Cooling Centers (-20%)
             </button>
             <button
               onClick={applyCombinedIntervention}
-              className={`rounded-xl border px-3 py-1.5 text-xs font-semibold transition-all shadow-sm ${workerExposure < 1 && vulnShift < 0 ? 'border-blue-400 bg-blue-600 text-white font-bold' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
+              className={`rounded-xl border px-3 py-2 sm:py-1.5 text-xs font-semibold transition-all shadow-xs text-center ${workerExposure < 1 && vulnShift < 0 ? 'border-blue-400 bg-blue-600 text-white font-bold' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
             >
               Combined Action Plan
             </button>

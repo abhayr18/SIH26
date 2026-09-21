@@ -75,7 +75,7 @@ export function WorkerSafetyView({
         </div>
 
         {/* Worker Risk Level Flag */}
-        <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-3.5 text-right">
+        <div className="rounded-xl border border-slate-700 bg-slate-900/80 p-3.5 text-left sm:text-right w-full sm:w-auto">
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             Occupational Risk Level
           </div>

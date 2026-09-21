@@ -47,7 +47,7 @@ export function CoolingCenterView({
         </div>
 
         {/* Capacity Summary Badge */}
-        <div className="flex items-center gap-4 rounded-xl border border-slate-700 bg-slate-900/80 p-3.5">
+        <div className="flex items-center gap-4 rounded-xl border border-slate-700 bg-slate-900/80 p-3.5 w-full sm:w-auto justify-between sm:justify-start">
           <div>
             <div className="text-[10px] uppercase tracking-wider text-slate-400">Total Capacity</div>
             <div className="font-mono text-lg font-bold text-white">
@@ -148,7 +148,7 @@ export function CoolingCenterView({
                   </span>
                 </div>
 
-                <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-400">
                   <span>Capacity: <strong className="text-slate-200">{center.capacity_people}</strong></span>
                   <span>Occupancy: <strong className="text-amber-400">{center.current_occupancy_pct}%</strong></span>
                   <span>Hours: <strong className="text-slate-300">{center.operating_hours}</strong></span>

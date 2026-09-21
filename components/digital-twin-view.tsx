@@ -69,7 +69,7 @@ export function DigitalTwinView({
         </div>
 
         {/* Lead-Time Metric Badge */}
-        <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3.5 text-right">
+        <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-3.5 text-left sm:text-right w-full sm:w-auto">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-amber-300">
             Early Warning Lead-Time
           </div>
@@ -141,7 +141,7 @@ export function DigitalTwinView({
                 Timestamp: {selectedStep.timestamp_ist} IST • Synoptic forcing: {selectedStep.key_event}
               </p>
             </div>
-            <div className="text-right">
+            <div className="text-left sm:text-right mt-2 sm:mt-0">
               <span className="text-xs text-slate-400">Human Thermal Stress Score</span>
               <div className="font-mono text-3xl font-black text-amber-400">
                 {selectedStep.htss_score}

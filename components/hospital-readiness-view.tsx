@@ -76,7 +76,7 @@ export function HospitalReadinessView({
         </div>
 
         {/* Readiness Status Flag */}
-        <div className={`rounded-xl border p-4 text-right ${style.border}`}>
+        <div className={`rounded-xl border p-4 text-left sm:text-right ${style.border}`}>
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
             District Readiness Level
           </div>
@@ -175,8 +175,8 @@ export function HospitalReadinessView({
                   </span>
                 </div>
 
-                <div className="mt-3 grid grid-cols-3 gap-2 text-xs text-slate-300">
-                  <div className="rounded bg-slate-900 px-2 py-1">
+                <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-slate-300">
+                  <div className="rounded bg-slate-900 px-2.5 py-1.5 sm:py-1">
                     <span className="text-[10px] text-slate-400 block">Heat Beds</span>
                     <strong className="text-white">{h.available_cooling_beds}</strong> / {h.dedicated_heatstroke_beds} avail.
                   </div>

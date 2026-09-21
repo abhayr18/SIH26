@@ -63,7 +63,7 @@ export function HeatwaveMemoryView({
         </div>
 
         {/* Severity Percentile Badge */}
-        <div className="rounded-xl border border-indigo-500/40 bg-indigo-500/10 p-3.5 text-right">
+        <div className="rounded-xl border border-indigo-500/40 bg-indigo-500/10 p-3.5 text-left sm:text-right w-full sm:w-auto">
           <div className="text-[10px] font-bold uppercase tracking-wider text-indigo-300">
             Historical Severity Percentile
           </div>
@@ -77,11 +77,11 @@ export function HeatwaveMemoryView({
       </div>
 
       {/* Benchmark Selector Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/90 p-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/90 p-4">
         <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
           Select Historical Benchmark Event:
         </span>
-        <div className="flex flex-wrap gap-2">
+        <div className="grid grid-cols-1 sm:flex sm:flex-wrap gap-2 w-full sm:w-auto">
           {HISTORICAL_BENCHMARKS.map((bench: HistoricalHeatEvent) => (
             <button
               key={bench.id}

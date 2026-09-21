@@ -864,26 +864,26 @@ function IndiaMap({
   return (
     <div className="space-y-4">
       {/* IMD 5-Day Horizon & Zoom Controller Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/90 bg-white p-3 shadow-xs">
-        <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1.5 rounded-xl border border-blue-200/70 bg-blue-50/90 px-3 py-1.5 text-xs font-bold text-blue-900 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-2xl border border-slate-200/90 bg-white p-2.5 sm:p-3 shadow-xs">
+        <div className="flex flex-wrap items-center justify-between gap-2 w-full sm:w-auto">
+          <div className="flex items-center gap-1.5 rounded-xl border border-blue-200/70 bg-blue-50/90 px-2.5 py-1 text-xs font-bold text-blue-900 shadow-xs">
             <span className="text-sm">🇮🇳</span>
-            <span>IMD District-Wise Heatwave Warnings</span>
+            <span>IMD Heatwave Warnings</span>
           </div>
           <a
             href={`https://mausam.imd.gov.in/responsive/districtWiseHeatwaveWarnings.php?day=Day_${forecastDay}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600 hover:text-blue-700 hover:border-blue-300 transition"
+            className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10.5px] font-medium text-slate-600 hover:text-blue-700 hover:border-blue-300 transition"
             title="Reference: Official IMD District-Wise Heatwave Warnings portal"
           >
-            <span>Ref: mausam.imd.gov.in (?day=Day_{forecastDay})</span>
+            <span>Ref: IMD Day {forecastDay}</span>
             <ExternalLink className="h-3 w-3" />
           </a>
         </div>
 
         {/* Day 1 - Day 5 Tabs */}
-        <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-1">
+        <div className="flex items-center gap-1 rounded-xl bg-slate-100 p-1 overflow-x-auto max-w-full">
           {IMD_FORECAST_DAYS.map((d) => {
             const isCurrent = forecastDay === d.day;
             return (
@@ -893,7 +893,7 @@ function IndiaMap({
                   setForecastDay(d.day);
                   setIsPlaying(false);
                 }}
-                className={`flex flex-col items-center rounded-lg px-2.5 py-1 text-center transition-all ${
+                className={`flex flex-col items-center rounded-lg px-2 sm:px-2.5 py-1 text-center transition-all shrink-0 ${
                   isCurrent
                     ? 'bg-[#10213f] text-white shadow-xs'
                     : 'text-slate-600 hover:bg-white hover:text-slate-900'
@@ -901,7 +901,7 @@ function IndiaMap({
                 title={`Switch to ${d.title} forecast`}
               >
                 <span className="text-[11px] font-bold leading-tight">{d.title}</span>
-                <span className={`text-[8.5px] leading-tight font-medium ${isCurrent ? 'text-amber-300' : 'text-slate-400'}`}>
+                <span className={`text-[8px] sm:text-[8.5px] leading-tight font-medium ${isCurrent ? 'text-amber-300' : 'text-slate-400'}`}>
                   {d.sub}
                 </span>
               </button>
@@ -909,7 +909,7 @@ function IndiaMap({
           })}
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className={`ml-1 flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[11px] font-bold transition ${
+            className={`ml-0.5 sm:ml-1 flex items-center gap-1 rounded-lg px-2 sm:px-2.5 py-1.5 text-[11px] font-bold transition shrink-0 ${
               isPlaying
                 ? 'bg-amber-500 text-white shadow-xs'
                 : 'bg-white text-slate-700 hover:bg-slate-200 border border-slate-200'
@@ -923,7 +923,7 @@ function IndiaMap({
 
         <button
           onClick={() => setViewMode('city')}
-          className="flex items-center gap-1.5 rounded-xl border border-blue-700 bg-blue-700 px-3.5 py-1.5 text-xs font-bold text-white shadow-xs hover:bg-blue-800 transition"
+          className="flex w-full sm:w-auto items-center justify-center gap-1.5 rounded-xl border border-blue-700 bg-blue-700 px-3.5 py-2 sm:py-1.5 text-xs font-bold text-white shadow-xs hover:bg-blue-800 transition"
           title={`Zoom into ${selected.district} municipal wards`}
         >
           <ZoomIn className="h-3.5 w-3.5" />
@@ -933,42 +933,42 @@ function IndiaMap({
 
       {/* SVG Map Container */}
       <div
-        className={`relative overflow-hidden rounded-[1.6rem] border border-[#dbe1e8] bg-[radial-gradient(circle_at_50%_34%,#ffffff_0%,#f2f5f7_56%,#e8edf2_100%)] shadow-[inset_0_1px_rgb(255_255_255/90%)] ${expanded ? 'h-[520px] sm:h-[600px]' : 'h-[400px]'}`}
+        className={`relative overflow-hidden rounded-[1.6rem] border border-[#dbe1e8] bg-[radial-gradient(circle_at_50%_34%,#ffffff_0%,#f2f5f7_56%,#e8edf2_100%)] shadow-[inset_0_1px_rgb(255_255_255/90%)] ${expanded ? 'h-[440px] sm:h-[600px]' : 'h-[360px] sm:h-[420px]'}`}
       >
-        <div className="absolute left-4 top-4 z-10 flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-2 rounded-xl border border-white/90 bg-white/95 px-3 py-1.5 shadow-sm backdrop-blur">
-            <span className="rounded-lg bg-slate-900 text-white px-2 py-0.5 text-xs font-bold shadow-xs">
-              {activeDayConfig.title} Outlook
+        <div className="absolute left-2.5 top-2.5 sm:left-4 sm:top-4 z-10 flex flex-wrap items-center gap-1.5">
+          <div className="flex items-center gap-1.5 rounded-xl border border-white/90 bg-white/95 px-2.5 py-1 sm:px-3 sm:py-1.5 shadow-sm backdrop-blur">
+            <span className="rounded-lg bg-slate-900 text-white px-1.5 py-0.5 text-[10px] sm:text-xs font-bold shadow-xs">
+              {activeDayConfig.title}
             </span>
-            <span className="text-xs font-semibold text-slate-700">
-              {getDayDateLabel(forecastDay)} ({activeDayConfig.sub})
+            <span className="text-[10px] sm:text-xs font-semibold text-slate-700">
+              {getDayDateLabel(forecastDay)}
             </span>
           </div>
         </div>
 
         {/* Selected District Callout in Corner */}
-        <div className="pointer-events-none absolute right-4 top-4 z-10 rounded-2xl border border-white/80 bg-white/95 px-3.5 py-2 text-right shadow-sm backdrop-blur">
-          <span className="block text-[9px] font-semibold uppercase tracking-wide text-slate-400">
+        <div className="pointer-events-none absolute right-2.5 top-2.5 sm:right-4 sm:top-4 z-10 rounded-xl sm:rounded-2xl border border-white/80 bg-white/95 px-2.5 py-1 sm:px-3.5 sm:py-2 text-right shadow-sm backdrop-blur max-w-[140px] sm:max-w-none">
+          <span className="block text-[8px] sm:text-[9px] font-semibold uppercase tracking-wide text-slate-400">
             Selected District
           </span>
-          <strong className="text-sm text-slate-900">{selected.district}</strong>
-          <div className="mt-0.5 flex items-center justify-end gap-1.5">
+          <strong className="text-xs sm:text-sm text-slate-900 truncate block">{selected.district}</strong>
+          <div className="mt-0.5 flex items-center justify-end gap-1 sm:gap-1.5">
             <i
-              className="h-2 w-2 rounded-full"
+              className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full"
               style={{ backgroundColor: selectedDistrictForecast.warningConfig.color }}
             />
             <span
-              className="text-[10.5px] font-bold"
+              className="text-[9.5px] sm:text-[10.5px] font-bold"
               style={{ color: selectedDistrictForecast.warningConfig.color }}
             >
-              {selectedDistrictForecast.warningConfig.name} · {selectedDistrictForecast.temp}°C
+              {selectedDistrictForecast.warningConfig.shortLabel} · {selectedDistrictForecast.temp}°C
             </span>
           </div>
         </div>
 
         <svg
           viewBox={indiaMap.viewBox}
-          className="h-full w-full px-8 pb-14 pt-12 drop-shadow-[0_18px_24px_rgb(37_58_88/12%)]"
+          className="h-full w-full px-2 sm:px-8 pb-10 sm:pb-14 pt-10 sm:pt-12 drop-shadow-[0_18px_24px_rgb(37_58_88/12%)]"
           aria-label={`Geographic heat-risk map of India showing 16 monitored cities for ${activeDayConfig.title}`}
           preserveAspectRatio="xMidYMid meet"
         >
@@ -1077,15 +1077,16 @@ function IndiaMap({
         </svg>
 
         {/* IMD 4-Tier Legend Bar */}
-        <div className="absolute inset-x-3 bottom-3 flex flex-wrap justify-between items-center gap-2 rounded-2xl border border-white/90 bg-white/95 px-4 py-2 text-[10px] text-slate-700 shadow-[0_8px_24px_rgb(37_58_88/10%)] backdrop-blur">
-          <div className="flex items-center gap-1.5 font-semibold text-slate-800">
-            <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
-            <span>Official IMD Warning Scale (Ref: mausam.imd.gov.in):</span>
+        <div className="absolute inset-x-2.5 bottom-2.5 sm:inset-x-3 sm:bottom-3 flex flex-wrap justify-between items-center gap-1.5 rounded-xl sm:rounded-2xl border border-white/90 bg-white/95 px-2.5 py-1.5 sm:px-4 sm:py-2 text-[9.5px] sm:text-[10px] text-slate-700 shadow-[0_8px_24px_rgb(37_58_88/10%)] backdrop-blur">
+          <div className="flex items-center gap-1 font-semibold text-slate-800">
+            <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-blue-600 animate-pulse" />
+            <span className="hidden sm:inline">Official IMD Warning Scale:</span>
+            <span className="sm:hidden">IMD Scale:</span>
           </div>
-          <div className="flex items-center gap-3 font-medium">
+          <div className="flex items-center gap-2 sm:gap-3 font-medium overflow-x-auto max-w-full">
             {(['No Warning', 'Watch', 'Alert', 'Warning'] as ImdWarningTier[]).map((tier) => (
-              <span key={tier} className="flex items-center gap-1.5">
-                <i className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: IMD_WARNING_CONFIG[tier].color }} />
+              <span key={tier} className="flex items-center gap-1 shrink-0">
+                <i className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full" style={{ backgroundColor: IMD_WARNING_CONFIG[tier].color }} />
                 <span className="font-semibold text-slate-900">{IMD_WARNING_CONFIG[tier].name}</span>
               </span>
             ))}
@@ -1094,19 +1095,19 @@ function IndiaMap({
       </div>
 
       {/* 5-Day Heatwave Warning Outlook Matrix for Selected District */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
+      <div className="rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 shadow-xs">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 mb-3">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-base font-bold text-slate-900">
-                {selected.district} · IMD 5-Day Warning Trajectory
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm sm:text-base font-bold text-slate-900">
+                {selected.district} · IMD 5-Day Outlook
               </span>
               <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase ${selectedDistrictForecast.warningConfig.badgeClass}`}>
                 {activeDayConfig.title}: {selectedDistrictForecast.warningConfig.name}
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Click any forecast day below to project national map risks and district-level operational advisories.
+              Select any day to update national map risks and district action advisories.
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -1116,14 +1117,14 @@ function IndiaMap({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 hover:text-blue-900"
             >
-              <span>View IMD Day {forecastDay} Bulletin</span>
+              <span>View IMD Bulletin</span>
               <ExternalLink className="h-3 w-3" />
             </a>
           </div>
         </div>
 
         {/* 5-Day Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2.5">
+        <div className="flex sm:grid sm:grid-cols-3 md:grid-cols-5 gap-2.5 overflow-x-auto pb-1.5 sm:pb-0 snap-x">
           {IMD_FORECAST_DAYS.map((d) => {
             const status = getDistrictForecast(selected, d.day);
             const isCurrent = forecastDay === d.day;
@@ -1134,7 +1135,7 @@ function IndiaMap({
                   setForecastDay(d.day);
                   setIsPlaying(false);
                 }}
-                className={`flex flex-col text-left rounded-xl p-3 border transition ${
+                className={`flex flex-col text-left rounded-xl p-3 border transition min-w-[130px] sm:min-w-0 snap-start shrink-0 sm:shrink ${
                   isCurrent ? 'ring-2 ring-blue-600 bg-slate-50 shadow-xs' : 'hover:bg-slate-50/80 border-slate-200'
                 }`}
                 style={{ borderColor: isCurrent ? status.warningConfig.color : undefined }}
@@ -1665,9 +1666,9 @@ export function ThermoWatchDashboard() {
     <KannadaLocalizer enabled={uiLanguage === 'kn'}>
       <div className="min-h-screen bg-slate-50/50 text-slate-900 lg:flex font-sans">
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-[268px] overflow-hidden border-r border-slate-800/80 bg-[#090f1d] px-4 py-5 text-white shadow-xl transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${mobileNav ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`fixed inset-y-0 left-0 z-50 w-[270px] flex flex-col border-r border-slate-800/80 bg-[#090f1d] px-4 py-5 text-white shadow-xl transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${mobileNav ? 'translate-x-0' : '-translate-x-full'}`}
         >
-          <div className="relative flex items-center gap-3 px-2 lg:mb-6">
+          <div className="relative flex items-center gap-3 px-2 lg:mb-4">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-md">
               <Activity className="h-5 w-5" />
             </span>
@@ -1689,8 +1690,57 @@ export function ThermoWatchDashboard() {
               <X className="h-5 w-5" />
             </Button>
           </div>
+
+          {/* Officer Session Banner inside Drawer */}
+          <div className="my-3 rounded-xl border border-slate-800/80 bg-slate-900/70 p-2.5">
+            {canManage ? (
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-emerald-500/20 text-emerald-400">
+                    <ShieldCheck className="h-4 w-4" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="truncate text-xs font-semibold text-emerald-300">
+                      {session?.name ?? 'Officer'}
+                    </p>
+                    <p className="text-[10px] text-slate-400">Command Active</p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    signOutOfficer();
+                    setMobileNav(false);
+                  }}
+                  className="rounded-lg border border-red-500/30 bg-red-500/10 px-2 py-1 text-[11px] font-semibold text-red-300 hover:bg-red-500/20 shrink-0"
+                >
+                  Sign out
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-slate-800 text-slate-400">
+                    <LockKeyhole className="h-4 w-4" />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-slate-200">Public Access</p>
+                    <p className="text-[10px] text-slate-400">Officer tools locked</p>
+                  </div>
+                </div>
+                <Link
+                  href="/login?next=/"
+                  onClick={() => setMobileNav(false)}
+                  className="rounded-lg bg-blue-600 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-blue-500 shadow-xs shrink-0"
+                >
+                  Officer Login
+                </Link>
+              </div>
+            )}
+          </div>
+
           <nav
-            className="relative mt-2 space-y-4 max-h-[calc(100vh-190px)] overflow-y-auto pr-1 text-xs"
+            className="flex-1 space-y-4 overflow-y-auto pr-1 text-xs"
             aria-label="Main navigation"
           >
             {/* 1. Core Innovations Group */}
@@ -1775,16 +1825,18 @@ export function ThermoWatchDashboard() {
               </div>
             </div>
           </nav>
-          <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-slate-800 bg-slate-900/80 p-3 font-mono text-[10px] text-slate-400 backdrop-blur">
-            <div className="flex items-center gap-2">
-              <span
-                className={`inline-block h-2 w-2 rounded-full ${hasLiveWeather ? 'bg-emerald-400' : 'bg-amber-400'}`}
-              />
-              <span className="text-slate-200 font-semibold">{sourceLabel}</span>
+          <div className="mt-auto pt-3">
+            <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-3 font-mono text-[10px] text-slate-400 backdrop-blur">
+              <div className="flex items-center gap-2">
+                <span
+                  className={`inline-block h-2 w-2 rounded-full ${hasLiveWeather ? 'bg-emerald-400' : 'bg-amber-400'}`}
+                />
+                <span className="text-slate-200 font-semibold">{sourceLabel}</span>
+              </div>
+              <span className="mt-1.5 block border-t border-slate-800 pt-1.5 text-[9px] text-slate-500">
+                Model {dashboard?.model.model_version ?? 'htsi-logit-4.0'}
+              </span>
             </div>
-            <span className="mt-1.5 block border-t border-slate-800 pt-1.5 text-[9px] text-slate-500">
-              Model {dashboard?.model.model_version ?? 'htsi-logit-4.0'}
-            </span>
           </div>
         </aside>
         {mobileNav && (
@@ -1796,21 +1848,21 @@ export function ThermoWatchDashboard() {
         )}
 
         <section className="min-w-0 flex-1">
-          <header className="sticky top-0 z-30 flex min-h-[64px] flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 bg-white/90 px-4 py-2.5 backdrop-blur-md lg:px-8">
-            <div className="flex items-center gap-3">
+          <header className="sticky top-0 z-30 flex min-h-[58px] sm:min-h-[64px] items-center justify-between gap-2 border-b border-slate-200/80 bg-white/95 px-3 py-2 sm:px-6 sm:py-2.5 backdrop-blur-md lg:px-8">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <Button
                 variant="outline"
                 size="icon"
-                className="h-9 w-9 lg:hidden border-slate-200"
+                className="h-8 w-8 sm:h-9 sm:w-9 lg:hidden border-slate-200 shrink-0"
                 onClick={() => setMobileNav(true)}
                 aria-label="Open navigation"
               >
                 <Menu className="h-4 w-4" />
               </Button>
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                <span className="text-slate-400">ThermoWatch</span>
-                <span className="text-slate-300">/</span>
-                <span className="text-slate-900 font-bold">{navLabel}</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs font-semibold text-slate-700 min-w-0 truncate">
+                <span className="text-slate-400 hidden xs:inline">ThermoWatch</span>
+                <span className="text-slate-300 hidden xs:inline">/</span>
+                <span className="text-slate-900 font-bold truncate">{navLabel}</span>
               </div>
               <div
                 className="hidden xl:flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50/70 px-2.5 py-0.5 text-[11px] text-blue-800"
@@ -1822,21 +1874,22 @@ export function ThermoWatchDashboard() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               {canManage ? (
                 <button
                   type="button"
                   onClick={signOutOfficer}
-                  className="hidden min-h-8 items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 text-xs font-semibold text-emerald-800 shadow-sm transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/30 sm:inline-flex"
+                  className="inline-flex min-h-8 items-center gap-1 sm:gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-2 sm:px-2.5 text-xs font-semibold text-emerald-800 shadow-xs transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/30"
                   title={`Signed in as ${session?.name ?? 'officer'}. Click to sign out.`}
                 >
-                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-                  <span>Officer &middot; Sign out</span>
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span className="hidden md:inline">Officer &middot; Sign out</span>
+                  <span className="md:hidden text-[11px]">Officer</span>
                 </button>
               ) : (
                 <Link
                   href="/login?next=/"
-                  className="hidden min-h-8 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 text-xs font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 sm:inline-flex"
+                  className="hidden sm:inline-flex min-h-8 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 text-xs font-semibold text-slate-700 shadow-xs transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30"
                 >
                   <LockKeyhole className="h-3.5 w-3.5 text-slate-500" />
                   <span>Officer sign in</span>
@@ -1849,9 +1902,9 @@ export function ThermoWatchDashboard() {
                   changeLanguage(event.target.value as UiLanguage)
                 }
                 aria-label="Interface language"
-                className="h-8 w-[84px] text-xs border-slate-200"
+                className="h-8 w-[68px] sm:w-[84px] text-xs border-slate-200 px-1 sm:px-2"
               >
-                <NativeSelectOption value="en">English</NativeSelectOption>
+                <NativeSelectOption value="en">EN</NativeSelectOption>
                 <NativeSelectOption value="hi">हिन्दी</NativeSelectOption>
                 <NativeSelectOption value="mr">मराठी</NativeSelectOption>
                 <NativeSelectOption value="te">తెలుగు</NativeSelectOption>
@@ -1862,17 +1915,18 @@ export function ThermoWatchDashboard() {
                 variant="default"
                 size="sm"
                 onClick={() => setAssistantModalOpen(true)}
-                className="h-8 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm px-2.5"
+                className="h-8 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs flex items-center gap-1.5 shadow-xs px-2 sm:px-2.5"
+                title="AI Assistant"
               >
-                <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
-                <span className="hidden sm:inline">AI Assistant</span>
+                <Sparkles className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
+                <span className="hidden sm:inline">AI</span>
               </Button>
 
               <NativeSelect
                 value={selected.district}
                 onChange={(event) => setSelectedName(event.target.value)}
                 aria-label="Select monitoring district"
-                className="h-8 text-xs border-slate-200 max-w-[140px] sm:max-w-[180px]"
+                className="h-8 text-xs border-slate-200 max-w-[95px] xs:max-w-[125px] sm:max-w-[160px] md:max-w-[180px]"
               >
                 {alphabeticalDistricts.map((item) => (
                   <NativeSelectOption key={item.district} value={item.district}>
@@ -1884,7 +1938,7 @@ export function ThermoWatchDashboard() {
               <Button
                 variant="outline"
                 size="sm"
-                className="h-8 px-2.5 border-slate-200 hover:bg-slate-50 text-slate-600"
+                className="h-8 px-2 sm:px-2.5 border-slate-200 hover:bg-slate-50 text-slate-600"
                 onClick={loadDashboard}
                 disabled={loading}
                 title={copy.refresh}
@@ -1893,7 +1947,7 @@ export function ThermoWatchDashboard() {
               </Button>
             </div>
           </header>
-          <main className="mx-auto max-w-[1540px] p-4 sm:p-6 lg:p-8 xl:px-10">
+          <main className="mx-auto max-w-[1540px] p-3 sm:p-6 lg:p-8 xl:px-10">
             {error && (
               <div
                 role="alert"
@@ -2781,12 +2835,12 @@ export function ThermoWatchDashboard() {
                                   <span>{selected.district} Heat Relief Network</span>
                                 </div>
                               </div>
-                              <div className="flex items-center gap-2 shrink-0">
+                              <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
                                 <a
                                   href={item.map_url}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:border-slate-300 hover:bg-slate-100 transition"
+                                  className="inline-flex items-center justify-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:border-slate-300 hover:bg-slate-100 transition flex-1 sm:flex-initial"
                                   title="View on OpenStreetMap"
                                 >
                                   <span>OSM Pin</span>
@@ -2796,7 +2850,7 @@ export function ThermoWatchDashboard() {
                                   href={item.google_maps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.name + ' ' + selected.district)}`}
                                   target="_blank"
                                   rel="noreferrer"
-                                  className="inline-flex items-center gap-1 rounded-lg border border-blue-200 bg-blue-50/80 px-2.5 py-1.5 text-xs font-semibold text-blue-800 hover:bg-blue-100 transition"
+                                  className="inline-flex items-center justify-center gap-1 rounded-lg border border-blue-200 bg-blue-50/80 px-2.5 py-1.5 text-xs font-semibold text-blue-800 hover:bg-blue-100 transition flex-1 sm:flex-initial"
                                   title="View direct location on Google Maps"
                                 >
                                   <MapPin className="h-3.5 w-3.5" />
