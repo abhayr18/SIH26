@@ -17,61 +17,59 @@ export function DemoScenarioBar({
     DEMO_SCENARIOS.find((s) => s.id === activeScenarioId) || DEMO_SCENARIOS[0];
 
   const badgeColorStyles = {
-    green: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300',
-    yellow: 'border-amber-500/40 bg-amber-500/10 text-amber-300',
-    orange: 'border-orange-500/40 bg-orange-500/10 text-orange-300',
-    red: 'border-red-500/40 bg-red-500/10 text-red-300',
+    green: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+    yellow: 'bg-amber-50 text-amber-700 border-amber-200',
+    orange: 'bg-orange-50 text-orange-700 border-orange-200',
+    red: 'bg-rose-50 text-rose-700 border-rose-200',
   };
 
   return (
-    <div className="rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-900 px-4 py-2.5 shadow-md">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        {/* Left Indicator */}
-        <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-amber-500/40 bg-amber-500/20 text-amber-400">
-            <PlayCircle className="h-4 w-4 animate-pulse" />
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-slate-200/80 bg-white px-4 py-2.5 shadow-sm">
+      {/* Left indicator */}
+      <div className="flex items-center gap-2.5">
+        <span className="relative flex h-2.5 w-2.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+        </span>
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Simulation Scenario
+            </span>
+            <span className="text-xs font-bold text-slate-800">
+              {activeScenario.name}
+            </span>
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[11px] font-black uppercase tracking-wider text-amber-400">
-                Live Demo Scenarios
-              </span>
-              <span className="rounded-full border border-slate-700 bg-slate-800 px-1.5 py-0.2 text-[9px] font-bold text-slate-300">
-                Hackathon Evaluator Mode
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-300">
-              Active: <strong className="text-white">{activeScenario.name}</strong> • {activeScenario.description}
-            </p>
-          </div>
+          <p className="text-[11px] text-slate-500">
+            {activeScenario.description}
+          </p>
         </div>
+      </div>
 
-        {/* Right Selector Pills */}
-        <div className="flex flex-wrap items-center gap-1.5">
-          {DEMO_SCENARIOS.map((scen: DemoScenario) => {
-            const isActive = scen.id === activeScenarioId;
+      {/* Right Segmented Pills */}
+      <div className="flex items-center gap-1 rounded-xl border border-slate-200 bg-slate-50/80 p-1">
+        {DEMO_SCENARIOS.map((scen: DemoScenario) => {
+          const isActive = scen.id === activeScenarioId;
 
-            return (
-              <button
-                key={scen.id}
-                onClick={() => onSelectScenario(scen)}
-                className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-semibold transition ${
-                  isActive
-                    ? 'border-amber-400 bg-amber-500/20 text-amber-200 shadow ring-1 ring-amber-400/40'
-                    : 'border-slate-800 bg-slate-950/70 text-slate-400 hover:border-slate-700 hover:bg-slate-800 hover:text-slate-200'
-                }`}
+          return (
+            <button
+              key={scen.id}
+              onClick={() => onSelectScenario(scen)}
+              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold transition-all ${
+                isActive
+                  ? 'bg-white text-slate-900 shadow-sm border border-slate-200/90 font-bold'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/50'
+              }`}
+            >
+              <span>{scen.name}</span>
+              <span
+                className={`rounded border px-1 py-0.2 text-[9px] font-bold ${badgeColorStyles[scen.badgeColor]}`}
               >
-                {isActive && <Check className="h-3 w-3 text-amber-400" />}
-                <span>{scen.name}</span>
-                <span
-                  className={`rounded border px-1 py-0.1 text-[9px] font-bold uppercase ${badgeColorStyles[scen.badgeColor]}`}
-                >
-                  {scen.temp_c}°C
-                </span>
-              </button>
-            );
-          })}
-        </div>
+                {scen.temp_c}°C
+              </span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

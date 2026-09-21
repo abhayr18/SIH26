@@ -18,11 +18,11 @@ function configuration() {
     username:
       typeof values.THERMOWATCH_DEMO_USER === 'string'
         ? values.THERMOWATCH_DEMO_USER
-        : 'innovatrix-officer',
+        : 'admin',
     password:
       typeof values.THERMOWATCH_DEMO_PASSWORD === 'string'
         ? values.THERMOWATCH_DEMO_PASSWORD
-        : 'ThermoWatch@26083',
+        : 'admin123',
     secret:
       typeof values.THERMOWATCH_DEMO_SESSION_SECRET === 'string'
         ? values.THERMOWATCH_DEMO_SESSION_SECRET

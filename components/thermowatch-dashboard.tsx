@@ -424,34 +424,34 @@ const riskStyle: Record<
   { badge: string; color: string; soft: string; bar: string }
 > = {
   Low: {
-    badge: 'border-emerald-200 bg-emerald-50 text-emerald-700',
-    color: '#15803d',
-    soft: '#ecfdf3',
-    bar: 'bg-emerald-600',
+    badge: 'border-emerald-200 bg-emerald-50 text-emerald-700 font-semibold',
+    color: '#059669',
+    soft: '#ecfdf5',
+    bar: 'bg-emerald-500',
   },
   Moderate: {
-    badge: 'border-blue-200 bg-blue-50 text-blue-700',
-    color: '#2563eb',
-    soft: '#eff6ff',
-    bar: 'bg-blue-600',
+    badge: 'border-sky-200 bg-sky-50 text-sky-700 font-semibold',
+    color: '#0284c7',
+    soft: '#f0f9ff',
+    bar: 'bg-sky-500',
   },
   High: {
-    badge: 'border-yellow-300 bg-yellow-100 text-yellow-900',
-    color: '#ca8a04',
-    soft: '#fef9c3',
-    bar: 'bg-yellow-400',
+    badge: 'border-amber-200 bg-amber-50 text-amber-700 font-semibold',
+    color: '#d97706',
+    soft: '#fffbeb',
+    bar: 'bg-amber-500',
   },
   Extreme: {
-    badge: 'border-red-200 bg-red-50 text-red-700',
-    color: '#b91c1c',
-    soft: '#fef2f2',
-    bar: 'bg-red-700',
+    badge: 'border-rose-200 bg-rose-50 text-rose-700 font-semibold',
+    color: '#e11d48',
+    soft: '#fff1f2',
+    bar: 'bg-rose-500',
   },
   Emergency: {
-    badge: 'border-violet-200 bg-violet-50 text-violet-700',
+    badge: 'border-purple-200 bg-purple-50 text-purple-700 font-semibold',
     color: '#7c3aed',
-    soft: '#f5f3ff',
-    bar: 'bg-violet-600',
+    soft: '#faf5ff',
+    bar: 'bg-purple-600',
   },
 };
 
@@ -1457,106 +1457,130 @@ export function ThermoWatchDashboard() {
 
   return (
     <KannadaLocalizer enabled={uiLanguage === 'kn'}>
-      <div className="min-h-screen bg-[radial-gradient(circle_at_86%_0%,#dfe8f0_0%,transparent_27rem),linear-gradient(135deg,#f7f4ee_0%,#f2f0eb_48%,#eef2f4_100%)] text-[#17233a] lg:flex">
+      <div className="min-h-screen bg-slate-50/50 text-slate-900 lg:flex font-sans">
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-[272px] overflow-hidden border-r border-white/10 bg-[linear-gradient(165deg,#112443_0%,#0c1a31_58%,#091426_100%)] px-4 py-6 text-white shadow-[18px_0_60px_rgb(4_13_28/12%)] transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${mobileNav ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`fixed inset-y-0 left-0 z-50 w-[268px] overflow-hidden border-r border-slate-800/80 bg-[#090f1d] px-4 py-5 text-white shadow-xl transition-transform duration-300 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 ${mobileNav ? 'translate-x-0' : '-translate-x-full'}`}
         >
-          <div className="pointer-events-none absolute -right-20 -top-28 h-64 w-64 rounded-full border border-white/5 bg-blue-400/10 blur-2xl" />
-          <div className="relative flex items-center gap-3 px-2 lg:mb-8">
-            <span className="grid h-11 w-11 place-items-center rounded-[0.9rem] border border-white/15 bg-white/10 text-[#f2c96c] shadow-[0_12px_30px_rgb(0_0_0/20%)] backdrop-blur">
+          <div className="relative flex items-center gap-3 px-2 lg:mb-6">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-md">
               <Activity className="h-5 w-5" />
             </span>
             <div>
-              <strong className="block text-sm tracking-[-0.01em] text-white">
+              <strong className="block text-sm font-bold tracking-tight text-white">
                 ThermoWatch
               </strong>
-              <span className="font-mono text-[9px] tracking-[0.16em] text-blue-200/55">
-                SIH26083 · INDIA
+              <span className="font-mono text-[9px] tracking-[0.16em] text-slate-400">
+                SIH26083 &middot; INDIA
               </span>
             </div>
             <Button
               variant="ghost"
               size="icon"
-              className="ml-auto text-white hover:bg-white/10 hover:text-white lg:hidden"
+              className="ml-auto text-slate-400 hover:bg-white/10 hover:text-white lg:hidden"
               onClick={() => setMobileNav(false)}
               aria-label="Close navigation"
             >
-              <X />
+              <X className="h-5 w-5" />
             </Button>
           </div>
           <nav
-            className="relative mt-6 space-y-4 max-h-[calc(100vh-210px)] overflow-y-auto pr-1"
+            className="relative mt-2 space-y-4 max-h-[calc(100vh-190px)] overflow-y-auto pr-1 text-xs"
             aria-label="Main navigation"
           >
             {/* 1. Core Innovations Group */}
             <div>
-              <p className="px-3 pb-1.5 font-mono text-[9px] font-bold tracking-[0.18em] text-[#f2c96c]">
+              <p className="px-2.5 pb-1.5 font-mono text-[9px] font-bold tracking-[0.2em] text-blue-400 uppercase">
                 CORE PROTOTYPE FLOW
               </p>
               <div className="space-y-1">
-                {navigation.filter((n) => n.group === 'core').map(({ id, icon: Icon }) => (
-                  <button
-                    key={id}
-                    onClick={() => changeView(id)}
-                    className={`group flex min-h-10 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[12.5px] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c96c] ${view === id ? 'bg-white text-[#10213f] shadow-[0_8px_22px_rgb(0_0_0/18%)]' : 'text-blue-100/75 hover:bg-white/8 hover:text-white'}`}
-                  >
-                    <span
-                      className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg transition-colors ${view === id ? 'bg-[#e9eef6] text-[#234b8b]' : 'bg-white/5 text-blue-100/70 group-hover:bg-white/10 group-hover:text-[#f2c96c]'}`}
+                {navigation.filter((n) => n.group === 'core').map(({ id, icon: Icon }) => {
+                  const isActive = view === id;
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => changeView(id)}
+                      className={`group flex min-h-9 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[12px] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
+                        isActive
+                          ? 'bg-blue-600 text-white shadow-sm'
+                          : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                      }`}
                     >
-                      <Icon className="h-3.5 w-3.5" />
-                    </span>
-                    <span className="truncate">{copy.nav[id]}</span>
-                  </button>
-                ))}
+                      <span
+                        className={`grid h-5 w-5 shrink-0 place-items-center rounded-lg transition-colors ${
+                          isActive ? 'bg-white/20 text-white' : 'text-slate-400 group-hover:text-blue-400'
+                        }`}
+                      >
+                        <Icon className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="truncate">{copy.nav[id]}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* 2. Supporting Modules Group */}
             <div>
-              <p className="px-3 pb-1.5 font-mono text-[9px] font-bold tracking-[0.18em] text-blue-200/45">
+              <p className="px-2.5 pb-1.5 font-mono text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase">
                 SUPPORTING INTELLIGENCE
               </p>
-              <div className="space-y-1">
-                {navigation.filter((n) => n.group === 'supporting').map(({ id, icon: Icon }) => (
-                  <button
-                    key={id}
-                    onClick={() => changeView(id)}
-                    className={`group flex min-h-8 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[11.5px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c96c] ${view === id ? 'bg-white text-[#10213f] shadow-sm font-semibold' : 'text-blue-100/55 hover:bg-white/5 hover:text-white'}`}
-                  >
-                    <span
-                      className={`grid h-5 w-5 shrink-0 place-items-center rounded-md transition-colors ${view === id ? 'bg-[#e9eef6] text-[#234b8b]' : 'bg-white/5 text-blue-100/50 group-hover:bg-white/10 group-hover:text-[#f2c96c]'}`}
+              <div className="space-y-0.5">
+                {navigation.filter((n) => n.group === 'supporting').map(({ id, icon: Icon }) => {
+                  const isActive = view === id;
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => changeView(id)}
+                      className={`group flex min-h-8 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[11.5px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
+                        isActive
+                          ? 'bg-slate-800 text-white shadow-sm font-semibold border border-slate-700'
+                          : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                      }`}
                     >
-                      <Icon className="h-3 w-3" />
-                    </span>
-                    <span className="truncate">{copy.nav[id]}</span>
-                  </button>
-                ))}
+                      <span
+                        className={`grid h-4 w-4 shrink-0 place-items-center rounded transition-colors ${
+                          isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'
+                        }`}
+                      >
+                        <Icon className="h-3 w-3" />
+                      </span>
+                      <span className="truncate">{copy.nav[id]}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* 3. Authority Group */}
             <div>
-              <p className="px-3 pb-1.5 font-mono text-[9px] font-bold tracking-[0.18em] text-blue-200/45">
+              <p className="px-2.5 pb-1.5 font-mono text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase">
                 OFFICER COMMAND
               </p>
-              <div className="space-y-1">
+              <div className="space-y-0.5">
                 {navigation.filter((n) => n.group === 'authority').map(({ id, icon: Icon }) => {
                   const locked = officerViews.has(id) && !canManage;
+                  const isActive = view === id;
                   return (
                     <button
                       key={id}
                       onClick={() => changeView(id)}
-                      className={`group flex min-h-8 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[11.5px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c96c] ${view === id ? 'bg-white text-[#10213f] shadow-sm font-semibold' : 'text-blue-100/55 hover:bg-white/5 hover:text-white'}`}
+                      className={`group flex min-h-8 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[11.5px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 ${
+                        isActive
+                          ? 'bg-slate-800 text-white shadow-sm font-semibold border border-slate-700'
+                          : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                      }`}
                     >
                       <span
-                        className={`grid h-5 w-5 shrink-0 place-items-center rounded-md transition-colors ${view === id ? 'bg-[#e9eef6] text-[#234b8b]' : 'bg-white/5 text-blue-100/50 group-hover:bg-white/10 group-hover:text-[#f2c96c]'}`}
+                        className={`grid h-4 w-4 shrink-0 place-items-center rounded transition-colors ${
+                          isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'
+                        }`}
                       >
                         <Icon className="h-3 w-3" />
                       </span>
                       <span className="truncate">{copy.nav[id]}</span>
-                      {locked && <LockKeyhole className="ml-auto h-3 w-3 text-blue-100/40" />}
+                      {locked && <LockKeyhole className="ml-auto h-3 w-3 text-slate-500" />}
                       {id === 'alerts' && (
-                        <span className="ml-auto rounded-full bg-[#f2c96c] px-1.5 py-0.2 text-[9px] text-[#352506]">
+                        <span className="ml-auto rounded-full bg-amber-500/20 px-1.5 py-0.2 text-[9px] font-bold text-amber-300">
                           {highCount}
                         </span>
                       )}
@@ -1566,12 +1590,14 @@ export function ThermoWatchDashboard() {
               </div>
             </div>
           </nav>
-          <div className="absolute bottom-6 left-4 right-4 rounded-[1.15rem] border border-white/10 bg-white/[0.06] p-3.5 font-mono text-[10px] text-blue-100/65 backdrop-blur">
-            <span
-              className={`mr-2 inline-block h-2 w-2 rounded-full ${hasLiveWeather ? 'bg-emerald-500' : 'bg-amber-500'}`}
-            />
-            {sourceLabel}
-            <span className="mt-2 block border-t border-white/8 pt-2 text-[9px] text-blue-200/40">
+          <div className="absolute bottom-4 left-4 right-4 rounded-xl border border-slate-800 bg-slate-900/80 p-3 font-mono text-[10px] text-slate-400 backdrop-blur">
+            <div className="flex items-center gap-2">
+              <span
+                className={`inline-block h-2 w-2 rounded-full ${hasLiveWeather ? 'bg-emerald-400' : 'bg-amber-400'}`}
+              />
+              <span className="text-slate-200 font-semibold">{sourceLabel}</span>
+            </div>
+            <span className="mt-1.5 block border-t border-slate-800 pt-1.5 text-[9px] text-slate-500">
               Model {dashboard?.model.model_version ?? 'htsi-logit-4.0'}
             </span>
           </div>
@@ -1585,49 +1611,60 @@ export function ThermoWatchDashboard() {
         )}
 
         <section className="min-w-0 flex-1">
-          <header className="sticky top-0 z-30 flex min-h-[72px] flex-wrap items-center justify-between gap-3 border-b border-[#d8d3ca]/70 bg-[#f8f6f1]/85 px-4 py-3 backdrop-blur-xl lg:px-10">
+          <header className="sticky top-0 z-30 flex min-h-[64px] flex-wrap items-center justify-between gap-3 border-b border-slate-200/80 bg-white/90 px-4 py-2.5 backdrop-blur-md lg:px-8">
             <div className="flex items-center gap-3">
               <Button
                 variant="outline"
                 size="icon"
-                className="lg:hidden"
+                className="h-9 w-9 lg:hidden border-slate-200"
                 onClick={() => setMobileNav(true)}
                 aria-label="Open navigation"
               >
-                <Menu />
+                <Menu className="h-4 w-4" />
               </Button>
-              <div className="font-mono text-[11px] uppercase tracking-[0.12em] text-slate-400">
-                India <span className="mx-2 text-[#b58b3b]">/</span>{' '}
-                <b className="text-[#293a54]">{navLabel}</b>
+              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
+                <span className="text-slate-400">ThermoWatch</span>
+                <span className="text-slate-300">/</span>
+                <span className="text-slate-900 font-bold">{navLabel}</span>
+              </div>
+              <div
+                className="hidden xl:flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50/70 px-2.5 py-0.5 text-[11px] text-blue-800"
+                title="ThermoWatch is not another heatwave warning system. It is a human-risk and intervention decision-support layer built on top of meteorological forecasts."
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                <span className="font-semibold">Human-Risk Decision Layer</span>
+                <span className="text-blue-500 text-[10px] hidden 2xl:inline">&middot; on top of weather forecasts</span>
               </div>
             </div>
+
             <div className="flex items-center gap-2">
               {canManage ? (
                 <button
                   type="button"
                   onClick={signOutOfficer}
-                  className="hidden min-h-9 items-center gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-3 text-sm font-semibold text-emerald-800 shadow-sm transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-emerald-600/25 sm:inline-flex"
+                  className="hidden min-h-8 items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-2.5 text-xs font-semibold text-emerald-800 shadow-sm transition-colors hover:bg-emerald-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600/30 sm:inline-flex"
                   title={`Signed in as ${session?.name ?? 'officer'}. Click to sign out.`}
                 >
-                  <ShieldCheck className="h-4 w-4" />
-                  Officer access · Sign out
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                  <span>Officer &middot; Sign out</span>
                 </button>
               ) : (
                 <Link
                   href="/login?next=/"
-                  className="hidden min-h-9 items-center gap-1.5 rounded-xl border border-[#d8d3ca] bg-white px-3 text-sm font-semibold text-[#293a54] shadow-sm transition-colors hover:bg-[#eef2f7] focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-[#234b8b]/30 sm:inline-flex"
+                  className="hidden min-h-8 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 text-xs font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/30 sm:inline-flex"
                 >
-                  <LockKeyhole className="h-4 w-4" />
-                  Officer sign in
+                  <LockKeyhole className="h-3.5 w-3.5 text-slate-500" />
+                  <span>Officer sign in</span>
                 </Link>
               )}
+
               <NativeSelect
                 value={uiLanguage}
                 onChange={(event) =>
                   changeLanguage(event.target.value as UiLanguage)
                 }
                 aria-label="Interface language"
-                className="w-[92px]"
+                className="h-8 w-[84px] text-xs border-slate-200"
               >
                 <NativeSelectOption value="en">English</NativeSelectOption>
                 <NativeSelectOption value="hi">हिन्दी</NativeSelectOption>
@@ -1635,19 +1672,22 @@ export function ThermoWatchDashboard() {
                 <NativeSelectOption value="te">తెలుగు</NativeSelectOption>
                 <NativeSelectOption value="kn">ಕನ್ನಡ</NativeSelectOption>
               </NativeSelect>
+
               <Button
                 variant="default"
                 size="sm"
                 onClick={() => setAssistantModalOpen(true)}
-                className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold flex items-center gap-1.5 shadow-sm min-h-9"
+                className="h-8 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm px-2.5"
               >
-                <Sparkles className="h-4 w-4" />
+                <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
                 <span className="hidden sm:inline">AI Assistant</span>
               </Button>
+
               <NativeSelect
                 value={selected.district}
                 onChange={(event) => setSelectedName(event.target.value)}
                 aria-label="Select monitoring district"
+                className="h-8 text-xs border-slate-200 max-w-[140px] sm:max-w-[180px]"
               >
                 {alphabeticalDistricts.map((item) => (
                   <NativeSelectOption key={item.district} value={item.district}>
@@ -1655,48 +1695,52 @@ export function ThermoWatchDashboard() {
                   </NativeSelectOption>
                 ))}
               </NativeSelect>
+
               <Button
                 variant="outline"
-                size="lg"
+                size="sm"
+                className="h-8 px-2.5 border-slate-200 hover:bg-slate-50 text-slate-600"
                 onClick={loadDashboard}
                 disabled={loading}
+                title={copy.refresh}
               >
-                <RefreshCw className={loading ? 'animate-spin' : ''} />
-                {copy.refresh}
+                <RefreshCw className={`h-3.5 w-3.5 ${loading ? 'animate-spin text-blue-600' : ''}`} />
               </Button>
             </div>
           </header>
-          <main className="mx-auto max-w-[1540px] p-4 sm:p-6 lg:p-10 xl:px-12">
-            <div className="mb-8 flex flex-wrap items-end justify-between gap-5 border-b border-[#d8d3ca]/65 pb-7">
+          <main className="mx-auto max-w-[1540px] p-4 sm:p-6 lg:p-8 xl:px-10">
+            {/* Clean Top Command Header */}
+            <div className="mb-5 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
               <div>
-                <p className="mb-2.5 flex items-center gap-2 font-mono text-[9px] font-semibold tracking-[0.2em] text-[#9a6d19]">
-                  <span className="h-px w-7 bg-[#c39a4b]" />
-                  {copy.disasterManagement} ·{' '}
-                  {view === 'overview' ? 'LIVE OVERVIEW' : view.toUpperCase()}
-                </p>
-                <h1 className="text-3xl font-bold tracking-[-0.035em] text-[#12203a] lg:text-[2.65rem] lg:leading-tight">
+                <div className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  <span>Decision Support Platform</span>
+                  <span>&middot;</span>
+                  <span className="text-blue-600 font-semibold">{view === 'overview' ? 'Live Overview' : navLabel}</span>
+                </div>
+                <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
                   {view === 'overview' ? copy.hero : navLabel}
                 </h1>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500">
+                <p className="mt-1 text-xs sm:text-sm text-slate-500 max-w-2xl">
                   {view === 'overview' ? copy.overviewNote : copy.viewNote}
                 </p>
               </div>
-              <div className="flex items-center gap-3 rounded-[1.15rem] border border-[#cfdbd3] bg-[#f4faf5]/90 px-4 py-3 shadow-sm">
-                <span className="grid h-9 w-9 place-items-center rounded-xl bg-emerald-100 text-emerald-700">
-                  <ShieldCheck className="h-4 w-4" />
-                </span>
-                <div>
-                  <b className="block text-xs">{copy.operational}</b>
-                  <span className="text-[11px] text-emerald-700">
-                    {districts.length} {copy.monitored}
-                  </span>
+
+              <div className="flex flex-wrap items-center gap-2.5">
+                <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-1.5 shadow-sm text-xs">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
+                  <span className="font-semibold text-slate-700">{districts.length} Wards Active</span>
                 </div>
+                <DemoScenarioBar
+                  activeScenarioId={demoScenarioId}
+                  onSelectScenario={handleSelectScenario}
+                />
               </div>
             </div>
+
             {error && (
               <div
                 role="alert"
-                className="mb-5 flex items-center justify-between rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+                className="mb-4 flex items-center justify-between rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-xs sm:text-sm text-red-800"
               >
                 <span>{error}</span>
                 <button onClick={() => setError('')} aria-label="Dismiss error">
@@ -1705,106 +1749,67 @@ export function ThermoWatchDashboard() {
               </div>
             )}
             {!online && (
-              <div className="mb-5 flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              <div className="mb-4 flex items-center gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-xs sm:text-sm text-amber-900">
                 <CloudSun className="h-4 w-4" />
-                Offline mode: cached public weather and forecast views remain
-                available. Record submission and authority actions require a
-                connection.
+                Offline mode: cached public weather and forecast views remain available. Record submission and authority actions require a connection.
               </div>
             )}
             {notice && (
-              <div className="mb-5 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+              <div className="mb-4 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-xs sm:text-sm text-emerald-800">
                 <Check className="h-4 w-4" />
                 {notice}
               </div>
             )}
 
-            {/* SIH26083 Demo Scenario Switcher Banner */}
-            <div className="mb-4">
-              <DemoScenarioBar
-                activeScenarioId={demoScenarioId}
-                onSelectScenario={handleSelectScenario}
-              />
-            </div>
-
-            {/* Key Positioning & Final Prototype Flow Banner */}
-            <div className="mb-6 rounded-2xl border border-blue-900/40 bg-[linear-gradient(135deg,#0c1d3b_0%,#0e2246_100%)] p-4 text-white shadow-md">
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-                <div className="max-w-3xl">
-                  <div className="flex items-center gap-2">
-                    <span className="rounded bg-blue-500/20 px-2 py-0.5 font-mono text-[10px] font-bold text-blue-300">
-                      KEY POSITIONING
-                    </span>
-                    <span className="text-xs font-semibold text-blue-200/90">
-                      Human-Risk & Intervention Decision-Support
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm font-medium leading-relaxed text-slate-100">
-                    “ThermoWatch is not another heatwave warning system. It is a human-risk and intervention decision-support layer built on top of meteorological forecasts.”
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-2 text-[11px] text-blue-200/80">
-                  <span className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1">
-                    ✓ Does not replace IMD forecasts
+            {/* 6-Stage Final Prototype Decision Pipeline (Clean Horizontal Stepper) */}
+            <div className="mb-6 rounded-2xl border border-slate-200/90 bg-white p-2.5 shadow-sm">
+              <div className="flex items-center justify-between px-2 py-1 mb-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    6-Stage Decision Pipeline
                   </span>
-                  <span className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1">
-                    ✓ Human risk, exposure & vulnerability
-                  </span>
-                  <span className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1">
-                    ✓ Maximum impact authority intervention
+                  <span className="hidden md:inline rounded bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 border border-blue-100">
+                    End-to-End Decision Flow
                   </span>
                 </div>
+                <span className="text-[11px] font-medium text-slate-500 hidden lg:inline">
+                  Raw Weather &rarr; Thermal Stress &rarr; Predictive Risk &rarr; Vulnerability &rarr; Explainability &rarr; Authority Intervention
+                </span>
               </div>
-
-              {/* 6-Stage Final Prototype Flow */}
-              <div className="mt-3.5 border-t border-white/10 pt-3">
-                <p className="mb-2 font-mono text-[9px] font-semibold tracking-wider text-[#f2c96c] uppercase">
-                  FINAL PROTOTYPE FLOW (CLICK TO INSPECT):
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-                  <button
-                    onClick={() => changeView('overview')}
-                    className={`rounded-lg p-2 text-left transition border ${view === 'overview' ? 'border-amber-400 bg-amber-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
-                  >
-                    <span className="block text-[10px] font-bold text-amber-300">1. Thermal Stress</span>
-                    <span className="block text-[9px] text-slate-300 truncate">HTSI / WBGT / PET</span>
-                  </button>
-                  <button
-                    onClick={() => changeView('digital-twin')}
-                    className={`rounded-lg p-2 text-left transition border ${view === 'digital-twin' ? 'border-cyan-400 bg-cyan-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
-                  >
-                    <span className="block text-[10px] font-bold text-cyan-300">2. 24/48/72h Risk</span>
-                    <span className="block text-[9px] text-slate-300 truncate">Predictive Horizon</span>
-                  </button>
-                  <button
-                    onClick={() => changeView('hyperlocal-gis')}
-                    className={`rounded-lg p-2 text-left transition border ${view === 'hyperlocal-gis' ? 'border-purple-400 bg-purple-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
-                  >
-                    <span className="block text-[10px] font-bold text-purple-300">3. Exposure & Vuln</span>
-                    <span className="block text-[9px] text-slate-300 truncate">Elderly, Workers, Slums</span>
-                  </button>
-                  <button
-                    onClick={() => changeView('cascade')}
-                    className={`rounded-lg p-2 text-left transition border ${view === 'cascade' ? 'border-rose-400 bg-rose-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
-                  >
-                    <span className="block text-[10px] font-bold text-rose-300">4. Explainable Risk</span>
-                    <span className="block text-[9px] text-slate-300 truncate">Attribution Chain</span>
-                  </button>
-                  <button
-                    onClick={() => changeView('what-if')}
-                    className={`rounded-lg p-2 text-left transition border ${view === 'what-if' ? 'border-amber-400 bg-amber-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
-                  >
-                    <span className="block text-[10px] font-bold text-amber-300">5. What-If Simulator</span>
-                    <span className="block text-[9px] text-slate-300 truncate">Test Interventions</span>
-                  </button>
-                  <button
-                    onClick={() => changeView('cooling-centers')}
-                    className={`rounded-lg p-2 text-left transition border ${view === 'cooling-centers' ? 'border-emerald-400 bg-emerald-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
-                  >
-                    <span className="block text-[10px] font-bold text-emerald-300">6. Authority Actions</span>
-                    <span className="block text-[9px] text-slate-300 truncate">Cooling, Triage, Shifts</span>
-                  </button>
-                </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1.5">
+                {[
+                  { id: 'overview', step: '1', title: 'Thermal Stress', subtitle: 'HTSI · WBGT · PET' },
+                  { id: 'digital-twin', step: '2', title: '24/48/72h Risk', subtitle: 'Predictive Trajectory' },
+                  { id: 'hyperlocal-gis', step: '3', title: 'Vulnerability', subtitle: 'Ward Spatial GIS' },
+                  { id: 'cascade', step: '4', title: 'Explainable AI', subtitle: 'Attribution Chain' },
+                  { id: 'what-if', step: '5', title: 'What-If Sim', subtitle: 'Test Interventions' },
+                  { id: 'cooling-centers', step: '6', title: 'Authority Action', subtitle: 'Resource Orders' },
+                ].map(({ id, step, title, subtitle }) => {
+                  const isActive = view === id;
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => changeView(id as View)}
+                      className={`group flex items-center gap-2 rounded-xl px-3 py-2 text-left transition-all ${
+                        isActive
+                          ? 'bg-blue-600 text-white shadow-sm font-semibold'
+                          : 'bg-slate-50/80 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-transparent hover:border-slate-200'
+                      }`}
+                    >
+                      <span
+                        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md text-[10px] font-bold ${
+                          isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600 group-hover:bg-slate-300'
+                        }`}
+                      >
+                        {step}
+                      </span>
+                      <div className="min-w-0">
+                        <div className="text-xs font-bold leading-tight truncate">{title}</div>
+                        <div className={`text-[10px] truncate ${isActive ? 'text-blue-100' : 'text-slate-400'}`}>{subtitle}</div>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
