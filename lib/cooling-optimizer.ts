@@ -59,6 +59,49 @@ export const EXISTING_COOLING_CENTERS: CoolingCenter[] = [
   // Ahmedabad Centers
   { id: 'CC-AHM-01', name: 'Danilimda Municipal Primary School Hall', city: 'Ahmedabad', ward: 'Ward 05', lat: 22.9984, lon: 72.5832, type: 'Municipal School', capacity_people: 200, current_occupancy_pct: 85, water_point_available: true, medical_staff_on_duty: false, ac_cooling: false, status: 'Open', operating_hours: '09:00 - 18:30' },
   { id: 'CC-AHM-02', name: 'LD Engineering Ground Relief Tent', city: 'Ahmedabad', ward: 'Ward 19', lat: 23.0333, lon: 72.5467, type: 'Misting Pavilion', capacity_people: 350, current_occupancy_pct: 42, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Open', operating_hours: '08:00 - 20:00' },
+
+  // Mumbai Centers
+  { id: 'CC-BOM-01', name: 'Dharavi 90 Feet Road BMC Disaster Relief Hall', city: 'Mumbai', ward: 'Ward F/North', lat: 19.0435, lon: 72.8562, type: 'Community Center', capacity_people: 400, current_occupancy_pct: 91, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Operating Near Capacity', operating_hours: '24 Hours' },
+  { id: 'CC-BOM-02', name: 'Govandi Shivaji Nagar Municipal School Misting Center', city: 'Mumbai', ward: 'Ward M/East', lat: 19.0621, lon: 72.9234, type: 'Municipal School', capacity_people: 300, current_occupancy_pct: 86, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Extended Hours Active', operating_hours: '08:00 - 21:00' },
+
+  // Kolkata Centers
+  { id: 'CC-CCU-01', name: 'Burrabazar Posta Krishna Mandir Community Shelter', city: 'Kolkata', ward: 'Ward 45', lat: 22.5851, lon: 88.3541, type: 'Community Center', capacity_people: 280, current_occupancy_pct: 88, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Operating Near Capacity', operating_hours: '07:00 - 20:00' },
+  { id: 'CC-CCU-02', name: 'Tangra Dhapa Welfare Pavilion', city: 'Kolkata', ward: 'Ward 58', lat: 22.5489, lon: 88.3982, type: 'Misting Pavilion', capacity_people: 320, current_occupancy_pct: 79, water_point_available: true, medical_staff_on_duty: false, ac_cooling: true, status: 'Open', operating_hours: '08:00 - 20:00' },
+
+  // Bengaluru Centers
+  { id: 'CC-BLR-01', name: 'Peenya 2nd Stage BBMP Worker Welfare Complex', city: 'Bengaluru', ward: 'Ward 13', lat: 13.0298, lon: 77.5182, type: 'Community Center', capacity_people: 350, current_occupancy_pct: 76, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Open', operating_hours: '08:00 - 20:00' },
+  { id: 'CC-BLR-02', name: 'Koramangala Indoor Stadium AC Rest Zone', city: 'Bengaluru', ward: 'Ward 151', lat: 12.9352, lon: 77.6245, type: 'Sports Complex', capacity_people: 450, current_occupancy_pct: 52, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Open', operating_hours: '07:00 - 22:00' },
+
+  // Chennai Centers
+  { id: 'CC-MAA-01', name: 'T. Nagar Panagal Park GCC Air-Cooled Relief Hall', city: 'Chennai', ward: 'Ward 114', lat: 13.0418, lon: 78.2341, type: 'Community Center', capacity_people: 300, current_occupancy_pct: 84, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Operating Near Capacity', operating_hours: '08:00 - 20:00' },
+  { id: 'CC-MAA-02', name: 'Kasimedu Harbour Shaded Fisher Relief Pavilion', city: 'Chennai', ward: 'Ward 45', lat: 13.1205, lon: 80.2982, type: 'Misting Pavilion', capacity_people: 260, current_occupancy_pct: 80, water_point_available: true, medical_staff_on_duty: true, ac_cooling: false, status: 'Open', operating_hours: '06:00 - 19:00' },
+
+  // Chandigarh Centers
+  { id: 'CC-IXC-01', name: 'Sector 17 Piazza Underground Air-Cooled Lounge', city: 'Chandigarh', ward: 'Ward 08', lat: 30.7398, lon: 76.7827, type: 'Community Center', capacity_people: 350, current_occupancy_pct: 65, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Open', operating_hours: '08:00 - 21:00' },
+
+  // Varanasi Centers
+  { id: 'CC-VNS-01', name: 'Godowlia Chowk Dharmashala Heat Recovery Camp', city: 'Varanasi', ward: 'Ward 12', lat: 25.3094, lon: 83.0068, type: 'Community Center', capacity_people: 280, current_occupancy_pct: 89, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Operating Near Capacity', operating_hours: '07:00 - 21:00' },
+
+  // Hyderabad Centers
+  { id: 'CC-HYD-01', name: 'Charminar Unani Hospital Shaded Courtyard', city: 'Hyderabad', ward: 'Ward 51', lat: 17.3616, lon: 78.4747, type: 'Community Center', capacity_people: 320, current_occupancy_pct: 82, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Open', operating_hours: '08:00 - 20:00' },
+
+  // Jaipur Centers
+  { id: 'CC-JAI-01', name: 'Johari Bazar Community Hall Heat Relief Shelter', city: 'Jaipur', ward: 'Ward 01', lat: 26.9214, lon: 75.8267, type: 'Community Center', capacity_people: 280, current_occupancy_pct: 87, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Operating Near Capacity', operating_hours: '08:00 - 20:00' },
+
+  // Patna Centers
+  { id: 'CC-PAT-01', name: 'Gandhi Maidan Gate 1 Heatstroke Triage Tent', city: 'Patna', ward: 'Ward 28', lat: 25.6178, lon: 85.1432, type: 'Misting Pavilion', capacity_people: 350, current_occupancy_pct: 85, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Operating Near Capacity', operating_hours: '08:00 - 20:00' },
+
+  // Lucknow Centers
+  { id: 'CC-LUK-01', name: 'Charbagh Station Cooling Canopy & Relief Booth', city: 'Lucknow', ward: 'Ward 42', lat: 26.8322, lon: 80.9219, type: 'Shaded Bus Terminal', capacity_people: 250, current_occupancy_pct: 83, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Extended Hours Active', operating_hours: '07:00 - 22:00' },
+
+  // Bhopal Centers
+  { id: 'CC-BHO-01', name: 'MP Nagar Zone 1 Municipal Misting Pavilion', city: 'Bhopal', ward: 'Ward 45', lat: 23.2321, lon: 77.4332, type: 'Misting Pavilion', capacity_people: 220, current_occupancy_pct: 74, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Open', operating_hours: '08:00 - 20:00' },
+
+  // Bhubaneswar Centers
+  { id: 'CC-BHU-01', name: 'Baramunda Bus Stand Air-Cooled Relief Lounge', city: 'Bhubaneswar', ward: 'Ward 49', lat: 20.2798, lon: 85.7892, type: 'Shaded Bus Terminal', capacity_people: 300, current_occupancy_pct: 78, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Open', operating_hours: '07:00 - 21:00' },
+
+  // Nagpur Centers
+  { id: 'CC-NAG-01', name: 'Sitabuldi Interchange Shaded Misting Zone', city: 'Nagpur', ward: 'Ward 14', lat: 21.1462, lon: 79.0831, type: 'Misting Pavilion', capacity_people: 270, current_occupancy_pct: 81, water_point_available: true, medical_staff_on_duty: true, ac_cooling: true, status: 'Open', operating_hours: '08:00 - 20:00' },
 ];
 
 // Potential candidate expansion sites for temporary shelters
@@ -69,6 +112,12 @@ const CANDIDATE_SITES_POOL = [
   { id: 'CAN-DEL-01', name: 'Jaffrabad Gali 4 MCD Community Centre', city: 'Delhi', ward_id: 'DEL-W42', ward_name: 'Ward 42 - Seelampur', lat: 28.6721, lon: 77.2735, site_type: 'Municipal Hall' as const, capacity: 350 },
   { id: 'CAN-DEL-02', name: 'Okhla Industrial Area Sub-Station Lawn', city: 'Delhi', ward_id: 'DEL-W77', ward_name: 'Ward 77 - Okhla Phase II', lat: 28.5312, lon: 77.2810, site_type: 'Transit Hub' as const, capacity: 300 },
   { id: 'CAN-AHM-01', name: 'Chandola Lake Slum Relief Hall', city: 'Ahmedabad', ward_id: 'AHM-W05', ward_name: 'Ward 05 - Danilimda', lat: 22.9921, lon: 72.5890, site_type: 'Municipal Hall' as const, capacity: 300 },
+  { id: 'CAN-BOM-01', name: 'Govandi Shivaji Nagar Community Ground', city: 'Mumbai', ward_id: 'BOM-WME', ward_name: 'Ward M/East - Govandi', lat: 19.0589, lon: 72.9281, site_type: 'Municipal Hall' as const, capacity: 450 },
+  { id: 'CAN-CCU-01', name: 'Posta Wholesale Market Covered Loading Bay', city: 'Kolkata', ward_id: 'CCU-W45', ward_name: 'Ward 45 - Burrabazar', lat: 22.5892, lon: 88.3512, site_type: 'Transit Hub' as const, capacity: 350 },
+  { id: 'CAN-BLR-01', name: 'Peenya Industrial Association Main Hall', city: 'Bengaluru', ward_id: 'BLR-W013', ward_name: 'Ward 13 - Peenya', lat: 13.0345, lon: 77.5112, site_type: 'Municipal Hall' as const, capacity: 400 },
+  { id: 'CAN-MAA-01', name: 'George Town Broadway Bus Stand Pavilion', city: 'Chennai', ward_id: 'MAA-W081', ward_name: 'Ward 81 - George Town', lat: 13.0892, lon: 80.2834, site_type: 'Transit Hub' as const, capacity: 350 },
+  { id: 'CAN-IXC-01', name: 'Sector 26 Grain Market Association Shed', city: 'Chandigarh', ward_id: 'IXC-W16', ward_name: 'Ward 16 - Sector 26', lat: 30.7289, lon: 76.8045, site_type: 'Transit Hub' as const, capacity: 350 },
+  { id: 'CAN-VNS-01', name: 'Dashashwamedh Ghat Pilgrim Rest Shed', city: 'Varanasi', ward_id: 'VNS-W12', ward_name: 'Ward 12 - Dashashwamedh', lat: 25.3056, lon: 83.0112, site_type: 'Municipal Hall' as const, capacity: 300 },
 ];
 
 /**
