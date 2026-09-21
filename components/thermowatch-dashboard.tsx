@@ -40,6 +40,7 @@ import {
   Cpu,
   MapPin,
   Layers,
+  ZoomIn,
 } from 'lucide-react';
 import {
   Area,
@@ -81,6 +82,7 @@ import { HeatwaveMemoryView } from '@/components/heatwave-memory-view';
 import { DataTelemetryView } from '@/components/data-telemetry-view';
 import { HyperlocalWardGis } from '@/components/hyperlocal-ward-gis';
 import { GroundedAssistantModal } from '@/components/grounded-assistant-modal';
+import { CityWardMap } from '@/components/city-ward-map';
 
 type Risk = 'Low' | 'Moderate' | 'High' | 'Extreme' | 'Emergency';
 type Contribution = {
@@ -737,6 +739,7 @@ function IndiaMap({
   expanded?: boolean;
   layerLabel?: string;
 }) {
+  const [viewMode, setViewMode] = useState<'national' | 'city'>('national');
   const [hoveredName, setHoveredName] = useState<string | null>(null);
   const indiaLocations = indiaMap.locations as Array<{
     id: string;
@@ -747,15 +750,43 @@ function IndiaMap({
     y: (37.6 - lat) * 22.05,
   });
 
+  if (viewMode === 'city') {
+    return (
+      <div className="rounded-[1.6rem] border border-slate-200 bg-white p-3 sm:p-4 shadow-sm">
+        <CityWardMap
+          cityName={selected.district}
+          baseTemp={selected.temp}
+          baseHumidity={selected.humidity}
+          onZoomOut={() => setViewMode('national')}
+        />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`relative overflow-hidden rounded-[1.6rem] border border-[#dbe1e8] bg-[radial-gradient(circle_at_50%_34%,#ffffff_0%,#f2f5f7_56%,#e8edf2_100%)] shadow-[inset_0_1px_rgb(255_255_255/90%)] ${expanded ? 'h-[520px] sm:h-[600px]' : 'h-[390px]'}`}
     >
-      <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-full border border-white/80 bg-white/85 px-3 py-1.5 shadow-sm backdrop-blur">
-        <span className="flex items-center gap-2 font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-600">
-          <i className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgb(16_185_129/12%)]" />
-          {layerLabel} · {districts.length} districts
-        </span>
+      <div className="absolute left-4 top-4 z-10 flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-1 rounded-xl border border-white/90 bg-white/90 p-1 shadow-sm backdrop-blur">
+          <span className="rounded-lg bg-slate-900 text-white px-2.5 py-1 text-xs font-bold shadow-xs">
+            🇮🇳 All India
+          </span>
+          <button
+            onClick={() => setViewMode('city')}
+            className="flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-bold text-blue-700 hover:bg-blue-50 transition"
+            title={`Zoom into ${selected.district} municipal wards`}
+          >
+            <ZoomIn className="h-3.5 w-3.5" />
+            <span>Zoom into {selected.district} Wards</span>
+          </button>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 rounded-full border border-white/80 bg-white/85 px-3 py-1.5 shadow-sm backdrop-blur">
+          <span className="flex items-center gap-2 font-mono text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-600">
+            <i className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgb(16_185_129/12%)]" />
+            {layerLabel} · {districts.length} districts
+          </span>
+        </div>
       </div>
       <div className="pointer-events-none absolute right-4 top-4 z-10 rounded-2xl border border-white/80 bg-white/90 px-3 py-2 text-right shadow-sm backdrop-blur">
         <span className="block text-[9px] font-semibold uppercase tracking-wide text-slate-400">
@@ -835,15 +866,17 @@ function IndiaMap({
                 onClick={(event) => {
                   event.preventDefault();
                   onSelect(item);
+                  setViewMode('city');
                 }}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
                     onSelect(item);
+                    setViewMode('city');
                   }
                 }}
               >
-                <title>{`${item.district} · ${item.risk} risk · HTSI ${item.htsi}`}</title>
+                <title>{`${item.district} · ${item.risk} risk · HTSI ${item.htsi} — Click to zoom into municipal wards`}</title>
                 <circle cx={point.x} cy={point.y} r="15" fill="transparent" />
                 <circle
                   cx={point.x}
@@ -868,25 +901,35 @@ function IndiaMap({
                   (!hoveredName && isSelected)) && (
                   <g
                     pointerEvents="none"
-                    transform={`translate(${point.x - labelWidth / 2} ${point.y - 42})`}
+                    transform={`translate(${point.x - 70} ${point.y - 48})`}
                   >
                     <rect
-                      width={labelWidth}
-                      height="25"
-                      rx="12.5"
-                      fill="#10213f"
-                      stroke="white"
-                      strokeWidth="2"
+                      width="140"
+                      height="32"
+                      rx="8"
+                      fill="#0f172a"
+                      stroke="#38bdf8"
+                      strokeWidth="1.5"
                     />
                     <text
-                      x={labelWidth / 2}
-                      y="16.5"
+                      x="70"
+                      y="14"
                       textAnchor="middle"
-                      fontSize="10.5"
+                      fontSize="9.5"
                       fontWeight="700"
                       fill="white"
                     >
-                      {item.district}
+                      {item.district} ({item.temp}°C)
+                    </text>
+                    <text
+                      x="70"
+                      y="25"
+                      textAnchor="middle"
+                      fontSize="7.5"
+                      fontWeight="600"
+                      fill="#38bdf8"
+                    >
+                      Tap to zoom into wards ➔
                     </text>
                   </g>
                 )}
@@ -894,18 +937,24 @@ function IndiaMap({
             );
           })}
       </svg>
-      <div className="absolute inset-x-3 bottom-3 flex flex-wrap justify-center gap-x-3 gap-y-1.5 rounded-2xl border border-white/90 bg-white/92 px-3 py-2.5 text-[10px] text-slate-600 shadow-[0_8px_24px_rgb(37_58_88/10%)] backdrop-blur">
-        {(['Low', 'Moderate', 'High', 'Extreme', 'Emergency'] as Risk[]).map(
-          (risk) => (
-            <span key={risk} className="flex items-center gap-1.5">
-              <i
-                className="h-2 w-2 rounded-full"
-                style={{ background: riskStyle[risk].color }}
-              />
-              {risk}
-            </span>
-          ),
-        )}
+      <div className="absolute inset-x-3 bottom-3 flex flex-wrap justify-between items-center gap-2 rounded-2xl border border-white/90 bg-white/92 px-4 py-2 text-[10px] text-slate-600 shadow-[0_8px_24px_rgb(37_58_88/10%)] backdrop-blur">
+        <div className="flex items-center gap-1.5 font-semibold text-slate-700">
+          <Sparkles className="h-3.5 w-3.5 text-blue-600" />
+          <span>Tap any city marker to zoom in & view all municipal wards</span>
+        </div>
+        <div className="flex items-center gap-3">
+          {(['Low', 'Moderate', 'High', 'Extreme', 'Emergency'] as Risk[]).map(
+            (risk) => (
+              <span key={risk} className="flex items-center gap-1.5">
+                <i
+                  className="h-2 w-2 rounded-full"
+                  style={{ background: riskStyle[risk].color }}
+                />
+                {risk}
+              </span>
+            ),
+          )}
+        </div>
       </div>
       <span className="absolute bottom-1 right-4 text-[7px] text-slate-400">
         Boundary geometry · CC BY 4.0
