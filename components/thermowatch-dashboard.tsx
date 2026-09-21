@@ -42,7 +42,14 @@ import {
   ZoomIn,
   Play,
   Pause,
+  Users,
+  Sun,
+  ListChecks,
 } from 'lucide-react';
+import {
+  generateThermalStressActionPlan,
+  type RecommendedActionPlan,
+} from '@/lib/action-engine';
 import {
   Area,
   AreaChart,
@@ -136,6 +143,7 @@ type District = {
   horizon_hours?: 24 | 48 | 72;
   valid_at?: string;
   action?: string;
+  action_plan?: RecommendedActionPlan;
 };
 type ForecastPoint = {
   time: string;
@@ -1226,6 +1234,30 @@ export function ThermoWatchDashboard() {
       ? { ...district, ...detail.current }
       : district;
   }, [detail, districts, selectedName]);
+
+  const [thermalActionTab, setThermalActionTab] = useState<
+    'all' | 'workers' | 'people' | 'environment' | 'civic'
+  >('all');
+  const [showActionChecklist, setShowActionChecklist] = useState(false);
+
+  const selectedActionPlan = useMemo(() => {
+    return (
+      selected.action_plan ??
+      generateThermalStressActionPlan({
+        temp: selected.temp,
+        humidity: selected.humidity,
+        wind: selected.wind,
+        solar: selected.solar,
+        uv: selected.uv,
+        wbgt: selected.wbgt ?? detail?.current.wbgt,
+        heat_index: selected.heat_index ?? detail?.current.heat_index,
+        pet: selected.pet ?? detail?.current.pet,
+        htsi: selected.htsi,
+        risk: selected.risk,
+        district: selected.district,
+      })
+    );
+  }, [selected, detail]);
   const copy = shellCopy[uiLanguage];
   const dateLocale =
     uiLanguage === 'hi'
@@ -2044,20 +2076,206 @@ export function ThermoWatchDashboard() {
                             </b>
                           </div>
                         </div>
+                        {/* Multi-Condition Recommended Action Plan */}
                         <div
-                          className="mt-4 rounded-xl border p-3.5 text-xs leading-relaxed"
+                          className="mt-4 rounded-2xl border p-3.5 sm:p-4 text-xs leading-relaxed space-y-3 shadow-xs"
                           style={{
                             background: riskStyle[selected.risk].soft,
-                            borderColor: `${riskStyle[selected.risk].color}30`,
-                            color: riskStyle[selected.risk].color,
+                            borderColor: `${riskStyle[selected.risk].color}35`,
                           }}
                         >
-                          <b className="mb-0.5 block font-bold">Recommended Immediate Action</b>
-                          <span className="font-medium text-slate-800">
-                            {selected.action ??
-                              detail?.current.action ??
-                              'Increase hydration messaging and reduce peak-hour exposure.'}
-                          </span>
+                          {/* Header with Urgency Flag */}
+                          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-black/5 pb-2.5">
+                            <div className="flex items-center gap-1.5 font-bold" style={{ color: riskStyle[selected.risk].color }}>
+                              <Sparkles className="h-4 w-4 shrink-0" />
+                              <span className="text-[11px] uppercase tracking-wider">Multi-Condition Recommended Action</span>
+                            </div>
+                            <span
+                              className="rounded-full px-2.5 py-0.5 text-[9.5px] font-black uppercase tracking-wider text-white shadow-xs"
+                              style={{ backgroundColor: selectedActionPlan.urgency_color }}
+                            >
+                              {selectedActionPlan.urgency}
+                            </span>
+                          </div>
+
+                          {/* Dynamic Synthesis Headline & Summary */}
+                          <div>
+                            <h4 className="font-bold text-slate-900 text-[12px] leading-snug">
+                              {selectedActionPlan.headline}
+                            </h4>
+                            <p className="mt-1 text-slate-700 text-[11.5px] leading-relaxed">
+                              {selectedActionPlan.summary}
+                            </p>
+                          </div>
+
+                          {/* Condition Triggers Chips */}
+                          <div className="flex flex-wrap items-center gap-1 pt-1">
+                            <span className="text-[9.5px] font-bold uppercase text-slate-400 mr-0.5">Active Triggers:</span>
+                            {selectedActionPlan.condition_triggers.map((trigger, idx) => (
+                              <span
+                                key={idx}
+                                className="rounded-md bg-white/90 border border-slate-200/80 px-1.5 py-0.5 text-[9.5px] font-medium text-slate-700 shadow-2xs"
+                              >
+                                {trigger}
+                              </span>
+                            ))}
+                          </div>
+
+                          {/* Pillar Selector Tabs */}
+                          <div className="flex items-center gap-1 overflow-x-auto pt-1 pb-0.5 border-t border-black/5">
+                            {[
+                              { id: 'all', label: 'All Directives' },
+                              { id: 'workers', label: '👷 Outdoor Workers' },
+                              { id: 'people', label: '👥 Vulnerable Cohorts' },
+                              { id: 'environment', label: '🌦️ Environment' },
+                              { id: 'civic', label: '🏥 Civic & Health' },
+                            ].map((tab) => (
+                              <button
+                                key={tab.id}
+                                type="button"
+                                onClick={() => setThermalActionTab(tab.id as any)}
+                                className={`rounded-lg px-2 py-1 text-[10px] font-bold whitespace-nowrap transition-all shrink-0 ${
+                                  thermalActionTab === tab.id
+                                    ? 'bg-slate-900 text-white shadow-xs'
+                                    : 'bg-white/80 text-slate-600 hover:bg-white hover:text-slate-900 border border-slate-200/60'
+                                }`}
+                              >
+                                {tab.label}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* Pillar Detail View */}
+                          <div className="space-y-2 rounded-xl bg-white/95 p-3 border border-slate-200/70 shadow-2xs">
+                            {(thermalActionTab === 'all' || thermalActionTab === 'workers') && (
+                              <div className="space-y-1">
+                                <div className="flex items-center justify-between gap-1">
+                                  <span className="font-bold text-purple-900 text-[11px] flex items-center gap-1">
+                                    <HardHat className="h-3.5 w-3.5 text-purple-600" />
+                                    Workers & Labor Regimen
+                                  </span>
+                                  <span className="rounded bg-purple-50 text-purple-700 border border-purple-200/80 px-1.5 py-0.2 text-[9px] font-bold">
+                                    {selectedActionPlan.workers.badge}
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-slate-700 leading-relaxed">
+                                  {selectedActionPlan.workers.directive}
+                                </p>
+                                <span className="block font-mono text-[9.5px] text-purple-800 font-semibold">
+                                  {selectedActionPlan.workers.key_metrics}
+                                </span>
+                              </div>
+                            )}
+
+                            {thermalActionTab === 'all' && <hr className="border-slate-100 my-2" />}
+
+                            {(thermalActionTab === 'all' || thermalActionTab === 'people') && (
+                              <div className="space-y-1">
+                                <div className="flex items-center justify-between gap-1">
+                                  <span className="font-bold text-rose-900 text-[11px] flex items-center gap-1">
+                                    <Users className="h-3.5 w-3.5 text-rose-600" />
+                                    Vulnerable Populations & Tin-Roofs
+                                  </span>
+                                  <span className="rounded bg-rose-50 text-rose-700 border border-rose-200/80 px-1.5 py-0.2 text-[9px] font-bold">
+                                    {selectedActionPlan.people.badge}
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-slate-700 leading-relaxed">
+                                  {selectedActionPlan.people.directive}
+                                </p>
+                                <span className="block font-mono text-[9.5px] text-rose-800 font-semibold">
+                                  {selectedActionPlan.people.key_metrics}
+                                </span>
+                              </div>
+                            )}
+
+                            {thermalActionTab === 'all' && <hr className="border-slate-100 my-2" />}
+
+                            {(thermalActionTab === 'all' || thermalActionTab === 'environment') && (
+                              <div className="space-y-1">
+                                <div className="flex items-center justify-between gap-1">
+                                  <span className="font-bold text-amber-900 text-[11px] flex items-center gap-1">
+                                    <Sun className="h-3.5 w-3.5 text-amber-600" />
+                                    Environmental Triggers
+                                  </span>
+                                  <span className="rounded bg-amber-50 text-amber-700 border border-amber-200/80 px-1.5 py-0.2 text-[9px] font-bold">
+                                    {selectedActionPlan.environmental.badge}
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-slate-700 leading-relaxed">
+                                  {selectedActionPlan.environmental.directive}
+                                </p>
+                                <span className="block font-mono text-[9.5px] text-amber-800 font-semibold">
+                                  {selectedActionPlan.environmental.key_metrics}
+                                </span>
+                              </div>
+                            )}
+
+                            {thermalActionTab === 'all' && <hr className="border-slate-100 my-2" />}
+
+                            {(thermalActionTab === 'all' || thermalActionTab === 'civic') && (
+                              <div className="space-y-1">
+                                <div className="flex items-center justify-between gap-1">
+                                  <span className="font-bold text-teal-900 text-[11px] flex items-center gap-1">
+                                    <Building2 className="h-3.5 w-3.5 text-teal-600" />
+                                    Civic & Healthcare Logistics
+                                  </span>
+                                  <span className="rounded bg-teal-50 text-teal-700 border border-teal-200/80 px-1.5 py-0.2 text-[9px] font-bold">
+                                    {selectedActionPlan.infrastructure.badge}
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-slate-700 leading-relaxed">
+                                  {selectedActionPlan.infrastructure.directive}
+                                </p>
+                                <span className="block font-mono text-[9.5px] text-teal-800 font-semibold">
+                                  {selectedActionPlan.infrastructure.key_metrics}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Quick Municipal Checklist Toggle */}
+                          <div className="pt-0.5">
+                            <button
+                              type="button"
+                              onClick={() => setShowActionChecklist(!showActionChecklist)}
+                              className="flex items-center justify-between w-full rounded-xl bg-white/70 hover:bg-white border border-slate-200/70 px-3 py-1.5 text-[11px] font-semibold text-slate-700 transition shadow-2xs"
+                            >
+                              <span className="flex items-center gap-1.5">
+                                <ListChecks className="h-3.5 w-3.5 text-blue-600" />
+                                <span>Action Checklist ({selectedActionPlan.checklist.length} Directives)</span>
+                              </span>
+                              <span className="text-[10px] text-blue-600 font-bold">
+                                {showActionChecklist ? 'Hide ▲' : 'Expand ▼'}
+                              </span>
+                            </button>
+
+                            {showActionChecklist && (
+                              <div className="mt-2 space-y-1.5 rounded-xl border border-slate-200 bg-white p-2.5 shadow-xs">
+                                {selectedActionPlan.checklist.map((item, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="flex items-start gap-2 rounded-lg bg-slate-50/80 p-2 text-[10.5px] border border-slate-100"
+                                  >
+                                    <span
+                                      className={`rounded px-1.5 py-0.2 font-mono text-[9px] font-black uppercase shrink-0 ${
+                                        item.priority === 'Critical'
+                                          ? 'bg-red-100 text-red-700 border border-red-200'
+                                          : item.priority === 'High'
+                                          ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                                          : 'bg-blue-100 text-blue-700 border border-blue-200'
+                                      }`}
+                                    >
+                                      {item.priority}
+                                    </span>
+                                    <span className="text-slate-800 leading-tight">
+                                      <strong className="text-slate-900">[{item.category}]</strong> {item.action}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </CardContent>
                     </Card>

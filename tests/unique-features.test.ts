@@ -10,6 +10,7 @@ import { buildHeatRiskDigitalTwin } from '../lib/digital-twin';
 import { compareCurrentAgainstHistorical } from '../lib/history-memory';
 import { calculateThermalMetrics } from '../lib/thermal-engine';
 import { queryHeatAssistant } from '../lib/assistant-engine';
+import { generateThermalStressActionPlan } from '../lib/action-engine';
 
 test('What-If simulation calculates accurate deltas and alert escalation', () => {
   const sim = runWhatIfSimulation({
@@ -101,3 +102,47 @@ test('Grounded AI Assistant provides structured, domain-informed responses', () 
   assert.ok(response.answer.includes('WBGT'), 'Response must reference WBGT');
   assert.ok(response.structured_data_points, 'Must return structured data points');
 });
+
+test('Thermal stress action plan synthesizes workers, people, environmental and civic conditions', () => {
+  // Extreme heatwave condition with high solar and WBGT
+  const extremePlan = generateThermalStressActionPlan({
+    temp: 43.5,
+    humidity: 55,
+    wbgt: 33.5,
+    solar: 780,
+    wind: 6,
+    district: 'Delhi',
+    ward_name: 'Ward 08 - Karol Bagh',
+    population_density: 18000,
+    informal_settlement_pct: 35,
+    elderly_pct: 14,
+  });
+
+  assert.strictEqual(extremePlan.urgency, 'Emergency Immediate', 'Critical thermal profile must trigger Emergency Immediate urgency');
+  assert.ok(extremePlan.headline.length > 0, 'Headline must be populated');
+  assert.ok(extremePlan.summary.length > 0, 'Multi-condition summary must be populated');
+
+  // Verify Worker directives
+  assert.ok(extremePlan.workers.directive.includes('ISO 7243') || extremePlan.workers.directive.includes('suspension') || extremePlan.workers.directive.includes('rest'), 'Worker directive must mandate occupational rest or stoppage');
+  assert.ok(extremePlan.workers.key_metrics.includes('Liters/hour') || extremePlan.workers.key_metrics.includes('Quota:'), 'Worker key metrics must specify hydration quota');
+  assert.ok(extremePlan.workers.badge.length > 0, 'Worker badge must be populated');
+
+  // Verify People (Vulnerable Cohorts) directives
+  assert.ok(extremePlan.people.directive.includes('Senior') || extremePlan.people.directive.includes('elderly') || extremePlan.people.directive.includes('ASHA'), 'People directive must address senior/vulnerable cohorts');
+  assert.ok(extremePlan.people.directive.includes('Tin-roof') || extremePlan.people.key_metrics.includes('Elderly:'), 'Tin-roof settlement or elderly metrics must be provided');
+  assert.ok(extremePlan.people.badge.length > 0, 'People badge must be populated');
+
+  // Verify Environmental directives
+  assert.ok(extremePlan.environmental.directive.length > 0, 'Environmental directive must exist');
+  assert.ok(extremePlan.environmental.key_metrics.includes('°C') && extremePlan.environmental.key_metrics.includes('WBGT'), 'Environmental key metrics must include temperature and WBGT');
+  assert.ok(extremePlan.environmental.badge.length > 0, 'Environmental badge must be populated');
+
+  // Verify Infrastructure & Civic Logistics
+  assert.ok(extremePlan.infrastructure.directive.includes('saline') || extremePlan.infrastructure.directive.includes('water tankers'), 'Hospital cooling preparedness or water tankers must be present');
+  assert.ok(extremePlan.infrastructure.badge.length > 0, 'Civic infrastructure badge must be populated');
+
+  // Verify Action checklist and condition triggers
+  assert.ok(extremePlan.checklist.length >= 4, 'Must produce at least 4 prioritized checklist action items');
+  assert.ok(extremePlan.condition_triggers.length >= 3, 'Must record multiple active condition triggers');
+});
+

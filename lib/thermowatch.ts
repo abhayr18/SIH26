@@ -10,6 +10,12 @@ import {
   fetchMetNorwayForecast,
   fetchModelMeanForecast,
 } from '@/lib/weather-ensemble';
+import {
+  generateThermalStressActionPlan,
+  type RecommendedActionPlan,
+} from '@/lib/action-engine';
+
+export type { RecommendedActionPlan } from '@/lib/action-engine';
 
 export type Risk = 'Low' | 'Moderate' | 'High' | 'Extreme' | 'Emergency';
 
@@ -252,13 +258,25 @@ export function computeHtsi(input: {
   const score = Math.max(0, Math.min(100, raw * (input.multiplier ?? 1)));
   const htsi = Number(score.toFixed(1));
   const risk = riskFor(htsi);
+  const actionPlan = generateThermalStressActionPlan({
+    temp: input.temp,
+    humidity: input.humidity,
+    wind,
+    solar,
+    wbgt: Number(wbgt.toFixed(1)),
+    heat_index: hi,
+    pet: Number(pet.toFixed(1)),
+    htsi,
+    risk,
+  });
   return {
     htsi,
     risk,
     wbgt: Number(wbgt.toFixed(1)),
     heat_index: hi,
     pet: Number(pet.toFixed(1)),
-    action: actions[risk],
+    action: actionPlan.summary,
+    action_plan: actionPlan,
   };
 }
 
@@ -281,6 +299,15 @@ function modelFields(
     longitude: config.lon,
     timestamp: input.timestamp,
   });
+  const actionPlan = generateThermalStressActionPlan({
+    temp: input.temp,
+    humidity: input.humidity,
+    wind: input.wind,
+    solar: input.solar,
+    district: config.district,
+    risk: prediction.predicted_class as Risk,
+    htsi: Math.round(prediction.high_risk_probability_pct),
+  });
   return {
     risk: prediction.predicted_class as Risk,
     probability: Math.round(prediction.confidence_pct),
@@ -289,7 +316,8 @@ function modelFields(
     probabilities: prediction.probabilities,
     explanation: prediction.explanation as ModelContribution[],
     model_version: MODEL_INFO.model_version,
-    action: actions[prediction.predicted_class as Risk],
+    action: actionPlan.summary,
+    action_plan: actionPlan,
   };
 }
 
