@@ -12,6 +12,22 @@
 
 ---
 
+> ### 💡 Key Positioning
+> **“ThermoWatch is not another heatwave warning system. It is a human-risk and intervention decision-support layer built on top of meteorological forecasts.”**
+> - **Does not replace** IMD's forecasts or warnings.
+> - **Focuses on** human thermal risk, exposure, and vulnerability.
+> - **Helps authorities decide** where, when, and what intervention will have the maximum impact.
+
+---
+
+## 🎯 Prototype Architecture: What We Keep as Core vs. What We De-Emphasize
+
+| ❌ De-emphasized (Available in existing systems) | ✅ Core Differentiators (Kept as the Core) | ➖ Supporting Tools (Kept for Context) |
+|---|---|---|
+| • General weather display *(temperature, humidity)*<br>• Standalone Heat Index *(kept internally)*<br>• Generic heatwave warnings *(IMD provides)*<br>• Generic India heat-risk map<br>• Hotspot ranking<br>• Chatbot / voice assistant *(secondary)*<br>• SMS/WhatsApp demo *(secondary)*<br>• PWA / offline mode *(not core for demo)*<br>• Complex RBAC / audit logs | **1. Human Thermal Stress (HTSI)**<br>Combines temp, humidity, wind, solar $\to$ human physiological risk.<br><br>**2. 24/48/72h Predictive Risk**<br>Uses forecast data to predict future human thermal risk.<br><br>**3. Exposure + Vulnerability Fusion**<br>Fuses elderly population, outdoor workers, slum housing.<br><br>**4. Explainable Risk**<br>Transparent causal waterfall showing why a location is at risk.<br><br>**5. What-If Intervention Simulator**<br>Tests policies (work hours, cooling centers) & shows expected risk reduction.<br><br>**6. Targeted Authority Actions**<br>Data-driven spatial cooling centers, hospital triage, worker rules. | • **Forecast Charts** *(Good for visualization)*<br>• **Historical Validation** *(Builds model credibility)*<br>• **Risk History** *(Useful for longitudinal analysis)*<br>• **Authority Dashboard** *(Enables administrative triage)*<br>• **Worker Safety Rules** *(Operational guidance)* |
+
+---
+
 ## 📌 Executive Summary & Solution Overview
 
 **ThermoWatch** is an **AI-driven heat-health early warning and decision-support system** that goes beyond conventional meteorology and ambient temperature alerts by estimating how forecasted heat conditions will directly affect human health at a localized, actionable level.

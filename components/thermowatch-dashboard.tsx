@@ -459,25 +459,31 @@ const navigation: Array<{
   id: View;
   label: string;
   icon: typeof LayoutDashboard;
+  group: 'core' | 'supporting' | 'authority';
 }> = [
-  { id: 'overview', label: 'Command center', icon: LayoutDashboard },
-  { id: 'hyperlocal-gis', label: 'Hyperlocal GIS', icon: MapPin },
-  { id: 'digital-twin', label: '5-Day Digital Twin', icon: Clock },
-  { id: 'what-if', label: 'What-If Simulator', icon: Sliders },
-  { id: 'cascade', label: 'Risk Cascade', icon: Activity },
-  { id: 'forecast', label: 'Forecast horizon', icon: TrendingUp },
-  { id: 'map', label: 'National Risk map', icon: Map },
-  { id: 'cooling-centers', label: 'Cooling Centers', icon: Building2 },
-  { id: 'hospitals', label: 'Hospital Readiness', icon: HeartPulse },
-  { id: 'worker-safety', label: 'Worker Safety', icon: HardHat },
-  { id: 'memory', label: 'Heatwave Memory', icon: History },
-  { id: 'model', label: 'Explainable AI', icon: Sparkles },
-  { id: 'telemetry', label: 'Data Telemetry', icon: Cpu },
-  { id: 'authority', label: 'Authority', icon: ShieldCheck },
-  { id: 'response', label: 'Response hub', icon: Building2 },
-  { id: 'validation', label: 'Validation', icon: FileText },
-  { id: 'history', label: 'History', icon: History },
-  { id: 'alerts', label: 'Alert center', icon: Bell },
+  // 1. Core Innovations (Main Differentiators - 6-Stage Flow)
+  { id: 'overview', label: '1. Thermal Stress (HTSI)', icon: LayoutDashboard, group: 'core' },
+  { id: 'digital-twin', label: '2. 24/48/72h Predictive Risk', icon: Clock, group: 'core' },
+  { id: 'hyperlocal-gis', label: '3. Exposure & Vulnerability', icon: MapPin, group: 'core' },
+  { id: 'cascade', label: '4. Explainable Risk Cascade', icon: Activity, group: 'core' },
+  { id: 'what-if', label: '5. What-If Intervention', icon: Sliders, group: 'core' },
+  { id: 'cooling-centers', label: '6. Authority Action Plan', icon: Building2, group: 'core' },
+
+  // 2. Supporting Modules (Useful context, de-emphasized)
+  { id: 'hospitals', label: 'Hospital Readiness', icon: HeartPulse, group: 'supporting' },
+  { id: 'worker-safety', label: 'Worker Safety Rules', icon: HardHat, group: 'supporting' },
+  { id: 'forecast', label: 'Forecast Charts', icon: TrendingUp, group: 'supporting' },
+  { id: 'map', label: 'National Heat Map', icon: Map, group: 'supporting' },
+  { id: 'memory', label: 'Heatwave Benchmarks', icon: History, group: 'supporting' },
+  { id: 'model', label: 'ML Diagnostics', icon: Sparkles, group: 'supporting' },
+  { id: 'telemetry', label: 'Data Telemetry', icon: Cpu, group: 'supporting' },
+
+  // 3. Authority & Operations
+  { id: 'authority', label: 'Authority Command', icon: ShieldCheck, group: 'authority' },
+  { id: 'alerts', label: 'Alert Dispatch', icon: Bell, group: 'authority' },
+  { id: 'validation', label: 'Scientific Validation', icon: FileText, group: 'authority' },
+  { id: 'response', label: 'Response Hub', icon: Building2, group: 'authority' },
+  { id: 'history', label: 'Incident History', icon: History, group: 'authority' },
 ];
 
 const officerViews = new Set<View>([
@@ -1479,42 +1485,86 @@ export function ThermoWatchDashboard() {
             </Button>
           </div>
           <nav
-            className="relative mt-7 space-y-1.5"
+            className="relative mt-6 space-y-4 max-h-[calc(100vh-210px)] overflow-y-auto pr-1"
             aria-label="Main navigation"
           >
-            <p className="px-3 pb-2 font-mono text-[9px] tracking-[0.18em] text-blue-200/45">
-              OPERATIONS
-            </p>
-            {navigation.map(({ id, icon: Icon }) => {
-              const locked = officerViews.has(id) && !canManage;
-              return (
-                <button
-                  key={id}
-                  onClick={() => changeView(id)}
-                  className={`group flex min-h-11 w-full items-center gap-3 rounded-xl px-3 text-left text-[13px] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c96c] ${view === id ? 'bg-white text-[#10213f] shadow-[0_8px_22px_rgb(0_0_0/18%)]' : 'text-blue-100/65 hover:bg-white/8 hover:text-white'}`}
-                  aria-label={
-                    locked
-                      ? `${copy.nav[id]} — officer sign-in required`
-                      : copy.nav[id]
-                  }
-                  title={locked ? 'Officer sign-in required' : undefined}
-                >
-                  <span
-                    className={`grid h-7 w-7 place-items-center rounded-lg transition-colors ${view === id ? 'bg-[#e9eef6] text-[#234b8b]' : 'bg-white/5 text-blue-100/70 group-hover:bg-white/10 group-hover:text-[#f2c96c]'}`}
+            {/* 1. Core Innovations Group */}
+            <div>
+              <p className="px-3 pb-1.5 font-mono text-[9px] font-bold tracking-[0.18em] text-[#f2c96c]">
+                CORE PROTOTYPE FLOW
+              </p>
+              <div className="space-y-1">
+                {navigation.filter((n) => n.group === 'core').map(({ id, icon: Icon }) => (
+                  <button
+                    key={id}
+                    onClick={() => changeView(id)}
+                    className={`group flex min-h-10 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[12.5px] font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c96c] ${view === id ? 'bg-white text-[#10213f] shadow-[0_8px_22px_rgb(0_0_0/18%)]' : 'text-blue-100/75 hover:bg-white/8 hover:text-white'}`}
                   >
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  {copy.nav[id]}
-                  {locked ? (
-                    <LockKeyhole className="ml-auto h-3.5 w-3.5 text-blue-100/40" />
-                  ) : id === 'alerts' ? (
-                    <span className="ml-auto rounded-full bg-[#f2c96c] px-2 py-0.5 text-[10px] text-[#352506]">
-                      {highCount}
+                    <span
+                      className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg transition-colors ${view === id ? 'bg-[#e9eef6] text-[#234b8b]' : 'bg-white/5 text-blue-100/70 group-hover:bg-white/10 group-hover:text-[#f2c96c]'}`}
+                    >
+                      <Icon className="h-3.5 w-3.5" />
                     </span>
-                  ) : null}
-                </button>
-              );
-            })}
+                    <span className="truncate">{copy.nav[id]}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 2. Supporting Modules Group */}
+            <div>
+              <p className="px-3 pb-1.5 font-mono text-[9px] font-bold tracking-[0.18em] text-blue-200/45">
+                SUPPORTING INTELLIGENCE
+              </p>
+              <div className="space-y-1">
+                {navigation.filter((n) => n.group === 'supporting').map(({ id, icon: Icon }) => (
+                  <button
+                    key={id}
+                    onClick={() => changeView(id)}
+                    className={`group flex min-h-8 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[11.5px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c96c] ${view === id ? 'bg-white text-[#10213f] shadow-sm font-semibold' : 'text-blue-100/55 hover:bg-white/5 hover:text-white'}`}
+                  >
+                    <span
+                      className={`grid h-5 w-5 shrink-0 place-items-center rounded-md transition-colors ${view === id ? 'bg-[#e9eef6] text-[#234b8b]' : 'bg-white/5 text-blue-100/50 group-hover:bg-white/10 group-hover:text-[#f2c96c]'}`}
+                    >
+                      <Icon className="h-3 w-3" />
+                    </span>
+                    <span className="truncate">{copy.nav[id]}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 3. Authority Group */}
+            <div>
+              <p className="px-3 pb-1.5 font-mono text-[9px] font-bold tracking-[0.18em] text-blue-200/45">
+                OFFICER COMMAND
+              </p>
+              <div className="space-y-1">
+                {navigation.filter((n) => n.group === 'authority').map(({ id, icon: Icon }) => {
+                  const locked = officerViews.has(id) && !canManage;
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => changeView(id)}
+                      className={`group flex min-h-8 w-full items-center gap-2.5 rounded-xl px-2.5 text-left text-[11.5px] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c96c] ${view === id ? 'bg-white text-[#10213f] shadow-sm font-semibold' : 'text-blue-100/55 hover:bg-white/5 hover:text-white'}`}
+                    >
+                      <span
+                        className={`grid h-5 w-5 shrink-0 place-items-center rounded-md transition-colors ${view === id ? 'bg-[#e9eef6] text-[#234b8b]' : 'bg-white/5 text-blue-100/50 group-hover:bg-white/10 group-hover:text-[#f2c96c]'}`}
+                      >
+                        <Icon className="h-3 w-3" />
+                      </span>
+                      <span className="truncate">{copy.nav[id]}</span>
+                      {locked && <LockKeyhole className="ml-auto h-3 w-3 text-blue-100/40" />}
+                      {id === 'alerts' && (
+                        <span className="ml-auto rounded-full bg-[#f2c96c] px-1.5 py-0.2 text-[9px] text-[#352506]">
+                          {highCount}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </nav>
           <div className="absolute bottom-6 left-4 right-4 rounded-[1.15rem] border border-white/10 bg-white/[0.06] p-3.5 font-mono text-[10px] text-blue-100/65 backdrop-blur">
             <span
@@ -1670,11 +1720,92 @@ export function ThermoWatchDashboard() {
             )}
 
             {/* SIH26083 Demo Scenario Switcher Banner */}
-            <div className="mb-6">
+            <div className="mb-4">
               <DemoScenarioBar
                 activeScenarioId={demoScenarioId}
                 onSelectScenario={handleSelectScenario}
               />
+            </div>
+
+            {/* Key Positioning & Final Prototype Flow Banner */}
+            <div className="mb-6 rounded-2xl border border-blue-900/40 bg-[linear-gradient(135deg,#0c1d3b_0%,#0e2246_100%)] p-4 text-white shadow-md">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                <div className="max-w-3xl">
+                  <div className="flex items-center gap-2">
+                    <span className="rounded bg-blue-500/20 px-2 py-0.5 font-mono text-[10px] font-bold text-blue-300">
+                      KEY POSITIONING
+                    </span>
+                    <span className="text-xs font-semibold text-blue-200/90">
+                      Human-Risk & Intervention Decision-Support
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm font-medium leading-relaxed text-slate-100">
+                    “ThermoWatch is not another heatwave warning system. It is a human-risk and intervention decision-support layer built on top of meteorological forecasts.”
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2 text-[11px] text-blue-200/80">
+                  <span className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1">
+                    ✓ Does not replace IMD forecasts
+                  </span>
+                  <span className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1">
+                    ✓ Human risk, exposure & vulnerability
+                  </span>
+                  <span className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1">
+                    ✓ Maximum impact authority intervention
+                  </span>
+                </div>
+              </div>
+
+              {/* 6-Stage Final Prototype Flow */}
+              <div className="mt-3.5 border-t border-white/10 pt-3">
+                <p className="mb-2 font-mono text-[9px] font-semibold tracking-wider text-[#f2c96c] uppercase">
+                  FINAL PROTOTYPE FLOW (CLICK TO INSPECT):
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                  <button
+                    onClick={() => changeView('overview')}
+                    className={`rounded-lg p-2 text-left transition border ${view === 'overview' ? 'border-amber-400 bg-amber-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  >
+                    <span className="block text-[10px] font-bold text-amber-300">1. Thermal Stress</span>
+                    <span className="block text-[9px] text-slate-300 truncate">HTSI / WBGT / PET</span>
+                  </button>
+                  <button
+                    onClick={() => changeView('digital-twin')}
+                    className={`rounded-lg p-2 text-left transition border ${view === 'digital-twin' ? 'border-cyan-400 bg-cyan-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  >
+                    <span className="block text-[10px] font-bold text-cyan-300">2. 24/48/72h Risk</span>
+                    <span className="block text-[9px] text-slate-300 truncate">Predictive Horizon</span>
+                  </button>
+                  <button
+                    onClick={() => changeView('hyperlocal-gis')}
+                    className={`rounded-lg p-2 text-left transition border ${view === 'hyperlocal-gis' ? 'border-purple-400 bg-purple-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  >
+                    <span className="block text-[10px] font-bold text-purple-300">3. Exposure & Vuln</span>
+                    <span className="block text-[9px] text-slate-300 truncate">Elderly, Workers, Slums</span>
+                  </button>
+                  <button
+                    onClick={() => changeView('cascade')}
+                    className={`rounded-lg p-2 text-left transition border ${view === 'cascade' ? 'border-rose-400 bg-rose-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  >
+                    <span className="block text-[10px] font-bold text-rose-300">4. Explainable Risk</span>
+                    <span className="block text-[9px] text-slate-300 truncate">Attribution Chain</span>
+                  </button>
+                  <button
+                    onClick={() => changeView('what-if')}
+                    className={`rounded-lg p-2 text-left transition border ${view === 'what-if' ? 'border-amber-400 bg-amber-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  >
+                    <span className="block text-[10px] font-bold text-amber-300">5. What-If Simulator</span>
+                    <span className="block text-[9px] text-slate-300 truncate">Test Interventions</span>
+                  </button>
+                  <button
+                    onClick={() => changeView('cooling-centers')}
+                    className={`rounded-lg p-2 text-left transition border ${view === 'cooling-centers' ? 'border-emerald-400 bg-emerald-500/20 shadow-sm' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  >
+                    <span className="block text-[10px] font-bold text-emerald-300">6. Authority Actions</span>
+                    <span className="block text-[9px] text-slate-300 truncate">Cooling, Triage, Shifts</span>
+                  </button>
+                </div>
+              </div>
             </div>
 
             {view === 'overview' && (

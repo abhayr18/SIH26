@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   RotateCcw,
   ShieldAlert,
+  ShieldCheck,
   Users,
   Sun,
   Droplets,
@@ -68,6 +69,19 @@ export function WhatIfSimulator({
     setVulnShift(0);
   };
 
+  const applyWorkShiftIntervention = () => {
+    setWorkerExposure(0.6); // Shifts peak hours (11:00-16:00 work stoppage)
+  };
+
+  const applyCoolingCenterIntervention = () => {
+    setVulnShift(-20); // Opens municipal cooling centers and misting shelters
+  };
+
+  const applyCombinedIntervention = () => {
+    setWorkerExposure(0.5);
+    setVulnShift(-25);
+  };
+
   const alertBadgeColor = {
     green: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-400',
     yellow: 'border-amber-500/40 bg-amber-500/10 text-amber-400',
@@ -83,14 +97,14 @@ export function WhatIfSimulator({
           <div className="flex items-center gap-2">
             <Sliders className="h-6 w-6 text-amber-400" />
             <h2 className="text-xl font-bold tracking-tight text-white">
-              What-If? Heat Scenario Simulator
+              What-If? Heat Scenario & Intervention Simulator
             </h2>
             <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-2.5 py-0.5 text-xs font-semibold text-cyan-300">
-              Interactive Microclimate Engine
+              Core Differentiator
             </span>
           </div>
           <p className="mt-1 text-sm text-slate-300">
-            Simulate the physiological and public health impacts of microclimatic shifts in <span className="font-semibold text-white">{currentCity}</span>. Observe real-time changes in WBGT, UTCI, HTSS, and alert thresholds.
+            Test policy interventions (e.g. shift work hours, open cooling centers) in <span className="font-semibold text-white">{currentCity}</span> and see the expected reduction in human heat risk in real time.
           </p>
         </div>
         <button
@@ -100,6 +114,43 @@ export function WhatIfSimulator({
           <RotateCcw className="h-3.5 w-3.5" />
           Reset to Baseline
         </button>
+      </div>
+
+      {/* Test Authority Interventions Bar (Core Innovation Feature) */}
+      <div className="rounded-xl border border-blue-800/50 bg-blue-950/40 p-4 backdrop-blur-md">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="inline-block rounded bg-blue-500/20 px-2 py-0.5 font-mono text-[10px] font-bold text-blue-300">
+              AUTHORITY INTERVENTION TESTING
+            </span>
+            <h3 className="mt-0.5 text-sm font-semibold text-white">
+              Quick Test: Expected Impact of Municipal Interventions
+            </h3>
+            <p className="text-xs text-blue-200/70">
+              Click a preset action to see how intervention strategies reduce population risk:
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={applyWorkShiftIntervention}
+              className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${workerExposure < 1 ? 'border-amber-400 bg-amber-500/20 text-amber-300 shadow-sm' : 'border-slate-600 bg-slate-800 text-slate-200 hover:bg-slate-700'}`}
+            >
+              ⏱️ Shift Work Hours (11am–4pm)
+            </button>
+            <button
+              onClick={applyCoolingCenterIntervention}
+              className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${vulnShift < 0 ? 'border-emerald-400 bg-emerald-500/20 text-emerald-300 shadow-sm' : 'border-slate-600 bg-slate-800 text-slate-200 hover:bg-slate-700'}`}
+            >
+              🏢 Open Cooling Centers (-20%)
+            </button>
+            <button
+              onClick={applyCombinedIntervention}
+              className={`rounded-lg border px-3 py-1.5 text-xs font-semibold transition ${workerExposure < 1 && vulnShift < 0 ? 'border-cyan-400 bg-cyan-500/20 text-cyan-300 shadow-sm' : 'border-slate-600 bg-slate-800 text-slate-200 hover:bg-slate-700'}`}
+            >
+              🚀 Combined Intervention
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Main Grid: Controls vs Comparative Results */}
@@ -410,6 +461,23 @@ export function WhatIfSimulator({
                 </h4>
                 <p className="mt-1 text-xs leading-relaxed text-red-300/90">
                   {simulation.narrative_summary}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Expected Risk Reduction Card */}
+          {(simulation.deltas.delta_affected_population < 0 || simulation.deltas.delta_risk_score < 0) && (
+            <div className="flex items-start gap-3 rounded-xl border border-emerald-500/40 bg-emerald-950/30 p-4 text-emerald-300">
+              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+              <div>
+                <h4 className="font-bold text-emerald-200 text-sm">
+                  Expected Risk Reduction Achieved
+                </h4>
+                <p className="mt-1 text-xs leading-relaxed text-emerald-300/90">
+                  Targeted municipal intervention successfully reduces exposed population heat stress by{' '}
+                  <strong className="text-white font-mono">{Math.abs(simulation.deltas.delta_risk_score).toFixed(1)} risk points</strong>, shielding an estimated{' '}
+                  <strong className="text-white font-mono">~{Math.abs(simulation.deltas.delta_affected_population).toLocaleString()} citizens</strong> from acute emergency room admissions.
                 </p>
               </div>
             </div>
